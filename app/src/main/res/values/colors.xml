@@ -2,8 +2,8 @@
 <resources>
     <color name="black">#1B1B1E</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="beige">#D8DBE2</color>
+    <color name="lightgrey">#D8DBE2</color>
     <color name="lightblue">#A9BCD0</color>
     <color name="turquoise">#009999</color>
-    <color name="grey">#373F51</color>
+    <color name="oxfordblue">#373F51</color>
 </resources>
