@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PlantezeMobileApplication</string>
+    <string name="login">Sign in</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
 </resources>
