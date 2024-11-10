@@ -1,7 +1,9 @@
 package com.example.plantezemobileapplication;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +23,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     TextInputEditText emailText, passwordText;
     Button logInBtn;
+    ProgressBar progressBar;
     private LoginPresenter presenter;
 
     @Override
@@ -39,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         emailText = findViewById(R.id.email);
         passwordText = findViewById(R.id.password);
         logInBtn = findViewById(R.id.login_btn);
+        progressBar = findViewById(R.id.progress_bar);
 
         logInBtn.setOnClickListener(v -> {
             String email = Objects.requireNonNull(emailText.getText()).toString();
@@ -62,10 +66,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void showLoading() {
         // Show a loading spinner or progress bar
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
         // Hide the loading spinner or progress bar
+        progressBar.setVisibility(View.GONE);
     }
 }
