@@ -37,4 +37,8 @@ public class LoginPresenter {
                     }
                 });
     }
+
+    public void forgotPassword(String email) {
+
+    }
 }

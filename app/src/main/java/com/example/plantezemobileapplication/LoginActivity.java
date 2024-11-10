@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     TextInputEditText emailText, passwordText;
     Button logInBtn;
     ProgressBar progressBar;
+    TextView forgotPass;
     private LoginPresenter presenter;
 
     @Override
@@ -43,12 +45,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         passwordText = findViewById(R.id.password);
         logInBtn = findViewById(R.id.login_btn);
         progressBar = findViewById(R.id.progress_bar);
+        forgotPass = findViewById(R.id.forgot_psw);
 
         logInBtn.setOnClickListener(v -> {
             String email = Objects.requireNonNull(emailText.getText()).toString();
             String password = Objects.requireNonNull(passwordText.getText()).toString();
 
             presenter.loginUser(email, password);
+        });
+
+        forgotPass.setOnClickListener(v -> {
+
         });
     }
 
