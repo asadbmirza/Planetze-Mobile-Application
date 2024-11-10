@@ -6,4 +6,9 @@
     <color name="lightblue">#A9BCD0</color>
     <color name="turquoise">#009999</color>
     <color name="oxfordblue">#373F51</color>
+    <color name="skyblue">#7FEEFF</color>
+    <array name="glow_colors">
+        <item>#80A9BCD0</item> <!-- Semi-transparent turquoise -->
+        <item>#007feeff</item> <!-- Transparent color -->
+    </array>
 </resources>

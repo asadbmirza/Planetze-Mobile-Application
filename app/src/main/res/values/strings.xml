@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PlantezeMobileApplication</string>
+    <string name="app_name">PlantZe</string>
     <string name="app_logo">Planteze Logo</string>
     <string name="app_icon">Planteze Icon</string>
     <string name="welcome_message">Track your impact.\nMake every action count.</string>

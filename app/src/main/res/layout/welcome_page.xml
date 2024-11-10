@@ -2,17 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/welcomePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/welcome_page_border"
-    android:id="@+id/welcomePage">
+    android:background="@drawable/welcome_page_border">
 
 
     <ImageView
         android:id="@+id/appLogo"
-        android:layout_width="221dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="194dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/app_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,57 +21,56 @@
 
     <Button
         android:id="@+id/LoginBtn"
-        android:layout_width="223dp"
-        android:layout_height="103dp"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="#259E9D"
+        android:layout_width="155dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="260dp"
+        android:backgroundTint="#70C0C8"
         android:text="@string/Loginbtn"
         android:textColor="@color/lightgrey"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/RegisterBtn"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/RegisterBtn"
-        android:layout_width="225dp"
-        android:layout_height="114dp"
-        android:layout_marginBottom="136dp"
-        android:backgroundTint="@color/oxfordblue"
+        android:layout_width="155dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="260dp"
+        android:backgroundTint="#7B91BC"
         android:fontFamily="sans-serif-medium"
         android:text="@string/RegisterBtn"
         android:textColor="@color/lightgrey"
-        android:textSize="28sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="367dp"
-        android:layout_height="71dp"
+        android:layout_width="425dp"
+        android:layout_height="143dp"
+        android:layout_marginBottom="52dp"
         android:fontFamily="@font/bitter_semibold"
         android:text="@string/welcome_message"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textColor="@color/oxfordblue"
+        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RegisterBtn"
-        app:layout_constraintVertical_bias="0.597" />
+        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="408dp"
-        android:layout_height="387dp"
+        android:layout_width="361dp"
+        android:layout_height="333dp"
+        android:layout_marginTop="32dp"
         android:contentDescription="@string/app_icon"
-        app:layout_constraintBottom_toTopOf="@+id/LoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appLogo"
-        app:layout_constraintVertical_bias="0.179"
         app:srcCompat="@drawable/planteze_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
