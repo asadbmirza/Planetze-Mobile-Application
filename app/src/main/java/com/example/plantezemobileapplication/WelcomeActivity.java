@@ -23,7 +23,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
         Button registerBtn = findViewById(R.id.RegisterBtn);
 
-        registerBtn.setOnClickListener(v->{
+        registerBtn.setOnClickListener(v-> {
             Intent intent = new Intent(WelcomeActivity.this, RegistrationActivity.class);
             startActivity(intent);
         });
