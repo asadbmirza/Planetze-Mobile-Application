@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/welcome_page_border"
+    android:id="@+id/welcomePage">
+
+
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="221dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="28dp"
+        android:contentDescription="@string/app_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/planetze_logo" />
+
+    <Button
+        android:id="@+id/LoginBtn"
+        android:layout_width="223dp"
+        android:layout_height="103dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#259E9D"
+        android:text="@string/Loginbtn"
+        android:textColor="@color/lightgrey"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/RegisterBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/RegisterBtn"
+        android:layout_width="225dp"
+        android:layout_height="114dp"
+        android:layout_marginBottom="136dp"
+        android:backgroundTint="@color/oxfordblue"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/RegisterBtn"
+        android:textColor="@color/lightgrey"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="367dp"
+        android:layout_height="71dp"
+        android:fontFamily="@font/bitter_semibold"
+        android:text="@string/welcome_message"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegisterBtn"
+        app:layout_constraintVertical_bias="0.597" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="408dp"
+        android:layout_height="387dp"
+        android:contentDescription="@string/app_icon"
+        app:layout_constraintBottom_toTopOf="@+id/LoginBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appLogo"
+        app:layout_constraintVertical_bias="0.179"
+        app:srcCompat="@drawable/planteze_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
