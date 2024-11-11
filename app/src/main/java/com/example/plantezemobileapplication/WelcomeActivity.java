@@ -21,9 +21,9 @@ public class WelcomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Button registerBtn = findViewById(R.id.RegisterBtn);
+        Button signUpBtn = findViewById(R.id.signUpBtn);
 
-        registerBtn.setOnClickListener(v-> {
+        signUpBtn.setOnClickListener(v-> {
             Intent intent = new Intent(WelcomeActivity.this, RegistrationActivity.class);
             startActivity(intent);
         });
