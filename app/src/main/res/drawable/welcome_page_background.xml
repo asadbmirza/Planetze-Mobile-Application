@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-  
-</selector>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background color -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="@color/skyblue"
+                android:endColor="@color/oxfordblue"
+                android:angle="270" />
+        </shape>
+    </item>
+
+    <!-- Radial glow effect -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:centerColor="#60FFFFFF"
+                android:endColor="#00FFFFFF"
+                android:type="radial"
+                android:gradientRadius="600dp"
+                android:centerX="0.5"
+                android:centerY="0.5" />
+        </shape>
+    </item>
+</layer-list>
