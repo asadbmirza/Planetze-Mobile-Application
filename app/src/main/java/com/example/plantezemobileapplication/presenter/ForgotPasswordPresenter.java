@@ -5,27 +5,28 @@ import androidx.annotation.NonNull;
 import com.example.plantezemobileapplication.view.ProcessView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginPresenter {
-    private final ProcessView view;
-    private final FirebaseAuth mAuth;
+public class ForgotPasswordPresenter {
 
-    public LoginPresenter(ProcessView view) {
+    FirebaseAuth auth;
+    ProcessView view;
+
+    public ForgotPasswordPresenter(ProcessView view) {
         this.view = view;
-        mAuth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
 
-    public void loginUser(String email, String password) {
-        if (view != null) {
+
+    public void sendPasswordReset(String email) {
+        if(view != null) {
             view.showLoading();
         }
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(@NonNull Task<Void> task) {
                         if (view != null) {
                             view.hideLoading();
                         }
@@ -37,4 +38,5 @@ public class LoginPresenter {
                     }
                 });
     }
+
 }

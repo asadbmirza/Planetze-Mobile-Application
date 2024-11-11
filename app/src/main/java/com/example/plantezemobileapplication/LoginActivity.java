@@ -1,5 +1,6 @@
 package com.example.plantezemobileapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,18 +15,20 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plantezemobileapplication.presenter.LoginPresenter;
-import com.example.plantezemobileapplication.view.LoginView;
+import com.example.plantezemobileapplication.view.ProcessView;
+import com.example.plantezemobileapplication.view.ProcessView;
 import com.google.android.material.textfield.TextInputEditText;
 
 
 import java.util.Objects;
 
-public class LoginActivity extends AppCompatActivity implements LoginView {
+public class LoginActivity extends AppCompatActivity implements ProcessView {
 
     TextInputEditText emailText, passwordText;
     Button logInBtn;
     ProgressBar progressBar;
     TextView forgotPass;
+    Intent intent;
     private LoginPresenter presenter;
 
     @Override
@@ -55,18 +58,19 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         });
 
         forgotPass.setOnClickListener(v -> {
-
+            intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(intent);
         });
     }
 
 
     @Override
-    public void showLoginSuccess() {
+    public void showProcessSuccess() {
         Toast.makeText(this, "Logged in.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showLoginFailure() {
+    public void showProcessFailure() {
         Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
     }
 

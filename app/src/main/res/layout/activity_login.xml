@@ -43,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:paddingTop="20dp"
-                android:textSize="35sp"
+                android:paddingBottom="5dp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:text="@string/welcome_back"
                 android:layout_marginBottom="5dp"/>
@@ -52,13 +53,14 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:text="@string/login_prompt"
-                android:paddingBottom="30dp"
+                android:paddingBottom="20dp"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:text="@string/email"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -76,7 +78,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:text="@string/password" />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
