@@ -4,5 +4,12 @@
     <string name="app_icon">Planteze Icon</string>
     <string name="welcome_message">Track your impact.\nMake every action count.</string>
     <string name="Loginbtn">Login</string>
-    <string name="RegisterBtn">Register</string>
+    <string name="signUpBtn">Sign up</string>
+    <string name="registerBtn">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="fullName">Full Name</string>
+    <string name="placeholderEmail">abc123@email.com</string>
+    <string name="signUpInstruction">Please enter the following information</string>
 </resources>
