@@ -12,4 +12,5 @@
     <string name="fullName">Full Name</string>
     <string name="placeholderEmail">abc123@email.com</string>
     <string name="signUpInstruction">Please enter the following information</string>
+    <string name="account_exists">Already have an account?</string>
 </resources>
