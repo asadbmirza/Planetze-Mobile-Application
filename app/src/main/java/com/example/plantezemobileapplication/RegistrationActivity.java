@@ -1,8 +1,11 @@
 package com.example.plantezemobileapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -43,18 +46,42 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void registerUser() {
-        String fullName = ((EditText) findViewById(R.id.editTextFullName)).getText().toString();
-        String email = ((EditText) findViewById(R.id.editTextEmail)).getText().toString();
-        String password = ((EditText) findViewById(R.id.editTextPassword)).getText().toString();
-        String confirm = ((EditText) findViewById(R.id.editTextConfirmPassword)).getText().toString();
+        Button registerButton = findViewById(R.id.registerBtn);
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        EditText fullNameEditText = findViewById(R.id.editTextFullName);
+        EditText emailEditText = findViewById(R.id.editTextEmail);
+        EditText passwordEditText = findViewById(R.id.editTextPassword);
+        EditText confirmPasswordEditText = findViewById(R.id.editTextConfirmPassword);
+
+        registerButton.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        fullNameEditText.setEnabled(false);
+        emailEditText.setEnabled(false);
+        passwordEditText.setEnabled(false);
+        confirmPasswordEditText.setEnabled(false);
+
+        String fullName = fullNameEditText.getText().toString().trim();
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        String confirm = confirmPasswordEditText.getText().toString().trim();
+
 
         if(fullName.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+            resetUI(registerButton, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
+            return;
+        }
+
+        String passwordError = isValidPassword(password);
+        if (passwordError != null) {
+            Toast.makeText(this, passwordError, Toast.LENGTH_LONG).show();
+            resetUI(registerButton, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
             return;
         }
 
         if(!password.equals(confirm)) {
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            resetUI(registerButton, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
             return;
         }
 
@@ -63,6 +90,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     if(task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         saveUserDetails(user, fullName, email);
+
+                        Intent intent = new Intent(RegistrationActivity.this, WelcomeActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else {
                         try {
                             throw Objects.requireNonNull(task.getException());
@@ -71,9 +102,38 @@ public class RegistrationActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             Toast.makeText(RegistrationActivity.this, "Registration Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
+                        resetUI(registerButton, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
                     }
                 });
 
+    }
+
+    private void resetUI(Button registerButton, ProgressBar progressBar, EditText... editTexts) {
+        registerButton.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+        for (EditText editText : editTexts) {
+            editText.setEnabled(true);
+        }
+
+    }
+
+    private String isValidPassword(String password) {
+        if (password.length() < 8) {
+            return "Password must be at least 8 characters long.";
+        }
+        if (!password.matches(".*[a-z].*")) {
+            return "Password must contain at least one lowercase letter.";
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            return "Password must contain at least one uppercase letter.";
+        }
+        if (!password.matches(".*\\d.*")) {
+            return "Password must contain at least one number.";
+        }
+        if (!password.matches(".*[@$!%*?&].*")) {
+            return "Password must contain at least one special character (@$!%*?&).";
+        }
+        return null; // Null means the password is valid
     }
 
     private void saveUserDetails(FirebaseUser user, String fullName, String email) {
