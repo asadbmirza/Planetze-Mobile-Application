@@ -4,24 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registrationPage"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/register_page_background">
 
     <ImageView
         android:id="@+id/planetzeLogo"
-        android:layout_width="281dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="230dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/planetze_logo" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/registerCard"
-        android:layout_width="381dp"
-        android:layout_height="682dp"
-        android:layout_marginTop="164dp"
+        android:layout_width="384dp"
+        android:layout_height="580dp"
+        android:layout_marginTop="116dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,108 +37,120 @@
 
             <TextView
                 android:id="@+id/signUpText"
-                android:layout_width="349dp"
+                android:layout_width="351dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/acme"
                 android:text="@string/signUpBtn"
                 android:textAlignment="center"
                 android:textColor="@color/oxfordblue"
-                android:textSize="48sp" />
+                android:textSize="35sp" />
 
             <TextView
                 android:id="@+id/signUpInstructions"
                 android:layout_width="356dp"
                 android:layout_height="45dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="2dp"
                 android:fontFamily="@font/bitter_semibold"
                 android:text="@string/signUpInstruction"
                 android:textAlignment="center"
                 android:textColor="@color/oxfordblue"
-                android:textSize="19sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/fullNameText"
                 android:layout_width="354dp"
-                android:layout_height="38dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/acme"
                 android:text="@string/fullName"
-                android:textSize="24sp" />
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextFullName"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/baseline_person_24"
+                android:drawablePadding="6dp"
                 android:hint="@string/fullName"
                 android:inputType="textPersonName"
                 android:padding="10dp"
-                android:drawablePadding="6dp" />
+                android:textColor="@color/black"
+                android:textColorHint="#64646A" />
 
             <TextView
                 android:id="@+id/emailText"
                 android:layout_width="354dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="14dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/acme"
                 android:text="@string/email"
-                android:textSize="24sp" />
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/baseline_email_24"
+                android:drawablePadding="6dp"
                 android:hint="@string/placeholderEmail"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
-                android:drawablePadding="6dp" />
+                android:textColor="@color/black"
+                android:textColorHint="#64646A"/>
 
             <TextView
                 android:id="@+id/passwordText"
                 android:layout_width="354dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="14dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/acme"
                 android:text="@string/password"
-                android:textSize="24sp" />
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/baseline_lock_24"
+                android:drawablePadding="6dp"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:padding="10dp"
-                android:drawablePadding="6dp" />
+                android:textColor="@color/black"
+                android:textColorHint="#64646A"/>
 
             <TextView
                 android:id="@+id/confirmPasswordText"
                 android:layout_width="354dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="14dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/acme"
                 android:text="@string/confirmPassword"
-                android:textSize="24sp" />
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextConfirmPassword"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/baseline_lock_24"
+                android:drawablePadding="6dp"
                 android:hint="@string/confirmPassword"
                 android:inputType="textPassword"
                 android:padding="10dp"
-                android:drawablePadding="6dp" />
+                android:textColor="@color/black"
+                android:textColorHint="#64646A"/>
 
             <Button
                 android:id="@+id/registerBtn"
                 android:layout_width="345dp"
-                android:layout_height="72dp"
+                android:layout_height="65dp"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/skyblue"
                 android:fontFamily="sans-serif-medium"
@@ -177,7 +192,7 @@
             android:focusable="true"
             android:fontFamily="@font/bitter_semibold"
             android:text="@string/Loginbtn"
-            android:textColor="@color/turquoise"
+            android:textColor="#3FD0E7"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
