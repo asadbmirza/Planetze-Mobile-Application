@@ -24,13 +24,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Objects;
 
 public class RegistrationActivity extends AppCompatActivity {
-    Button registerBtn = findViewById(R.id.registerBtn);
-    TextView loginLink = findViewById(R.id.loginLink);
-    ProgressBar progressBar = findViewById(R.id.progressBar);
-    EditText fullNameEditText = findViewById(R.id.editTextFullName);
-    EditText emailEditText = findViewById(R.id.editTextEmail);
-    EditText passwordEditText = findViewById(R.id.editTextPassword);
-    EditText confirmPasswordEditText = findViewById(R.id.editTextConfirmPassword);
+    Button registerBtn;
+    TextView loginLink;
+    EditText fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
+    ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     @Override
@@ -46,6 +43,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        registerBtn = findViewById(R.id.registerBtn);
+        loginLink = findViewById(R.id.loginLink);
 
         registerBtn.setOnClickListener(v -> {
             registerUser();
@@ -58,6 +57,12 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void registerUser() {
+        registerBtn = findViewById(R.id.registerBtn);
+        progressBar = findViewById(R.id.progressBar);
+        fullNameEditText = findViewById(R.id.editTextFullName);
+        emailEditText = findViewById(R.id.editTextEmail);
+        passwordEditText = findViewById(R.id.editTextPassword);
+        confirmPasswordEditText = findViewById(R.id.editTextConfirmPassword);
 
         registerBtn.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
@@ -114,8 +119,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-    private void resetUI(Button registerButton, ProgressBar progressBar, EditText... editTexts) {
-        registerButton.setVisibility(View.VISIBLE);
+    private void resetUI(Button registerBtn, ProgressBar progressBar, EditText... editTexts) {
+        registerBtn.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
         for (EditText editText : editTexts) {
             editText.setEnabled(true);
