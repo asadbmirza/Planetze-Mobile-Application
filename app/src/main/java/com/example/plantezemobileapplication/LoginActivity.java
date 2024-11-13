@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements ProcessView {
     TextInputEditText emailText, passwordText;
     Button logInBtn;
     ProgressBar progressBar;
-    TextView forgotPass;
+    TextView forgotPass, registerLink;
     Intent intent;
     private LoginPresenter presenter;
 
@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements ProcessView {
         logInBtn = findViewById(R.id.login_btn);
         progressBar = findViewById(R.id.progress_bar);
         forgotPass = findViewById(R.id.forgot_psw);
+        registerLink = findViewById(R.id.registerLink);
 
         logInBtn.setOnClickListener(v -> {
             String email = Objects.requireNonNull(emailText.getText()).toString();
@@ -60,6 +61,12 @@ public class LoginActivity extends AppCompatActivity implements ProcessView {
         forgotPass.setOnClickListener(v -> {
             intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
+        });
+
+        registerLink.setOnClickListener(v -> {
+            intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
@@ -77,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements ProcessView {
     @Override
     public void showLoading() {
         // Show a loading spinner or progress bar
+        logInBtn.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -84,5 +92,6 @@ public class LoginActivity extends AppCompatActivity implements ProcessView {
     public void hideLoading() {
         // Hide the loading spinner or progress bar
         progressBar.setVisibility(View.GONE);
+        logInBtn.setVisibility(View.VISIBLE);
     }
 }

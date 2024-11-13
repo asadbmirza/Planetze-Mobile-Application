@@ -22,9 +22,15 @@ public class WelcomeActivity extends AppCompatActivity {
             return insets;
         });
         Button signUpBtn = findViewById(R.id.signUpBtn);
+        Button loginBtn = findViewById(R.id.LoginBtn);
 
         signUpBtn.setOnClickListener(v-> {
             Intent intent = new Intent(WelcomeActivity.this, RegistrationActivity.class);
+            startActivity(intent);
+        });
+
+        loginBtn.setOnClickListener(v-> {
+            Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
             startActivity(intent);
         });
     }

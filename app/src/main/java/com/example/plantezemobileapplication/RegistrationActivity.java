@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -23,6 +24,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Objects;
 
 public class RegistrationActivity extends AppCompatActivity {
+    Button registerBtn = findViewById(R.id.registerBtn);
+    TextView loginLink = findViewById(R.id.loginLink);
+    ProgressBar progressBar = findViewById(R.id.progressBar);
+    EditText fullNameEditText = findViewById(R.id.editTextFullName);
+    EditText emailEditText = findViewById(R.id.editTextEmail);
+    EditText passwordEditText = findViewById(R.id.editTextPassword);
+    EditText confirmPasswordEditText = findViewById(R.id.editTextConfirmPassword);
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     @Override
@@ -39,21 +47,19 @@ public class RegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        Button registerBtn = findViewById(R.id.registerBtn);
         registerBtn.setOnClickListener(v -> {
             registerUser();
+        });
+
+        loginLink.setOnClickListener(v -> {
+            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+            startActivity(intent);
         });
     }
 
     private void registerUser() {
-        Button registerButton = findViewById(R.id.registerBtn);
-        ProgressBar progressBar = findViewById(R.id.progressBar);
-        EditText fullNameEditText = findViewById(R.id.editTextFullName);
-        EditText emailEditText = findViewById(R.id.editTextEmail);
-        EditText passwordEditText = findViewById(R.id.editTextPassword);
-        EditText confirmPasswordEditText = findViewById(R.id.editTextConfirmPassword);
 
-        registerButton.setVisibility(View.GONE);
+        registerBtn.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         fullNameEditText.setEnabled(false);
         emailEditText.setEnabled(false);
@@ -68,20 +74,20 @@ public class RegistrationActivity extends AppCompatActivity {
 
         if(fullName.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
-            resetUI(registerButton, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
+            resetUI(registerBtn, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
             return;
         }
 
         String passwordError = isValidPassword(password);
         if (passwordError != null) {
             Toast.makeText(this, passwordError, Toast.LENGTH_LONG).show();
-            resetUI(registerButton, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
+            resetUI(registerBtn, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
             return;
         }
 
         if(!password.equals(confirm)) {
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-            resetUI(registerButton, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
+            resetUI(registerBtn, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
             return;
         }
 
@@ -102,7 +108,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             Toast.makeText(RegistrationActivity.this, "Registration Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        resetUI(registerButton, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
+                        resetUI(registerBtn, progressBar, fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText);
                     }
                 });
 

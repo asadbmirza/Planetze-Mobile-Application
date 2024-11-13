@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlantezeMobileApplication"
         tools:targetApi="31">
-        <activity android:name=".RegistrationActivity"
+        <activity
+            android:name=".RegistrationActivity"
             android:exported="false"/>
         <activity
             android:name=".ForgotPasswordActivity"
