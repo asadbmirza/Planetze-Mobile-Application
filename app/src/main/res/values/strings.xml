@@ -7,10 +7,25 @@
     <string name="signUpBtn">Sign up</string>
     <string name="registerBtn">Register</string>
     <string name="email">Email</string>
+    <string name="forgot_password">Forgot your password?</string>
     <string name="password">Password</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="fullName">Full Name</string>
     <string name="placeholderEmail">abc123@email.com</string>
     <string name="signUpInstruction">Please enter the following information</string>
     <string name="account_exists">Already have an account?</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="signUpBtn">Sign up</string>
+    <string name="login_prompt">Please enter your login details below</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="don_t_have_an_account">Don\'t have an account?\ </string>
+    <string name="reset_instructions">Send reset instructions</string>
+    <string name="password">Password</string>
+    <string name="reset_your_password">Reset Your Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="fullName">Full Name</string>
+    <string name="placeholderEmail">abc123@email.com</string>
+    <string name="signUpInstruction">Please enter the following information</string>
+    <string name="account_exists">Already have an account?</string>
+    <string name="back_to_login">Back to Login</string>
 </resources>
