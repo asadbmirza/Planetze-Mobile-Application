@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/register_page_background"
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,8 +23,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
         android:layout_margin="15dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="16dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,21 +49,26 @@
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:text="@string/welcome_back"
+                android:fontFamily="@font/acme"
+                android:textColor="@color/oxfordblue"
                 android:layout_marginBottom="5dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textSize="15sp"
                 android:text="@string/login_prompt"
-                android:paddingBottom="20dp"
-                />
+                android:fontFamily="@font/bitter_semibold"
+                android:textColor="@color/oxfordblue"
+                android:paddingBottom="20dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="@string/email"/>
+                android:textSize="20sp"
+                android:fontFamily="@font/acme"
+                android:text="@string/email"
+                android:textColor="@color/black"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,8 +76,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
                     android:hint="@string/placeholderEmail"
-                    android:textSize="13sp"
-                    android:background="@color/lightgrey"
+                    android:background="@drawable/edittext_background"
+                    android:drawableStart="@drawable/baseline_person_24"
+                    android:drawablePadding="6dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#64646A"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -78,9 +88,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="@string/password" />
+                android:fontFamily="@font/acme"
+                android:text="@string/password"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,15 +99,17 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
                     android:hint="@string/password"
-                    android:textSize="13sp"
                     android:inputType="textPassword"
-                    android:background="@color/lightgrey"
+                    android:background="@drawable/edittext_background"
+                    android:drawableStart="@drawable/baseline_lock_24"
+                    android:drawablePadding="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:id="@+id/forgot_psw"
                 android:text="@string/forgot_password"
+                android:fontFamily="@font/bitter_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/turquoise"
@@ -106,8 +119,11 @@
                 android:id="@+id/login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/oxfordblue"
-                android:text="@string/login" />
+                android:backgroundTint="@color/skyblue"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/Loginbtn"
+                android:textColor="@color/white"
+                android:textSize="28sp" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -126,14 +142,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            android:fontFamily="@font/bitter_semibold"
+            android:textSize="20sp"
             android:text="@string/don_t_have_an_account"/>
         <TextView
             android:id="@+id/redirect_to_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/register"
+            android:layout_marginLeft="2dp"
+            android:text="@string/registerBtn"
             android:textStyle="bold"
-            android:textColor="@color/turquoise"/>
+            android:textColor="@color/turquoise"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="20sp"
+            android:fontFamily="@font/bitter_semibold"/>
     </LinearLayout>
 
 

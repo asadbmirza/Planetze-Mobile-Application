@@ -5,6 +5,7 @@
     android:id="@+id/registrationPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="4dp"
     android:background="@drawable/register_page_background">
 
     <ImageView
@@ -31,7 +32,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="568dp"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -48,8 +49,9 @@
             <TextView
                 android:id="@+id/signUpInstructions"
                 android:layout_width="356dp"
-                android:layout_height="45dp"
-                android:layout_marginBottom="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp"
                 android:fontFamily="@font/bitter_semibold"
                 android:text="@string/signUpInstruction"
                 android:textAlignment="center"
@@ -99,7 +101,7 @@
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textColorHint="#64646A"/>
+                android:textColorHint="#64646A" />
 
             <TextView
                 android:id="@+id/passwordText"
@@ -122,7 +124,7 @@
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textColorHint="#64646A"/>
+                android:textColorHint="#64646A" />
 
             <TextView
                 android:id="@+id/confirmPasswordText"
@@ -145,7 +147,7 @@
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textColorHint="#64646A"/>
+                android:textColorHint="#64646A" />
 
             <Button
                 android:id="@+id/registerBtn"
@@ -161,10 +163,10 @@
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_width="61dp"
+                android:layout_height="63dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
                 android:indeterminate="true"
                 android:visibility="gone"/>
 
