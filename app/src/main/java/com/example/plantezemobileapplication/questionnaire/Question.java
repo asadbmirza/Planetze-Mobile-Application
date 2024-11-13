@@ -1,22 +1,36 @@
 package com.example.plantezemobileapplication.questionnaire;
 
-import java.util.ArrayList;
-
 public class Question {
     private String title;
-    private ArrayList<QuestionnaireAnswer> answers;
-    private Question nextQuestion;
+    private Answer[] answers;
     private String category;
+    private int selectedAnswer = -1; // index of the selected answer in answers
 
     public Question() {}
 
-    public Question(String title, ArrayList<QuestionnaireAnswer> answers, String category) {
+    public Question(String title, Answer[] answers, String category) {
         this.title = title;
         this.answers = answers;
         this.category = category;
     }
 
-    public void setNextQuestion(Question nextQuestion) {
-        this.nextQuestion = nextQuestion;
+    public String getTitle() {
+        return title;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public int getSelectedAnswer() {
+        return selectedAnswer;
+    }
+
+    public Answer[] getAnswers() {
+        return answers;
+    }
+
+    public void setSelectedAnswer(int selectedAnswer) {
+        this.selectedAnswer = selectedAnswer;
     }
 }
