@@ -72,15 +72,15 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/placeholderEmail"
+                android:textColorHint="#64646A"
                 android:layout_marginBottom="10dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
-                    android:hint="@string/placeholderEmail"
                     android:background="@drawable/edittext_background"
                     android:drawableStart="@drawable/baseline_person_24"
                     android:drawablePadding="6dp"
                     android:textColor="@color/black"
-                    android:textColorHint="#64646A"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -95,14 +95,16 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:textColorHint="#64646A"
                 android:layout_marginBottom="10dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
-                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:background="@drawable/edittext_background"
                     android:drawableStart="@drawable/baseline_lock_24"
                     android:drawablePadding="6dp"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -112,7 +114,7 @@
                 android:fontFamily="@font/bitter_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/turquoise"
+                android:textColor="#3FD0E7"
                 android:layout_marginBottom="20dp"/>
 
             <Button
@@ -158,7 +160,7 @@
             android:focusable="true"
             android:fontFamily="@font/bitter_semibold"
             android:text="@string/registerBtn"
-            android:textColor="@color/turquoise"
+            android:textColor="#3FD0E7"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
