@@ -15,11 +15,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -29,7 +29,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText fullNameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
     ProgressBar progressBar;
     private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
+    private DatabaseReference dbRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
         mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+        dbRef = FirebaseDatabase.getInstance().getReference("users");
         registerBtn = findViewById(R.id.registerBtn);
         loginLink = findViewById(R.id.loginLink);
 
@@ -150,9 +150,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private void saveUserDetails(FirebaseUser user, String fullName, String email) {
         String userId = user.getUid();
         User newUser = new User(fullName, email);
-        db.collection("users")
-                .document(userId)
-                .set(newUser)
+        dbRef.child(userId).setValue(newUser)
                 .addOnSuccessListener(aVoid -> {
                     sendEmailVerification(user);
                 })
