@@ -69,21 +69,18 @@
                 android:fontFamily="@font/acme"
                 android:text="@string/email"
                 android:textColor="@color/black"/>
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
+                android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/baseline_person_24"
+                android:drawablePadding="6dp"
                 android:hint="@string/placeholderEmail"
                 android:textColorHint="#64646A"
-                android:layout_marginBottom="10dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/email"
-                    android:background="@drawable/edittext_background"
-                    android:drawableStart="@drawable/baseline_person_24"
-                    android:drawablePadding="6dp"
-                    android:textColor="@color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:padding="10dp"
+                android:textColor="@color/black" />
+                android:layout_marginBottom="10dp"
 
             <TextView
                 android:layout_width="match_parent"
@@ -92,22 +89,19 @@
                 android:text="@string/password"
                 android:textColor="@color/black"
                 android:textSize="20sp"/>
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:hint="@string/password"
                 android:textColorHint="#64646A"
-                android:layout_marginBottom="10dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/password"
-                    android:inputType="textPassword"
-                    android:background="@drawable/edittext_background"
-                    android:drawableStart="@drawable/baseline_lock_24"
-                    android:drawablePadding="6dp"
-                    android:textColor="@color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:inputType="textPassword"
+                android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/baseline_lock_24"
+                android:drawablePadding="6dp"
+                android:textColor="@color/black" />
             <TextView
                 android:id="@+id/forgot_psw"
                 android:text="@string/forgot_password"
