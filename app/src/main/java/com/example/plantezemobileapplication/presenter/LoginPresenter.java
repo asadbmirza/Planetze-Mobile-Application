@@ -2,7 +2,7 @@ package com.example.plantezemobileapplication.presenter;
 
 import androidx.annotation.NonNull;
 
-import com.example.plantezemobileapplication.view.ProcessView;
+import com.example.plantezemobileapplication.view.login.ProcessView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

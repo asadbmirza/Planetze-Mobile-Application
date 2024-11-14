@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication;
+package com.example.plantezemobileapplication.view.welcome;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.plantezemobileapplication.R;
+import com.example.plantezemobileapplication.view.login.LoginActivity;
+import com.example.plantezemobileapplication.view.registration.RegistrationActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
     @Override

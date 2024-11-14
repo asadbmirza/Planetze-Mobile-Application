@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication;
+package com.example.plantezemobileapplication.view.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.presenter.ForgotPasswordPresenter;
-import com.example.plantezemobileapplication.presenter.LoginPresenter;
-import com.example.plantezemobileapplication.view.ProcessView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;

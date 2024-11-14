@@ -1,14 +1,14 @@
-package com.example.plantezemobileapplication;
+package com.example.plantezemobileapplication.model;
 
-public class User {
+public class UserModel {
     public String fullName;
     public String email;
 
-    public User() {
+    public UserModel() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String fullName, String email) {
+    public UserModel(String fullName, String email) {
         this.fullName = fullName;
         this.email = email;
     }
