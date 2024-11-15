@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/appLogo"
-        android:layout_width="194dp"
-        android:layout_height="45dp"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
         android:layout_marginTop="16dp"
         android:contentDescription="@string/app_logo"
         app:srcCompat="@drawable/planetze_logo" />
@@ -79,8 +79,8 @@
                 android:hint="@string/placeholderEmail"
                 android:textColorHint="#64646A"
                 android:padding="10dp"
-                android:textColor="@color/black" />
                 android:layout_marginBottom="10dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -131,15 +131,15 @@
 
 
     <LinearLayout
-        android:layout_width="381dp"
-        android:layout_height="71dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:fontFamily="@font/bitter_semibold"
             android:text="@string/don_t_have_an_account"
             android:textAlignment="center"
