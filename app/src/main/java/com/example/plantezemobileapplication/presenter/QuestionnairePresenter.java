@@ -1,17 +1,43 @@
-package com.example.plantezemobileapplication.questionnaire;
+package com.example.plantezemobileapplication.presenter;
+
+
+import com.example.plantezemobileapplication.utils.Answer;
+import com.example.plantezemobileapplication.utils.JsonParser;
+import com.example.plantezemobileapplication.utils.Question;
+import com.example.plantezemobileapplication.utils.SpecialAnswer;
+import com.example.plantezemobileapplication.utils.SpecialQuestion;
+import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireActivity;
+
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class QuestionSet {
+
+public class QuestionnairePresenter {
     public Question[] questions;
-    private double[][] answer5Matrix = {
+    private final double[][] answer5Matrix = {
             {246, 819, 1638, 3071, 4095},
             {573, 1911, 3822, 7166, 9555},
             {573, 1911, 3822, 7166, 9555}
     };
 
-    public QuestionSet() {
+    private final double[][]  consumptionPurchaseMatrix = {
+            {-54, -108, -180, 0}, // monthly
+            {-18, -36, -60, 0}, // quarterly
+            {-15, -30, -50, 0}, // annual
+            {-0.75, -1.5, -2.5, 0} //rarely
+    };
+
+    private final double[][]  consumptionDeviceMatrix = {
+            {45, 60, 90, 0}, // 1 device
+            {60, 120, 180, 0}, // 2 devices
+            {90, 180, 270, 0}, // 3 devices
+            {120, 240, 360, 0} //4 or more
+    };
+
+    private QuestionnaireActivity questionnaireActivity;
+
+    public QuestionnairePresenter(QuestionnaireActivity questionnaireActivity) {
         // Transportation questions
         Answer[] options1 = {
                 new Answer("Yes", 0),
@@ -53,7 +79,6 @@ public class QuestionSet {
                 new Answer("5-10 hours", 0),
                 new Answer("More than 10 hours", 0),
         };
-        //DEPENDS ON QUESTION 4
         Question question5 = new Question("How much time do you spend on public transport per week (bus, train, subway)?", options5, "Transportation");
 
         Answer[] options6 = {
@@ -127,6 +152,7 @@ public class QuestionSet {
         Answer[] options11 = {
                 new Answer("Detached house", 0),
                 new Answer("Semi-detached house", 0),
+                new Answer("Townhouse", 0),
                 new Answer("Condo/Apartment", 0),
                 new Answer("Other", 0),
         };
@@ -217,9 +243,10 @@ public class QuestionSet {
         };
         Question question21 = new Question(" How often do you recycle?", options21, "Consumption");
 
-//        this.questions = new Question[]{question1, question2, question3, question4, question5, question6, question7, question8, question9_1, question9_2, question9_3, question9_4, question10, question11, question12, question13, question14, question15, question16, question17, question18, question19, question20, question21};
-        this.questions = new Question[]{question1, question2, question3, question4, question5, question6, question7, question8, question9_1};
+        this.questions = new Question[]{question1, question2, question3, question4, question5, question6, question7, question8, question9_1, question9_2, question9_3, question9_4, question10, question11, question12, question13, question14, question15, question16, question17, question18, question19, question20, question21};
+        this.questionnaireActivity = questionnaireActivity;
     }
+
 
     public Map<String, Double> calculateQuizResult() {
         Map<String, Double> categoryTotals = new HashMap<>();
@@ -229,6 +256,7 @@ public class QuestionSet {
 
         updateAnswerWeight();
 
+        categoryTotals.put("Total", 0.0);
         for (Question question : questions) {
             currCategory = question.getCategory();
             selectedAnswer = question.getSelectedAnswer();
@@ -240,36 +268,55 @@ public class QuestionSet {
                 } else {
                     categoryTotals.put(currCategory, currWeight);
                 }
+                categoryTotals.put("Total", categoryTotals.get("Total") + currWeight);
             }
         }
 
+        int question19Answer = questions[21].getSelectedAnswer();
+        categoryTotals.put("Total", categoryTotals.get("Total") * questions[21].getAnswers()[question19Answer].getWeight());
         return categoryTotals;
     }
+
 
     private void updateAnswerWeight() {
         //Question 2 & 3
         int question2Answer = questions[1].getSelectedAnswer();
         int question3Answer = questions[2].getSelectedAnswer();
-        questions[2].getAnswers()[question3Answer].setWeight(questions[1].getAnswers()[question2Answer].getWeight() * questions[2].getAnswers()[question3Answer].getWeight());
+        if (question2Answer != -1 || question3Answer != -1) {
+            questions[2].getAnswers()[question3Answer].setWeight(questions[1].getAnswers()[question2Answer].getWeight() * questions[2].getAnswers()[question3Answer].getWeight());
+            questions[1].getAnswers()[question2Answer].setWeight(0);
+        }
 
         //Question 4 & 5
         int question4Answer = questions[3].getSelectedAnswer() - 1;
         int question5Answer = questions[4].getSelectedAnswer() - 1;
-        questions[4].getAnswers()[question5Answer].setWeight(answer5Matrix[question4Answer][question5Answer]);
+        if (question4Answer != -2) {
+            questions[4].getAnswers()[question5Answer].setWeight(answer5Matrix[question4Answer][question5Answer]);
+        }
 
-        //Housing questions
-        int question11Answer = questions[13].getSelectedAnswer(); // type of home (row)
+        // Housing questions
+        int question11Answer = questions[13].getSelectedAnswer() == 4 ? 2 : questions[13].getSelectedAnswer(); // type of home (row)
         int question12Answer = questions[14].getSelectedAnswer(); // # of occupants (row)
         int question13Answer = questions[15].getSelectedAnswer(); // size of home (row)
-        int question14Answer = questions[16].getSelectedAnswer(); // type of energy for water (col)
+        int question14Answer = questions[16].getSelectedAnswer() == 5 ? 1 : questions[16].getSelectedAnswer(); // type of energy for water (col)
         int question15Answer = questions[17].getSelectedAnswer(); // monthly bill (col)
-        int question16Answer = questions[18].getSelectedAnswer(); // type of energy for electricity/heating (col)
+        int question16Answer = questions[18].getSelectedAnswer() == 5 ? 1 : questions[18].getSelectedAnswer(); // type of energy for electricity/heating (col)
 
-        // READ JSON IN FORMAT FOR ROW [question11Answer + (4 * question12Answer) + (3 * question13Answer)]
-        // FOR COL FOR WATER [question14Answer + (5 * question15Answer)]
-        // FOR COL FOR HEATING/ELECTRICITY [question16Answer + (5 * question15Answer)]
-        // if question14Answer != question16Answer then +233
+        JsonParser jsonReader = new JsonParser(this.questionnaireActivity);
+        questions[16].getAnswers()[question14Answer].setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question14Answer + (5 * question15Answer)));
+        if (question14Answer != question15Answer) {
+            questions[18].getAnswers()[question16Answer].setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question16Answer + (5 * question15Answer)) + 255);
+        }
+        else {
+            questions[18].getAnswers()[question16Answer].setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question16Answer + (5 * question15Answer)));
+        }
 
+        // Consumption
+        int question18Answer = questions[20].getSelectedAnswer();
+        int question20Answer = questions[22].getSelectedAnswer();
+        int question21Answer = questions[23].getSelectedAnswer();
+        questions[23].getAnswers()[question21Answer].setWeight(consumptionPurchaseMatrix[question18Answer][question21Answer] + consumptionDeviceMatrix[question20Answer][question21Answer]);
 
     }
 }
+
