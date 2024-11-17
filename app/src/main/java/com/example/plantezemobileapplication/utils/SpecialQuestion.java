@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.questionnaire;
+package com.example.plantezemobileapplication.utils;
 
 public class SpecialQuestion extends Question {
     private int previousQuestionIndex;
