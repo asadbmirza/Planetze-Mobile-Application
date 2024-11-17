@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".questionnaire.QuestionnaireActivity">
+    tools:context=".view.questionnaire.QuestionnaireActivity">
 
     <TextView
         android:id="@+id/category"
@@ -41,7 +41,9 @@
         android:layout_centerInParent="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.735"/>
+        app:layout_constraintVertical_bias="0.735">
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/quiz_navigation_layout"
@@ -81,5 +83,13 @@
             android:textColor="@color/white"
             android:enabled="false" />
     </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:spinnerMode="dropdown" />
 
 </RelativeLayout>
