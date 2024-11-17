@@ -23,6 +23,5 @@ Open and run the project on Android Studio.
 
 - [Asad Mirza](https://github.com/asadmirza121)
 - [Mohamed Ibrahim](https://github.com/moibra05)
-- [Taha Sarfraz](https://github.com/GBG7)
 - [Moiz Mohammed](https://github.com/moizm05)
 - [Jeremy Chong](https://github.com/jchong9)
