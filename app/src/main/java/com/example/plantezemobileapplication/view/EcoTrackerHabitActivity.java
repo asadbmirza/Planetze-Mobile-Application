@@ -24,7 +24,6 @@ import com.example.plantezemobileapplication.presenter.EcoTrackerHabitPresenter;
 import com.google.firebase.FirebaseApp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class EcoTrackerHabitActivity extends AppCompatActivity {
@@ -33,11 +32,12 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private HabitAdapter habitAdapter;
     private SearchView searchView;
-
-    private String habitNames[] = {"Cycling", "Walking", "Donating electronics", "Vegan"};
-    private String categories[] = {"transportation", "recycling", "energy"};
-    private int impacts[] = {1, 2, 3, 4};
+    private ArrayList<Habit> habits;
     private boolean checkboxInit = false;
+    private String categories[] = {"transportation", "recycling", "energy", "waste"};
+    private int impacts[] = {1, 2, 3, 4};
+    private ArrayList<String> cFilters;
+    private ArrayList<Integer> iFilters;
     private CheckBox[] cCheckboxes;
     private CheckBox[] iCheckboxes;
     private TextView noHabitsMessage;
@@ -57,17 +57,14 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         });
 
         presenter = new EcoTrackerHabitPresenter(this, new EcoTrackerModel());
+        this.habits = new ArrayList<Habit>();
 
-        ArrayList<Habit> habits = new ArrayList<>(Arrays.asList(
-                new Habit(habitNames[0], categories[0], impacts[3]),
-                new Habit(habitNames[1], categories[0], impacts[1]),
-                new Habit(habitNames[2], categories[1], impacts[2]),
-                new Habit(habitNames[3], categories[2], impacts[2]))
-        );
         habitAdapter = new HabitAdapter(habits, presenter);
 
         cCheckboxes = new CheckBox[categories.length];
+        cFilters = new ArrayList<>();
         iCheckboxes = new CheckBox[impacts.length];
+        iFilters = new ArrayList<>();
         recyclerView = findViewById(R.id.recycler_view_habit);
         recyclerView.setAdapter(habitAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -105,8 +102,13 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
 
 
     }
-    public HabitAdapter getHabitAdapter() {
-        return habitAdapter;
+
+    public void setHabits(ArrayList<Habit> habits) {
+        this.habits = habits;
+        System.out.println(habits.size());
+        habitAdapter.updateHabits(habits);
+        habitAdapter.filterByCategory(cFilters);
+        habitAdapter.filterByImpact(iFilters);
     }
 
     private void displayFilterDialog(HabitAdapter habitAdapter, Dialog filterDialog) {
@@ -125,8 +127,8 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> cFilters = new ArrayList<String>();
-                ArrayList<Integer> iFilters = new ArrayList<Integer>();
+                cFilters.clear();
+                iFilters.clear();
                 int cCount = 0;
                 int iCount = 0;
                 for (int i = 0; i < cCheckboxes.length; i++) {

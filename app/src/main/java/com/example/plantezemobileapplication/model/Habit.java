@@ -5,6 +5,8 @@ public class Habit {
     String category;
     int impact;
 
+    public Habit() {
+    }
     public Habit(String name, String category, int impact) {
         this.name = name;
         this.category = category    ;

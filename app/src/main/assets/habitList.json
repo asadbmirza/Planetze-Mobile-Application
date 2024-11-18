@@ -1,0 +1,134 @@
+{
+  "habits": [
+    {
+      "name": "Cycling",
+      "category": "transportation",
+      "impact": 1
+    },
+    {
+      "name": "Walking",
+      "category": "transportation",
+      "impact": 1
+    },
+    {
+      "name": "Carpooling",
+      "category": "transportation",
+      "impact": 2
+    },
+    {
+      "name": "Using public transportation",
+      "category": "transportation",
+      "impact": 2
+    },
+    {
+      "name": "Donating electronics",
+      "category": "recycling",
+      "impact": 3
+    },
+    {
+      "name": "Recycling plastic",
+      "category": "recycling",
+      "impact": 3
+    },
+    {
+      "name": "Recycling paper",
+      "category": "recycling",
+      "impact": 3
+    },
+    {
+      "name": "Using reusable bags",
+      "category": "recycling",
+      "impact": 4
+    },
+    {
+      "name": "Composting",
+      "category": "recycling",
+      "impact": 4
+    },
+    {
+      "name": "Reducing water consumption",
+      "category": "energy",
+      "impact": 4
+    },
+    {
+      "name": "Switching to LED bulbs",
+      "category": "energy",
+      "impact": 4
+    },
+    {
+      "name": "Turning off unused lights",
+      "category": "energy",
+      "impact": 4
+    },
+    {
+      "name": "Using energy-efficient appliances",
+      "category": "energy",
+      "impact": 3
+    },
+    {
+      "name": "Using solar panels",
+      "category": "energy",
+      "impact": 5
+    },
+    {
+      "name": "Opting for renewable energy sources",
+      "category": "energy",
+      "impact": 5
+    },
+    {
+      "name": "Eating a vegan diet",
+      "category": "food",
+      "impact": 5
+    },
+    {
+      "name": "Reducing food waste",
+      "category": "food",
+      "impact": 3
+    },
+    {
+      "name": "Supporting local farmers",
+      "category": "food",
+      "impact": 2
+    },
+    {
+      "name": "Planting trees",
+      "category": "nature",
+      "impact": 5
+    },
+    {
+      "name": "Growing a garden",
+      "category": "nature",
+      "impact": 3
+    },
+    {
+      "name": "Using non-toxic cleaning products",
+      "category": "waste",
+      "impact": 3
+    },
+    {
+      "name": "Minimizing plastic usage",
+      "category": "waste",
+      "impact": 4
+    },
+    {
+      "name": "Buying in bulk to reduce packaging",
+      "category": "waste",
+      "impact": 3
+    },
+    {
+      "name": "Opting for paperless billing",
+      "category": "waste",
+      "impact": 2
+    },
+    {
+      "name": "Opting for second-hand products",
+      "category": "waste",
+      "impact": 3
+    },
+    {
+      "name": "Using a clothesline instead of a dryer",
+      "category": "energy",
+      "impact": 3
+    }
+  ]
+}

@@ -21,10 +21,10 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
     private String searchQuery;
     private EcoTrackerHabitPresenter presenter;
 
-    public HabitAdapter(ArrayList<Habit> h, EcoTrackerHabitPresenter presenter) {
-        this.habits = h;
-        this.originalHabits = new ArrayList<>(h);
-        this.filteredHabits = new ArrayList<>(h);
+    public HabitAdapter(ArrayList<Habit> habits, EcoTrackerHabitPresenter presenter) {
+        this.habits = habits;
+        this.originalHabits = new ArrayList<>(habits);
+        this.filteredHabits = new ArrayList<>(habits);
         this.searchQuery = "";
         this.presenter = presenter;
     }
@@ -92,6 +92,9 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
     }
 
     public void filterByCategory(ArrayList<String> querys) {
+        if (querys.size() == 0) {
+            return;
+        }
         ArrayList<Habit> newHabits = new ArrayList<Habit>();
 
         for (int i = 0; i < originalHabits.size(); i++) {
@@ -107,10 +110,10 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
 
     }
 
-    public void removeHabit(Habit habit) {
-
-    }
     public void filterByImpact(ArrayList<Integer> querys) {
+        if (querys.size() == 0) {
+            return;
+        }
         ArrayList<Habit> newHabits = new ArrayList<Habit>();
         for (int i = 0; i < filteredHabits.size(); i++) {
             for(int j = 0; j < querys.size();j++) {
@@ -128,6 +131,12 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
         habits = new ArrayList<>(originalHabits);
         filteredHabits = new ArrayList<>(originalHabits);
         searchQuery = "";
+        notifyDataSetChanged();
+    }
+
+    public void updateHabits(ArrayList<Habit> habits) {
+        this.originalHabits = habits;
+        this.habits = new ArrayList<>(habits);
         notifyDataSetChanged();
     }
 
