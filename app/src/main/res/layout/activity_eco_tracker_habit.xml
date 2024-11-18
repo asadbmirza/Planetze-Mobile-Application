@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/eco_tracker_habit"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
 
     <TextView
         android:id="@+id/habit_tracker_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Habit Tracker"
         android:textSize="20sp"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -49,21 +48,61 @@
         app:layout_constraintVertical_bias="0.0">
 
 
-        <SearchView
-            android:id="@+id/search_view_habit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_marginBottom="8dp">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        </SearchView>
+            <SearchView
+                android:id="@+id/search_view_habit"
+                android:layout_width="274dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/search_border">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_habit"
-            android:layout_width="match_parent"
+
+            </SearchView>
+
+            <Button
+                android:id="@+id/filter_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="#A9BCD0"
+                android:text="Filter" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/no_habit_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="@string/no_habits_text"
+            android:textStyle="bold"
+            android:visibility="gone"
+            />
 
-        </androidx.recyclerview.widget.RecyclerView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="533dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_habit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </ScrollView>
 
 
     </LinearLayout>

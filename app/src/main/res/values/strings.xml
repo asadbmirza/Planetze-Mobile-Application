@@ -3,4 +3,5 @@
     <string name="button_text">New Button</string>
     <string name="IntroEcoTrackerSurvey">You will be asked a variety of questions to track your carbon emissions. Please answer the questions truthfully to ensure accurate data. Press Next to begin</string>
     <string name="habit_search_title">Search for list of Eco-Friendly habits to reduce your carbon emissions!</string>
+    <string name="no_habits_text">No habits found</string>
 </resources>
