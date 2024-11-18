@@ -133,6 +133,7 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    @SuppressLint("ResourceType")
     private void resetAnswers() {
         Button answerBtn;
         for (int i = 0; i < answerLayout.getChildCount(); i++) {
@@ -162,14 +163,6 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
             answerBtn.setOnClickListener(this);
         }
     }
-
-//    @SuppressLint("SetTextI18n")
-//    private void handleNextQuestion() {
-//        presenter.handleNextQuestion();
-//        answerLayout.removeAllViews();
-//        presenter.loadQuestion();
-//        nextBtn.setEnabled(false);
-//    }
 
     private void loadCountrySelector() {
         answerLayout.removeAllViews();

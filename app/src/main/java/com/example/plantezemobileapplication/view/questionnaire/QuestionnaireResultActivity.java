@@ -89,7 +89,7 @@ public class QuestionnaireResultActivity extends AppCompatActivity implements Vi
                 text.setId(TextView.generateViewId());
                 text.setWidth(RelativeLayout.LayoutParams.MATCH_PARENT);
                 text.setTextSize(25);
-                text.setText(entry.getKey().toUpperCase() + ": " + String.format("%.5g%n", entry.getValue() * 0.001) + "tonne(s)/yr");
+                text.setText(entry.getKey().toUpperCase() + ": " + String.format("%.3g%n", entry.getValue() * 0.001) + "tonne(s)/yr");
                 layout.addView(text);
             }
         }
