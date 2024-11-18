@@ -1,8 +1,5 @@
 package com.example.plantezemobileapplication.model;
 
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

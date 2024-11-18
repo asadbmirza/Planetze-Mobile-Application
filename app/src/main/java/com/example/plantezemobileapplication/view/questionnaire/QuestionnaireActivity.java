@@ -24,9 +24,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.presenter.QuestionnairePresenter;
 import com.example.plantezemobileapplication.utils.Answer;
-import com.example.plantezemobileapplication.utils.Question;
-import com.example.plantezemobileapplication.utils.SpecialAnswer;
-import com.example.plantezemobileapplication.utils.SpecialQuestion;
 
 import java.io.Serializable;
 import java.util.Map;

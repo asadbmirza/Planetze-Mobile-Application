@@ -4,7 +4,6 @@ import com.example.plantezemobileapplication.model.QuestionnaireModel;
 import com.example.plantezemobileapplication.utils.JsonParser;
 import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireResultActivity;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class QuestionnaireResultPresenter {
