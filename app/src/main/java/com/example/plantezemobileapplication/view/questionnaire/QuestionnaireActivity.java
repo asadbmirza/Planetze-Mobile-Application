@@ -149,10 +149,10 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
     }
 
     public void addAnswersToLayout(Answer[] answers) {
-        for (int i = 0; i < answers.length; i++) {
+        for (Answer answer : answers) {
             Button answerBtn = new Button(this);
             answerBtn.setId(View.generateViewId());
-            answerBtn.setText(answers[i].getAnswerText());
+            answerBtn.setText(answer.getAnswerText());
             answerBtn.setWidth(RelativeLayout.LayoutParams.MATCH_PARENT);
             answerBtn.setLayoutParams(params);
             updateButtonStyle(answerBtn, R.drawable.border_button);
