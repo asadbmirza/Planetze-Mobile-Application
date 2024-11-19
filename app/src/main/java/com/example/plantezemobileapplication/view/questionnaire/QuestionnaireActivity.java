@@ -169,22 +169,6 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
         questionTextView.setText("Select your country");
     }
 
-    private void handlePreviousQuestion() {
-        visitedCountrySelector = false;
-        spinner.setVisibility(View.GONE);
-        nextBtn.setText("Next");
-        presenter.handlePreviousQuestion();
-        answerLayout.removeAllViews();
-        presenter.loadQuestion();
-    }
-
-    private void handleAnswer(Button clickedBtn) {
-        String currAnswer = clickedBtn.getText().toString();
-        presenter.handleAnswer(currAnswer);
-        updateButtonStyle(clickedBtn, R.drawable.rectangular_button);
-        nextBtn.setEnabled(true);
-    }
-
     @SuppressLint("ResourceType")
     private void updateButtonStyle(Button button, int drawableId) {
         button.setBackground(ContextCompat.getDrawable(this, drawableId));

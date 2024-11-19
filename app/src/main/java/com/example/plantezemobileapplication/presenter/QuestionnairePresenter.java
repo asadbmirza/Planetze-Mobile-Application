@@ -97,7 +97,7 @@ public class QuestionnairePresenter {
                 new Answer("6-10 flights", 1200),
                 new Answer(" More than 10 flights", 1800),
         };
-        Question question6 = new Question("How many short-haul flights (less than 1,500 km / 932 miles) have you taken in the past year?", options6, "transportation");
+        Question question6 = new SpecialQuestion("How many short-haul flights (less than 1,500 km / 932 miles) have you taken in the past year?", options6, "transportation", 3);
 
         Answer[] options7 = {
                 new Answer("None", 0),
@@ -282,7 +282,10 @@ public class QuestionnairePresenter {
 
     public void handlePreviousQuestion() {
         if (questions[currQuestionIndex] instanceof SpecialQuestion) {
-            currQuestionIndex = ((SpecialQuestion) questions[currQuestionIndex]).getPreviousQuestionIndex();
+            int prevQuestionIndex = ((SpecialQuestion) questions[currQuestionIndex]).getPreviousQuestionIndex();
+            ((SpecialQuestion) questions[currQuestionIndex]).setPreviousQuestionIndex(currQuestionIndex - 1); // Reset previous question redirection
+            currQuestionIndex = prevQuestionIndex;
+
         }
         else {
             currQuestionIndex--;
