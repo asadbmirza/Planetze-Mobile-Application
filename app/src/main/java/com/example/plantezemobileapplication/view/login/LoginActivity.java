@@ -15,9 +15,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plantezemobileapplication.R;
+import com.example.plantezemobileapplication.model.LoginModel;
 import com.example.plantezemobileapplication.presenter.LoginPresenter;
 import com.example.plantezemobileapplication.view.registration.RegistrationActivity;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 import java.util.Objects;
@@ -42,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements ProcessView {
             return insets;
         });
 
-        presenter = new LoginPresenter(this);
+        presenter = new LoginPresenter(this, new LoginModel(FirebaseAuth.getInstance()));
 
         emailText = findViewById(R.id.email);
         passwordText = findViewById(R.id.password);
