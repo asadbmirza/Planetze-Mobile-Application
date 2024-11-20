@@ -53,51 +53,38 @@
         </LinearLayout>
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.Barrier
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="top" />
-
     <LinearLayout
         android:id="@+id/country_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/result_layout"
         android:layout_margin="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/country_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your country has the average of:"
+            android:text="Your carbon footprint is:"
             android:textAlignment="center"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:id="@+id/country_headings"
+        <TextView
+            android:id="@+id/country_comparison"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="50%"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/country_emissions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="2"
-                android:text="1000.0"
-                android:textAlignment="viewEnd"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/country_units"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="tonne(s)/yr" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/country_comparison_subtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="below the average"
+            android:textAlignment="center"
+            android:textSize="15sp"/>
 
     </LinearLayout>
 
@@ -106,7 +93,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/category_layout"
-        android:layout_below="@id/country_layout"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="13dp"
         android:text="Here's a breakdown of your results:"
         android:textAlignment="center"
         android:textSize="20sp" />
@@ -114,7 +102,7 @@
     <LinearLayout
         android:id="@+id/category_layout"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
@@ -127,11 +115,44 @@
 
     <Button
         android:id="@+id/btnCompleteQuiz"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:text="Complete Questionnaire"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:text="Complete" />
+
+    <LinearLayout
+        android:id="@+id/global_target_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/country_layout"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/global_target_comparison_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comparing your carbon footprint to the global target:"
+            android:textAlignment="center"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/global_target_comparison"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="40%"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/global_target_comparison_subtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Below the global target"
+            android:textAlignment="center"
+            android:textSize="15sp" />
+    </LinearLayout>
 
 </RelativeLayout>

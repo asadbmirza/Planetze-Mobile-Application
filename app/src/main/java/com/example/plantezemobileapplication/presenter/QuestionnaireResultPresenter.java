@@ -4,6 +4,11 @@ import com.example.plantezemobileapplication.model.QuestionnaireModel;
 import com.example.plantezemobileapplication.utils.JsonParser;
 import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireResultActivity;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class QuestionnaireResultPresenter {
@@ -17,11 +22,49 @@ public class QuestionnaireResultPresenter {
         this.view = view;
     }
 
-    public void setTotalEmissionDisplay(Map<String, Double> totalEmissions, String country) {
+    public List<Map.Entry<String, Double>> sortCategories(Map<String, Double> categories) {
+        List<Map.Entry<String, Double>> sortedCategories = new ArrayList<Map.Entry<String, Double>>(categories.entrySet());
+        Collections.sort(sortedCategories, Collections.reverseOrder(new Comparator<Map.Entry<String,Double>>() {
+            @Override
+            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                return Double.compare(o1.getValue(), o2.getValue());
+            }
+        }));
+        return sortedCategories;
+    }
+
+    public void displayCountryComparison(Map<String, Double> totalEmissions, String country) {
         JsonParser jsonParser = new JsonParser(view);
         double countryEmissions = jsonParser.getEmissionByCountry("countryEmissions.json", country);
+        double userEmissions = totalEmissions.get("Total") * 0.001;
+        double percentage = ((userEmissions - countryEmissions) / countryEmissions) * 100;
+        if (percentage >= 0) {
+            view.setCountryComparison(String.format("%.0f", percentage) + "%");
+            view.setCountryComparisonSubtext("ABOVE the national average for " + country);
+        }
+        else {
+            percentage = Math.abs(percentage);
+            view.setCountryComparison(String.format("%.0f", percentage) + "%");
+            view.setCountryComparisonSubtext("BELOW the national average for " + country);
+        }
+    }
+
+    public void displayGlobalTargetComparison(Map<String, Double> totalEmissions) {
+        double userEmissions = totalEmissions.get("Total") * 0.001;
+        double percentage = ((userEmissions - 2) / 2) * 100;
+        if (percentage >= 0) {
+            view.setGlobalTargetComparison(String.format("%.0f", percentage) + "%");
+            view.setGlobalTargetComparisonSubtext("ABOVE the global target\nLet's try to reduce our emissions!");
+        }
+        else {
+            percentage = Math.abs(percentage);
+            view.setGlobalTargetComparison(String.format("%.0f", percentage) + "%");
+            view.setGlobalTargetComparisonSubtext("BELOW the global target\nKeep it up!");
+        }
+    }
+
+    public void displayTotalEmissions(Map<String, Double> totalEmissions) {
         view.setUserTotalText(String.format("%.3g%n", totalEmissions.get("Total") * 0.001));
-        view.setCountryEmissions(String.format("%.3g%n", countryEmissions));
     }
 
     public void uploadUserResults(Map<String, Double> totalEmissions, String country) {

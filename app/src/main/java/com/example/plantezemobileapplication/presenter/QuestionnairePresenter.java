@@ -17,9 +17,9 @@ public class QuestionnairePresenter {
     public Question[] questions;
     public int currQuestionIndex;
     private final double[][] answer5Matrix = {
-            {246, 819, 1638, 3071, 4095},
-            {573, 1911, 3822, 7166, 9555},
-            {573, 1911, 3822, 7166, 9555}
+            {246, 819, 1638, 3071, 4095}, // Occasionally
+            {573, 1911, 3822, 7166, 9555}, // Frequently
+            {1050, 2363, 4103, 9611, 13750} // Always
     };
 
     private final double[][]  consumptionPurchaseMatrix = {
@@ -323,7 +323,7 @@ public class QuestionnairePresenter {
 
     private void updateAnswerWeight() {
         //Question 2 & 3
-        int question2Answer = questions[1].getSelectedAnswer();
+        int question2Answer = questions[1].getSelectedAnswer() == 4 ? 0 : questions[1].getSelectedAnswer(); // Watch out for the option "I don't know"
         int question3Answer = questions[2].getSelectedAnswer();
         if (question2Answer != -1 || question3Answer != -1) {
             questions[2].getAnswers()[question3Answer].setWeight(questions[1].getAnswers()[question2Answer].getWeight() * questions[2].getAnswers()[question3Answer].getWeight());
