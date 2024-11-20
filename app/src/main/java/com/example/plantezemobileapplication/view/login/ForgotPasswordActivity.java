@@ -61,13 +61,13 @@ public class ForgotPasswordActivity extends AppCompatActivity implements Process
 
 
     @Override
-    public void showProcessSuccess() {
-        Toast.makeText(this, "Password reset sent to email.", Toast.LENGTH_SHORT).show();
+    public void showProcessSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showProcessFailure() {
-        Toast.makeText(this, "Password reset could not be sent.", Toast.LENGTH_SHORT).show();
+    public void showProcessFailure(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showLoading() {

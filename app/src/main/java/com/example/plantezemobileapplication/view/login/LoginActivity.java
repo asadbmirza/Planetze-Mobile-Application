@@ -72,13 +72,13 @@ public class LoginActivity extends AppCompatActivity implements ProcessView {
 
 
     @Override
-    public void showProcessSuccess() {
-        Toast.makeText(this, "Logged in.", Toast.LENGTH_SHORT).show();
+    public void showProcessSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showProcessFailure() {
-        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+    public void showProcessFailure(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
