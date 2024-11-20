@@ -7,6 +7,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginPresenter {
     private final ProcessView view;
@@ -30,11 +31,20 @@ public class LoginPresenter {
                             view.hideLoading();
                         }
                         if (task.isSuccessful()) {
-                            view.showProcessSuccess();
+                            verifyUser();
                         } else {
-                            view.showProcessFailure();
+                            view.showProcessFailure("Authentication failed.");
                         }
                     }
                 });
+    }
+
+    private void verifyUser() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null && user.isEmailVerified()) {
+            view.showProcessSuccess("Logged in.");
+        } else {
+            view.showProcessFailure("Please verify your email before logging in.");
+        }
     }
 }

@@ -31,9 +31,9 @@ public class ForgotPasswordPresenter {
                             view.hideLoading();
                         }
                         if (task.isSuccessful()) {
-                            view.showProcessSuccess();
+                            view.showProcessSuccess("Password reset sent to email.");
                         } else {
-                            view.showProcessFailure();
+                            view.showProcessFailure("Password reset could not be sent.");
                         }
                     }
                 });
