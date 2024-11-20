@@ -285,7 +285,6 @@ public class QuestionnairePresenter {
             int prevQuestionIndex = ((SpecialQuestion) questions[currQuestionIndex]).getPreviousQuestionIndex();
             ((SpecialQuestion) questions[currQuestionIndex]).setPreviousQuestionIndex(currQuestionIndex - 1); // Reset previous question redirection
             currQuestionIndex = prevQuestionIndex;
-
         }
         else {
             currQuestionIndex--;
@@ -304,9 +303,9 @@ public class QuestionnairePresenter {
         for (Question question : questions) {
             currCategory = question.getCategory();
             selectedAnswer = question.getSelectedAnswer();
+            // Check if question was skipped
             if (selectedAnswer != -1) {
                 currWeight = question.getAnswers()[selectedAnswer].getWeight();
-
                 if (categoryTotals.containsKey(currCategory)) {
                     categoryTotals.put(currCategory, categoryTotals.get(currCategory) + currWeight);
                 } else {
