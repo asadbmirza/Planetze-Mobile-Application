@@ -1,5 +1,6 @@
 package com.example.plantezemobileapplication.view;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +21,15 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
     private ArrayList<Habit> originalHabits;
     private String searchQuery;
     private EcoTrackerHabitPresenter presenter;
+    private HabitNotification notification;
 
-    public HabitAdapter(ArrayList<Habit> habits, EcoTrackerHabitPresenter presenter) {
+    public HabitAdapter(ArrayList<Habit> habits, EcoTrackerHabitPresenter presenter, Activity context) {
         this.habits = habits;
         this.originalHabits = new ArrayList<>(habits);
         this.filteredHabits = new ArrayList<>(habits);
         this.searchQuery = "";
         this.presenter = presenter;
+        this.notification = new HabitNotification(context);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -66,8 +69,10 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
         holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Habit habit = new Habit(name, category, impact);
+                presenter.addHabit(habit);
+                notification.createNotification(habit);
 
-                presenter.addHabit(new Habit(name, category, impact));
             }
         });
 
@@ -81,13 +86,16 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
     public void filterByName(String query) {
         searchQuery = query;
         ArrayList<Habit> newHabits = new ArrayList<Habit>();
+        System.out.println("Filtered list query: " + query);
         for (int i = 0; i < filteredHabits.size(); i++) {
             if (filteredHabits.get(i).getName().toLowerCase().contains(query.toLowerCase())) {
                 newHabits.add(filteredHabits.get(i));
+
             }
         }
         habits = newHabits;
         notifyDataSetChanged();
+
 
     }
 
@@ -137,6 +145,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
     public void updateHabits(ArrayList<Habit> habits) {
         this.originalHabits = habits;
         this.habits = new ArrayList<>(habits);
+        this.filteredHabits = new ArrayList<>(habits);
         notifyDataSetChanged();
     }
 
