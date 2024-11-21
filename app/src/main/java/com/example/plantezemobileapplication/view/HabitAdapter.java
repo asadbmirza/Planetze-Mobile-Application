@@ -20,15 +20,15 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
     private ArrayList<Habit> filteredHabits;
     private ArrayList<Habit> originalHabits;
     private String searchQuery;
-    private EcoTrackerHabitPresenter presenter;
+    private EcoTrackerHabitActivity view;
     private HabitNotification notification;
 
-    public HabitAdapter(ArrayList<Habit> habits, EcoTrackerHabitPresenter presenter, Activity context) {
+    public HabitAdapter(ArrayList<Habit> habits, Activity context) {
         this.habits = habits;
         this.originalHabits = new ArrayList<>(habits);
         this.filteredHabits = new ArrayList<>(habits);
         this.searchQuery = "";
-        this.presenter = presenter;
+        this.view = (EcoTrackerHabitActivity) context;
         this.notification = new HabitNotification(context);
     }
 
@@ -59,6 +59,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+
         String name =habits.get(position).getName();
         String category = habits.get(position).getCategory();
         int impact = habits.get(position).getImpact();
@@ -70,8 +71,8 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 Habit habit = new Habit(name, category, impact);
-                presenter.addHabit(habit);
-                notification.createNotification(habit);
+                view.displayHabitDialog(habit);
+
 
             }
         });
@@ -143,6 +144,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
     }
 
     public void updateHabits(ArrayList<Habit> habits) {
+
         this.originalHabits = habits;
         this.habits = new ArrayList<>(habits);
         this.filteredHabits = new ArrayList<>(habits);

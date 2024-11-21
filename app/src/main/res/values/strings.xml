@@ -4,4 +4,6 @@
     <string name="IntroEcoTrackerSurvey">You will be asked a variety of questions to track your carbon emissions. Please answer the questions truthfully to ensure accurate data. Press Next to begin</string>
     <string name="habit_search_title">Search for list of Eco-Friendly habits to reduce your carbon emissions!</string>
     <string name="no_habits_text">No habits found</string>
+    <string name="days_of_week">Select Days You Would Like to be Reminded</string>
+    <string name="time_of_habit">Select the Time of Day You Want to be Reminded</string>
 </resources>

@@ -9,7 +9,7 @@ public class Habit {
     }
     public Habit(String name, String category, int impact) {
         this.name = name;
-        this.category = category    ;
+        this.category = category;
         this.impact = impact;
     }
 

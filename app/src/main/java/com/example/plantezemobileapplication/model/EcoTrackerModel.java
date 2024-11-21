@@ -39,13 +39,20 @@ public class EcoTrackerModel {
         ref = db.getReference().child("users").child(userId);
     }
 
-    public void addHabit(Habit habit) {
+    public Task<Boolean> addHabit(Habit habit) {
 
         DatabaseReference newRef = ref.child("active_habits").push();
         TaskCompletionSource<Boolean> taskCompletionSource = new TaskCompletionSource<>();
+        newRef.setValue(habit).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                taskCompletionSource.setResult(true);
+            } else {
+                taskCompletionSource.setResult(false);
+            }
+        });
 
-
-        newRef.setValue(habit);
+        // Return the Task that will eventually hold the result (true/false)
+        return taskCompletionSource.getTask();
     }
 
     public void getActiveHabits(final OnActiveHabitsListener listener) {

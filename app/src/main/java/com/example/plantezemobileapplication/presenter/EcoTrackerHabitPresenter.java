@@ -6,6 +6,7 @@ import com.example.plantezemobileapplication.model.EcoTrackerModel;
 import com.example.plantezemobileapplication.model.Habit;
 import com.example.plantezemobileapplication.view.EcoTrackerHabitActivity;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.json.JSONObject;
 import org.json.*;
@@ -67,21 +68,23 @@ public class EcoTrackerHabitPresenter {
         }
     }
 
-    public void addHabit(Habit habit) {
+    public Task<Boolean> addHabit(Habit habit) {
         if (habits.contains(habit)) {
-            model.addHabit(habit);
+            return model.addHabit(habit);
         }
+        TaskCompletionSource<Boolean> taskCompletionSource = new TaskCompletionSource<>();
+        taskCompletionSource.setResult(false);
+        return taskCompletionSource.getTask();
     }
 
     public void fetchActiveHabits() {
-        this.model.getActiveHabits(new EcoTrackerModel.OnActiveHabitsListener() {
-            @Override
-            public void onHabitsFetched(ArrayList<Habit> activeHabitList) {
-                for (int i = 0; i < activeHabitList.size(); i++) {
-                    habits.remove(activeHabitList.get(i));
-                }
-                view.setHabits(habits);
+
+        this.model.getActiveHabits(activeHabitList -> {
+            for (int i = 0; i < activeHabitList.size(); i++) {
+                habits.remove(activeHabitList.get(i));
             }
+            System.out.println("Habits fetched: " + habits.size());
+            view.setHabits(habits);
         });
     }
     public void redirectUser() {
