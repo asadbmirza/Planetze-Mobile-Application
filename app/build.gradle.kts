@@ -1,9 +1,23 @@
+import java.util.Properties
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+
+val newsApiKey: String = localProperties.getProperty("NEWS_API_KEY")
+
 plugins {
     id("com.google.gms.google-services")
     alias(libs.plugins.android.application)
+
 }
 
 android {
+    buildFeatures {
+        buildConfig = true
+    }
     namespace = "com.example.plantezemobileapplication"
     compileSdk = 34
 
@@ -15,10 +29,15 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        println(newsApiKey)
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "NEWS_API_KEY", "\"$newsApiKey\"")
+        }
         release {
+            buildConfigField("String", "NEWS_API_KEY", "\"${newsApiKey}\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -46,4 +65,8 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.database)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.glide)
+    implementation(libs.picasso)
 }
