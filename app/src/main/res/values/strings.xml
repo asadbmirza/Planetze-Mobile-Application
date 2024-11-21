@@ -21,4 +21,13 @@
     <string name="reset_instructions">Send reset instructions</string>
     <string name="reset_your_password">Reset Your Password</string>
     <string name="back_to_login">Back to Login</string>
+    <string name="eco_hub">Eco Hub</string>
+    <string name="market_trends">Market Trends</string>
+    <string name="energy_efficient">Energy-Efficient Appliances</string>
+    <string name="sustainable_fashion">Sustainable Fashion</string>
+    <string name="green_home_solutions">Green Home Solutions</string>
+    <string name="learning_resources">Learning Resources</string>
+    <string name="articles">Articles</string>
+    <string name="videos">Videos</string>
+
 </resources>
