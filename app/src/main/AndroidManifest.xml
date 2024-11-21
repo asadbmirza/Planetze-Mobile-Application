@@ -22,7 +22,7 @@
             android:name=".view.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".view.welcome.WelcomeActivity"
+            android:name=".ArticlesFragment"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
