@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.questionnaire.QuestionnaireResultActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
 
     <TextView
@@ -37,7 +38,7 @@
             android:layout_weight="1"
             android:text="1000.0"
             android:textAlignment="viewEnd"
-            android:textSize="30sp"
+            android:textSize="35sp"
             android:textStyle="bold" />
 
 
@@ -87,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:text="50%"
                     android:textAlignment="center"
-                    android:textSize="30sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_weight="2"
                     android:gravity="center" />
@@ -123,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:text="40%"
                     android:textAlignment="center"
-                    android:textSize="30sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_weight="2"
                     android:gravity="center" />
