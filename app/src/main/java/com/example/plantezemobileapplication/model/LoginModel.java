@@ -7,9 +7,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginModel {
     private final FirebaseAuth mAuth;
+    private final FirebaseUser user;
 
     public LoginModel(FirebaseAuth auth) {
         this.mAuth = auth;
+        this.user = mAuth.getCurrentUser();
     }
 
     public void loginUser(String email, String password, OnCompleteListener<AuthResult> listener) {
@@ -17,7 +19,11 @@ public class LoginModel {
     }
 
     public boolean isVerified() {
-        FirebaseUser user = mAuth.getCurrentUser();
         return user != null && user.isEmailVerified();
     }
+
+    public boolean isLoggedIn() {
+        return user != null;
+    }
+
 }

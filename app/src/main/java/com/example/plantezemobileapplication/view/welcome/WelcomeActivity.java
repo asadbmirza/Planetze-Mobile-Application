@@ -11,8 +11,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plantezemobileapplication.R;
+import com.example.plantezemobileapplication.view.MainActivity;
 import com.example.plantezemobileapplication.view.login.LoginActivity;
 import com.example.plantezemobileapplication.view.registration.RegistrationActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomeActivity extends AppCompatActivity {
     @Override
@@ -37,5 +39,18 @@ public class WelcomeActivity extends AppCompatActivity {
             Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
             startActivity(intent);
         });
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

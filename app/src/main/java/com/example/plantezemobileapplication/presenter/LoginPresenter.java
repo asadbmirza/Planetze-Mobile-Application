@@ -29,6 +29,12 @@ public class LoginPresenter {
         });
     }
 
+    public void alreadyLoggedIn() {
+        if(loginModel.isLoggedIn()){
+            view.goToHomepage();
+        }
+    }
+
     private void verifyUser() {
         if (loginModel.isVerified()) {
             view.showProcessSuccess("Logged in.");

@@ -27,12 +27,11 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
-    TextInputEditText emailText, passwordText;
-    Button logInBtn;
-    ProgressBar progressBar;
-    TextView forgotPass, registerLink;
-    Intent intent;
-    private LoginPresenter presenter;
+    private TextInputEditText emailText, passwordText;
+    private Button logInBtn;
+    private ProgressBar progressBar;
+    private Intent intent;
+    private LoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +44,20 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             return insets;
         });
 
-        presenter = new LoginPresenter(this, new LoginModel(FirebaseAuth.getInstance()));
+        loginPresenter = new LoginPresenter(this, new LoginModel(FirebaseAuth.getInstance()));
 
         emailText = findViewById(R.id.email);
         passwordText = findViewById(R.id.password);
         logInBtn = findViewById(R.id.login_btn);
         progressBar = findViewById(R.id.progress_bar);
-        forgotPass = findViewById(R.id.forgot_psw);
-        registerLink = findViewById(R.id.registerLink);
+        TextView forgotPass = findViewById(R.id.forgot_psw);
+        TextView registerLink = findViewById(R.id.registerLink);
 
         logInBtn.setOnClickListener(v -> {
             String email = Objects.requireNonNull(emailText.getText()).toString();
             String password = Objects.requireNonNull(passwordText.getText()).toString();
 
-            presenter.loginUser(email, password);
+            loginPresenter.loginUser(email, password);
         });
 
         forgotPass.setOnClickListener(v -> {
@@ -73,8 +72,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        loginPresenter.alreadyLoggedIn();
+    }
+
     public void goToHomepage() {
-        intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
