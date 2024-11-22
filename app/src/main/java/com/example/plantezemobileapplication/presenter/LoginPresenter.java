@@ -1,13 +1,13 @@
 package com.example.plantezemobileapplication.presenter;
 
 import com.example.plantezemobileapplication.model.LoginModel;
-import com.example.plantezemobileapplication.view.login.ProcessView;
+import com.example.plantezemobileapplication.view.login.LoginView;
 
 public class LoginPresenter {
-    private final ProcessView view;
+    private final LoginView view;
     private final LoginModel loginModel;
 
-    public LoginPresenter(ProcessView view, LoginModel loginModel) {
+    public LoginPresenter(LoginView view, LoginModel loginModel) {
         this.view = view;
         this.loginModel = loginModel;
     }
@@ -32,6 +32,7 @@ public class LoginPresenter {
     private void verifyUser() {
         if (loginModel.isVerified()) {
             view.showProcessSuccess("Logged in.");
+            view.goToHomepage();
         } else {
             view.showProcessFailure("Please verify your email before logging in.");
         }
