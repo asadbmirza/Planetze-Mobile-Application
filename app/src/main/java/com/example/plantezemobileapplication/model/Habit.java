@@ -1,16 +1,34 @@
 package com.example.plantezemobileapplication.model;
 
+import java.util.ArrayList;
+
 public class Habit {
     String name;
     String category;
+    String activity;
     int impact;
+
+    String time;
+    ArrayList<Integer> days;
+
 
     public Habit() {
     }
-    public Habit(String name, String category, int impact) {
+    public Habit(String name, String category, String activity, int impact) {
         this.name = name;
         this.category = category;
+        this.activity = activity;
         this.impact = impact;
+        this.time = "";
+        this.days = new ArrayList<>();
+    }
+    public Habit(String name, String category, String activity, int impact, String time, ArrayList<Integer> days) {
+        this.name = name;
+        this.category = category;
+        this.activity = activity;
+        this.impact = impact;
+        this.time = time;
+        this.days = days;
     }
 
     public String getName() {
@@ -36,6 +54,43 @@ public class Habit {
 
     public void setImpact(int impact) {
         this.impact = impact;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        if (time == null || time.length() != 5 || time.charAt(2) != ':') {
+            return;
+        }
+        try {
+            int hour = Integer.parseInt(time.substring(0, 2));
+            int min = Integer.parseInt(time.substring(3));
+            if (hour >= 0 && hour <= 23 && min >= 0 && min <= 59) {
+                this.time = time;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input");
+            return;
+        }
+    }
+
+
+    public ArrayList<Integer> getDays() {
+        return days;
+    }
+
+    public void setDays(ArrayList<Integer> days) {
+        this.days = days;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
     }
 
     @Override

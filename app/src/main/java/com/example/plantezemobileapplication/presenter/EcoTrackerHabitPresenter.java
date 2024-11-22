@@ -60,7 +60,8 @@ public class EcoTrackerHabitPresenter {
                 String name = habitObject.getString("name");
                 String category = habitObject.getString("category");
                 String impact = habitObject.getString("impact");
-                Habit habit = new Habit(name, category, Integer.parseInt(impact));
+                String activity = habitObject.getString("activity");
+                Habit habit = new Habit(name, category, activity, Integer.parseInt(impact));
                 this.habits.add(habit);
             }
         } catch (JSONException e) {
@@ -81,10 +82,12 @@ public class EcoTrackerHabitPresenter {
 
         this.model.getActiveHabits(activeHabitList -> {
             for (int i = 0; i < activeHabitList.size(); i++) {
+                System.out.println(activeHabitList.get(i).getDays());
                 habits.remove(activeHabitList.get(i));
             }
             System.out.println("Habits fetched: " + habits.size());
             view.setHabits(habits);
+            view.createNotifications(activeHabitList);
         });
     }
     public void redirectUser() {

@@ -1,134 +1,160 @@
 {
   "habits": [
     {
-      "name": "Cycling",
-      "category": "transportation",
-      "impact": 1
+      "name": "Reduce Red Meat Consumption",
+      "category": "Food Consumption",
+      "impact": 4,
+      "activity": "Meal"
     },
     {
-      "name": "Walking",
-      "category": "transportation",
-      "impact": 1
+      "name": "Eat Plant-Based Meals",
+      "category": "Food Consumption",
+      "impact": 5,
+      "activity": "Meal"
     },
     {
-      "name": "Carpooling",
-      "category": "transportation",
-      "impact": 2
+      "name": "Reduce Fast Fashion Purchases",
+      "category": "Consumption and Shopping",
+      "impact": 4,
+      "activity": "Buy New Clothes"
     },
     {
-      "name": "Using public transportation",
-      "category": "transportation",
-      "impact": 2
+      "name": "Opt for Sustainable Fashion",
+      "category": "Consumption and Shopping",
+      "impact": 3,
+      "activity": "Buy New Clothes"
     },
     {
-      "name": "Donating electronics",
-      "category": "recycling",
-      "impact": 3
+      "name": "Walk or Cycle Instead of Driving",
+      "category": "Transportation",
+      "impact": 5,
+      "activity": "Cycling or Walking"
     },
     {
-      "name": "Recycling plastic",
-      "category": "recycling",
-      "impact": 3
+      "name": "Use Public Transportation Instead of Personal Vehicle",
+      "category": "Transportation",
+      "impact": 4,
+      "activity": "Take Public Transportation"
     },
     {
-      "name": "Recycling paper",
-      "category": "recycling",
-      "impact": 3
+      "name": "Carpool or Share Rides",
+      "category": "Transportation",
+      "impact": 3,
+      "activity": "Drive Personal Vehicle"
     },
     {
-      "name": "Using reusable bags",
-      "category": "recycling",
-      "impact": 4
+      "name": "Reduce Air Travel (Fly Less)",
+      "category": "Transportation",
+      "impact": 4,
+      "activity": "Flight"
     },
     {
-      "name": "Composting",
-      "category": "recycling",
-      "impact": 4
+      "name": "Use Energy-Efficient Appliances",
+      "category": "Home and Energy",
+      "impact": 4,
+      "activity": "Energy Bills"
     },
     {
-      "name": "Reducing water consumption",
-      "category": "energy",
-      "impact": 4
+      "name": "Switch to LED Lighting",
+      "category": "Home and Energy",
+      "impact": 3,
+      "activity": "Energy Bills"
     },
     {
-      "name": "Switching to LED bulbs",
-      "category": "energy",
-      "impact": 4
+      "name": "Unplug Devices When Not in Use",
+      "category": "Home and Energy",
+      "impact": 3,
+      "activity": "Energy Bills"
     },
     {
-      "name": "Turning off unused lights",
-      "category": "energy",
-      "impact": 4
+      "name": "Reduce Single-Use Plastics",
+      "category": "Consumption and Shopping",
+      "impact": 3,
+      "activity": "Other Purchases"
     },
     {
-      "name": "Using energy-efficient appliances",
-      "category": "energy",
-      "impact": 3
+      "name": "Use Reusable Bags and Containers",
+      "category": "Consumption and Shopping",
+      "impact": 2,
+      "activity": "Other Purchases"
     },
     {
-      "name": "Using solar panels",
-      "category": "energy",
-      "impact": 5
+      "name": "Compost Food Waste",
+      "category": "Food Consumption",
+      "impact": 4,
+      "activity": "Meal"
     },
     {
-      "name": "Opting for renewable energy sources",
-      "category": "energy",
-      "impact": 5
+      "name": "Purchase Energy-Efficient Vehicles",
+      "category": "Transportation",
+      "impact": 5,
+      "activity": "Drive Personal Vehicle"
     },
     {
-      "name": "Eating a vegan diet",
-      "category": "food",
-      "impact": 5
+      "name": "Support Local and Seasonal Produce",
+      "category": "Food Consumption",
+      "impact": 3,
+      "activity": "Meal"
     },
     {
-      "name": "Reducing food waste",
-      "category": "food",
-      "impact": 3
+      "name": "Reduce Water Usage",
+      "category": "Home and Energy",
+      "impact": 2,
+      "activity": "Energy Bills"
     },
     {
-      "name": "Supporting local farmers",
-      "category": "food",
-      "impact": 2
+      "name": "Adopt Solar Energy at Home",
+      "category": "Home and Energy",
+      "impact": 5,
+      "activity": "Energy Bills"
     },
     {
-      "name": "Planting trees",
-      "category": "nature",
-      "impact": 5
+      "name": "Reduce Packaging Waste (Buy Bulk)",
+      "category": "Consumption and Shopping",
+      "impact": 3,
+      "activity": "Other Purchases"
     },
     {
-      "name": "Growing a garden",
-      "category": "nature",
-      "impact": 3
+      "name": "Reduce Food Waste (Plan Meals)",
+      "category": "Food Consumption",
+      "impact": 4,
+      "activity": "Meal"
     },
     {
-      "name": "Using non-toxic cleaning products",
-      "category": "waste",
-      "impact": 3
+      "name": "Participate in Clothing Swaps",
+      "category": "Consumption and Shopping",
+      "impact": 3,
+      "activity": "Buy New Clothes"
     },
     {
-      "name": "Minimizing plastic usage",
-      "category": "waste",
-      "impact": 4
+      "name": "Adopt Electric Vehicle",
+      "category": "Transportation",
+      "impact": 5,
+      "activity": "Drive Personal Vehicle"
     },
     {
-      "name": "Buying in bulk to reduce packaging",
-      "category": "waste",
-      "impact": 3
+      "name": "Purchase Eco-Friendly Electronics",
+      "category": "Consumption and Shopping",
+      "impact": 3,
+      "activity": "Buy Electronics"
     },
     {
-      "name": "Opting for paperless billing",
-      "category": "waste",
-      "impact": 2
+      "name": "Fix and Repair Electronics Instead of Replacing",
+      "category": "Consumption and Shopping",
+      "impact": 2,
+      "activity": "Buy Electronics"
     },
     {
-      "name": "Opting for second-hand products",
-      "category": "waste",
-      "impact": 3
+      "name": "Support Eco-Friendly Brands",
+      "category": "Consumption and Shopping",
+      "impact": 4,
+      "activity": "Buy New Clothes"
     },
     {
-      "name": "Using a clothesline instead of a dryer",
-      "category": "energy",
-      "impact": 3
+      "name": "Install Smart Thermostats",
+      "category": "Home and Energy",
+      "impact": 4,
+      "activity": "Energy Bills"
     }
   ]
 }

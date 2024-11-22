@@ -33,7 +33,8 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.guava)
+    implementation(libs.workruntime)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

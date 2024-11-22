@@ -1,81 +1,102 @@
 package com.example.plantezemobileapplication.view;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
+import android.util.Log;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.Data;
 
-import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.Habit;
+import com.example.plantezemobileapplication.view.NotificationWorker;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.util.concurrent.TimeUnit;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 
 public class HabitNotification {
 
     static final int REQUEST_CODE_POST_NOTIFICATIONS = 1;
     private Activity context;
-    private ArrayList<Notification> notifications;
-    private ArrayList<Integer> notificationIds;
 
-    private NotificationManager notificationManager;
     public HabitNotification(Activity context) {
         this.context = context;
-        this.notificationIds = new ArrayList<Integer>();
-        this.notifications = new ArrayList<Notification>();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Habit Notifications";
-            String description = "Used for displaying habits at specified times";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("habit_channel", name, importance);
-            channel.setDescription(description);
+    }
 
-            // Register the channel with the system
-            notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(channel);
+    private long calculateTimeDifference(Habit habit, int targetDay) {
+        try {
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            Date habitDate = timeFormat.parse(habit.getTime());
+
+            Calendar currentTime = Calendar.getInstance();
+            Calendar targetTime = Calendar.getInstance();
+            targetTime.setTime(habitDate);
+
+            targetTime.set(Calendar.YEAR, currentTime.get(Calendar.YEAR));
+            targetTime.set(Calendar.MONTH, currentTime.get(Calendar.MONTH));
+            targetTime.set(Calendar.DAY_OF_MONTH, currentTime.get(Calendar.DAY_OF_MONTH));
+
+            int currentDayOfWeek = currentTime.get(Calendar.DAY_OF_WEEK);
+            int targetDayOfWeek = targetDay;
+
+            int daysDifference = targetDayOfWeek - currentDayOfWeek;
+
+            if (targetTime.before(currentTime) && daysDifference == 0) {
+                targetTime.add(Calendar.WEEK_OF_YEAR, 1);
+            } else if (daysDifference < 0) {
+                daysDifference += 7;
+            }
+
+            targetTime.add(Calendar.DAY_OF_YEAR, daysDifference);
+
+            // Now that the date is set, make sure the target time is set correctly
+            targetTime.set(Calendar.HOUR_OF_DAY, habitDate.getHours());
+            targetTime.set(Calendar.MINUTE, habitDate.getMinutes());
+            targetTime.set(Calendar.SECOND, 0);
+
+            System.out.println("Current Time: " + habit.getName() + currentTime.getTime());
+            System.out.println("Target Time: " + habit.getName() + targetTime.getTime());
+
+            return targetTime.getTimeInMillis() - currentTime.getTimeInMillis();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 
-    public void createNotification(Habit habit) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "habit_channel")
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
-                .setContentTitle("Eco Friendly Habit Reminder")
-                .setContentText(habit.getName())
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
-
-        // Build the notification and add it to the list
-        Notification notification = builder.build();
-        notifications.add(notification);
-        int notificationId =notificationIds.size() + 1;
-        notificationIds.add(notificationId);
-
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            requestNotificationPermission();
+    public void createWeeklyNotifications(Habit habit) {
+        if (habit.getDays() == null || habit.getDays().isEmpty()) {
             return;
         }
 
-        // Send the notification
-        notificationManager.notify(notificationId, notification);
 
-    }
+        for (int day : habit.getDays()) {
+            long timeDifference = calculateTimeDifference(habit, day);
+            Data inputData = new Data.Builder()
+                    .putString("habitName", habit.getName())
+                    .build();
 
-    private void requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // API level 33
-            ActivityCompat.requestPermissions(
-                    context,
-                    new String[]{Manifest.permission.POST_NOTIFICATIONS},
-                    REQUEST_CODE_POST_NOTIFICATIONS
-            );
+            PeriodicWorkRequest weeklyWorkRequest = new PeriodicWorkRequest.Builder(
+                    NotificationWorker.class,
+                    7, TimeUnit.DAYS)
+                    .setInitialDelay(timeDifference, TimeUnit.MILLISECONDS)
+                    .setInputData(inputData) // Pass the input data to the worker
+                    .build();
+
+            WorkManager.getInstance(context.getApplicationContext())
+                    .enqueueUniquePeriodicWork(
+                            "WeeklyNotificationWork_" + habit.hashCode() + "_Day_" + day,
+                            ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
+                            weeklyWorkRequest
+                    );
+
         }
 
     }

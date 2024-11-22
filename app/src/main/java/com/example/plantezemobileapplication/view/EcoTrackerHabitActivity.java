@@ -35,6 +35,13 @@ import com.google.firebase.FirebaseApp;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 
 public class EcoTrackerHabitActivity extends AppCompatActivity {
 
@@ -43,14 +50,21 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
     private HabitAdapter habitAdapter;
     private SearchView searchView;
     private boolean checkboxInit = false;
-    private String categories[] = {"transportation", "recycling", "energy", "waste", "food", "nature"};
-    private int impacts[] = {1, 2, 3, 4};
+    private String categories[] = {
+        "Food Consumption",
+                "Consumption and Shopping",
+                "Transportation",
+                "Home and Energy"
+    };
+    ;
+    private int impacts[] = {1, 2, 3, 4, 5};
     private ArrayList<String> cFilters;
     private ArrayList<Integer> iFilters;
     private CheckBox[] cCheckboxes;
     private CheckBox[] iCheckboxes;
     private TextView noHabitsMessage;
     private Dialog dialog;
+    private HabitNotification notification;
 
 
     @Override
@@ -67,7 +81,6 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         });
 
         presenter = new EcoTrackerHabitPresenter(this, new EcoTrackerModel());
-
         habitAdapter = new HabitAdapter(new ArrayList<Habit>(), this);
 
         cCheckboxes = new CheckBox[categories.length];
@@ -80,6 +93,7 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         searchView = findViewById(R.id.search_view_habit);
         noHabitsMessage = findViewById(R.id.no_habit_text);
         dialog = new Dialog(this);
+        notification = new HabitNotification(this);
 
         Button filterButton = findViewById(R.id.filter_button);
 
@@ -109,9 +123,16 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
     }
 
     public void setHabits(ArrayList<Habit> habits) {
+
         habitAdapter.updateHabits(habits);
         habitAdapter.filterByCategory(cFilters);
         habitAdapter.filterByImpact(iFilters);
+    }
+
+    public void createNotifications(ArrayList<Habit> habits) {
+        for (Habit habit: habits) {
+            notification.createWeeklyNotifications(habit);
+        }
     }
 
     //For enabling permissions
@@ -164,12 +185,12 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         submitHabit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-                ArrayList<String> activeDays = new ArrayList<String>();
+                //1 is sunday, 2 is monday, etc
+                ArrayList<Integer> activeDays = new ArrayList<>();
                 for (int i = 0; i < chipGroup.getChildCount(); i++) {
                     Chip chip = (Chip) chipGroup.getChildAt(i);
                     if (chip.isChecked()) {
-                        activeDays.add(days[i]);
+                        activeDays.add(i + 1);
                     }
                 }
 
@@ -182,14 +203,22 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
                 }
                 else {
                     System.out.println(selectedTime[0] + " " + activeDays.toString());
+                    habit.setDays(activeDays);
+                    habit.setTime(selectedTime[0]);
                     presenter.addHabit(habit).addOnCompleteListener(completedTask -> {
                         if (completedTask.isSuccessful()) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                if (ContextCompat.checkSelfPermission(EcoTrackerHabitActivity.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                                    ActivityCompat.requestPermissions(EcoTrackerHabitActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+                                }
+                            }
                             Boolean result = completedTask.getResult();
                             if (result != null && result) {
                                 Toast.makeText(EcoTrackerHabitActivity.this, "Habit added successfully", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(EcoTrackerHabitActivity.this, "Habit addition failed", Toast.LENGTH_SHORT).show();
                             }
+                            notification.createWeeklyNotifications(habit);
                         } else {
                             Toast.makeText(EcoTrackerHabitActivity.this, "An unexpected error occurred", Toast.LENGTH_SHORT).show();
                         }

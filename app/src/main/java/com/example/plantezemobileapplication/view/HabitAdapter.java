@@ -67,11 +67,13 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
         holder.textViewName.setText(name);
         holder.textViewCategory.setText(category);
         holder.textViewImpact.setText("Impact: " + Integer.toString(impact));
+        final int finalPosition = position;
+
         holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Habit habit = new Habit(name, category, impact);
-                view.displayHabitDialog(habit);
+
+                view.displayHabitDialog(habits.get(finalPosition));
 
 
             }
