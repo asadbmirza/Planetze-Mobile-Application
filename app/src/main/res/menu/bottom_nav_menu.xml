@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/ecogauge" /> <!-- Add an icon here -->
+
+    <item
+        android:id="@+id/ecoBalance"
+        android:title="@string/balance"
+        android:icon="@drawable/ecobalance" /> <!-- Add an icon here -->
+
+    <item
+        android:id="@+id/ecoHub"
+        android:title="@string/hub"
+        android:icon="@drawable/ecohub" /> <!-- Add an icon here -->
+
+    <item
+        android:id="@+id/ecoTracker"
+        android:title="@string/tracker"
+        android:icon="@drawable/ecotracker" /> <!-- Add an icon here -->
+</menu>

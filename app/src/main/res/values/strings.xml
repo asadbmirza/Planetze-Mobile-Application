@@ -21,4 +21,8 @@
     <string name="reset_instructions">Send reset instructions</string>
     <string name="reset_your_password">Reset Your Password</string>
     <string name="back_to_login">Back to Login</string>
+    <string name="balance">Balance</string>
+    <string name="home">Home</string>
+    <string name="hub">Hub</string>
+    <string name="tracker">Tracker</string>
 </resources>
