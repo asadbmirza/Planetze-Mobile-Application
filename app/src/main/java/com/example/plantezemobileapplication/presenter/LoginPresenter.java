@@ -14,7 +14,12 @@ public class LoginPresenter {
 
     public void loginUser(String email, String password) {
         if (view != null) {
-            view.showLoading();
+            if(email.isEmpty() || password.isEmpty()) {
+                view.showProcessFailure("Please enter all fields.");
+                return;
+            } else {
+                view.showLoading();
+            }
         }
 
         loginModel.loginUser(email, password, task -> {
