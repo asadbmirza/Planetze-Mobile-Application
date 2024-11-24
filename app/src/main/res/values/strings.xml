@@ -25,4 +25,7 @@
     <string name="home">Home</string>
     <string name="hub">Hub</string>
     <string name="tracker">Tracker</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="welcome_user">Welcome back, John Doe</string>
+    <string name="today_date">Today\'s date</string>
 </resources>
