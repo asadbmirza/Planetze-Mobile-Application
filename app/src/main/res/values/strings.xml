@@ -29,5 +29,9 @@
     <string name="learning_resources">Learning Resources</string>
     <string name="articles">Articles</string>
     <string name="videos">Videos</string>
+    <string name="search_articles">Search Articles...</string>
+    <string name="search_videos">Search Videos...</string>
+    <string name="read_more">Read More</string>
+    <string name="watch_now">Watch Now</string>
 
 </resources>
