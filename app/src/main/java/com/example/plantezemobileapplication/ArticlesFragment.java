@@ -39,7 +39,7 @@ public class ArticlesFragment extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         EditText searchBar = findViewById(R.id.searchBar);
 
-        fetchArticles("Carbon Emissions");
+        fetchArticles("eco-friendly");
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -55,15 +55,12 @@ public class ArticlesFragment extends AppCompatActivity {
 
                 searchRunnable = () -> {
                     if (!s.toString().trim().isEmpty()) {
-                        fetchArticles("Carbon Emissions AND "+s.toString().trim());
+                        fetchArticles("eco-friendly AND "+s.toString().trim());
+                    }
+                    else {
+                        fetchArticles("eco-friendly");
                     }
                 };
-                if (!s.toString().trim().isEmpty()) {
-                    fetchArticles("Carbon Emissions,"+s.toString().trim());
-                }
-                else {
-                    fetchArticles("Carbon Emissions");
-                }
                 handler.postDelayed(searchRunnable, 500);
             }
 
