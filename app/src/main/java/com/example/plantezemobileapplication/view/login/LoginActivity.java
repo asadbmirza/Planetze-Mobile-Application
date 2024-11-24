@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.LoginModel;
 import com.example.plantezemobileapplication.presenter.LoginPresenter;
-import com.example.plantezemobileapplication.view.MainActivity;
+import com.example.plantezemobileapplication.view.main.MainActivity;
 import com.example.plantezemobileapplication.view.registration.RegistrationActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;

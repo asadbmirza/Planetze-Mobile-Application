@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.view.MainActivity;
+import com.example.plantezemobileapplication.view.main.MainActivity;
 import com.example.plantezemobileapplication.view.login.LoginActivity;
 import com.example.plantezemobileapplication.view.registration.RegistrationActivity;
 import com.google.firebase.auth.FirebaseAuth;
