@@ -7,23 +7,26 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginModel {
     private final FirebaseAuth mAuth;
-    private final FirebaseUser user;
 
     public LoginModel(FirebaseAuth auth) {
         this.mAuth = auth;
-        this.user = mAuth.getCurrentUser();
     }
 
     public void loginUser(String email, String password, OnCompleteListener<AuthResult> listener) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(listener);
     }
 
+    public FirebaseUser getUser() {
+        return mAuth.getCurrentUser();
+    }
+
     public boolean isVerified() {
+        FirebaseUser user = getUser();
         return user != null && user.isEmailVerified();
     }
 
     public boolean isLoggedIn() {
-        return user != null;
+        return getUser() != null;
     }
 
 }

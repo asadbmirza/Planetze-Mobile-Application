@@ -41,11 +41,21 @@ public class LoginPresenter {
     }
 
     private void verifyUser() {
-        if (loginModel.isVerified()) {
-            view.showProcessSuccess("Logged in.");
-            view.goToHomepage();
+        if (loginModel.getUser() != null) {
+            loginModel.getUser().reload().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    if (loginModel.isVerified()) {
+                        view.showProcessSuccess("Logged in.");
+                        view.goToHomepage();
+                    } else {
+                        view.showProcessFailure("Please verify your email before logging in.");
+                    }
+                } else {
+                    view.showProcessFailure("Error verifying user. Please try again.");
+                }
+            });
         } else {
-            view.showProcessFailure("Please verify your email before logging in.");
+            view.showProcessFailure("User not logged in.");
         }
     }
 }
