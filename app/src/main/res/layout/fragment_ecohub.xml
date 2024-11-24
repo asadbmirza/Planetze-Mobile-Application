@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:padding="16dp"
-    android:background="@drawable/eco_hub_page_background">
+    android:background="@drawable/eco_hub_page_background"
+    android:id="@+id/eco_hub">
 
     <!-- Eco Hub Title -->
     <TextView
@@ -17,7 +18,13 @@
         android:fontFamily="@font/bitter_semibold"
         android:text="@string/eco_hub"
         android:textColor="@color/black"
-        android:textSize="55sp" />
+        android:textSize="45sp" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0" />
 
 
     <!-- Market Trends Section -->
@@ -26,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/market_trends"
-        android:textSize="40sp"
+        android:textSize="35sp"
         android:textColor="@color/black"
         android:fontFamily="@font/bitter_semibold"
         android:layout_marginBottom="10dp"
@@ -60,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/learning_resources"
-        android:textSize="40sp"
+        android:textSize="35sp"
         android:textColor="@color/black"
         android:fontFamily="@font/bitter_semibold"
         android:layout_marginBottom="10dp"

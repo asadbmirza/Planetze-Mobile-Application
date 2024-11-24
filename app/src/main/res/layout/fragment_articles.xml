@@ -8,28 +8,25 @@
     android:background="@color/turquoise"
     android:padding="16dp">
 
-    <!-- Header -->
     <TextView
         android:id="@+id/articlesHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Articles"
+        android:text="@string/articles"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
         android:padding="8dp" />
 
-    <!-- Optional Search Bar -->
     <EditText
         android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="8dp"
-        android:hint="Search articles..."
+        android:hint="@string/search_articles"
         android:padding="8dp" />
 
-    <!-- RecyclerView for Articles -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/articlesRecyclerView"
         android:layout_width="match_parent"

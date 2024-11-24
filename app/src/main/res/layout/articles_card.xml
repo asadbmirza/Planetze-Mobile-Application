@@ -15,7 +15,6 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Article Image -->
         <ImageView
             android:id="@+id/articleImage"
             android:layout_width="match_parent"
@@ -23,7 +22,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_placeholder" />
 
-        <!-- Article Title -->
         <TextView
             android:id="@+id/articleTitle"
             android:layout_width="match_parent"
@@ -34,7 +32,6 @@
             android:textColor="@color/black"
             android:layout_marginTop="8dp" />
 
-        <!-- Article Description -->
         <TextView
             android:id="@+id/articleDescription"
             android:layout_width="match_parent"
@@ -46,13 +43,12 @@
             android:maxLines="3"
             android:ellipsize="end" />
 
-        <!-- Read More Button -->
         <Button
             android:id="@+id/readMoreButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="Read More"
+            android:text="@string/read_more"
             android:backgroundTint="@color/turquoise"
             android:textColor="@color/white"
             android:layout_marginTop="8dp" />
