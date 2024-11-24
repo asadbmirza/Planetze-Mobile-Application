@@ -1,5 +1,6 @@
 package com.example.plantezemobileapplication.view;
 
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +17,11 @@ import com.example.plantezemobileapplication.presenter.EcoTrackerHabitPresenter;
 
 import java.util.ArrayList;
 
-public class HabitAdapter extends AbstractHabitAdapter<HabitAdapter.MyViewHolder> {
+public class ActiveHabitAdapter extends AbstractHabitAdapter<ActiveHabitAdapter.MyViewHolder> {
+
     protected EcoTrackerHabitActivity view;
 
-    public HabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, Activity context) {
+    public ActiveHabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, Activity context) {
         super(habits, originalCategories, originalImpacts);
         this.view = (EcoTrackerHabitActivity) context;
     }
@@ -28,14 +30,15 @@ public class HabitAdapter extends AbstractHabitAdapter<HabitAdapter.MyViewHolder
         private TextView textViewName;
         private TextView textViewCategory;
         private TextView textViewImpact;
-        private Button buttonAdd;
+        private Button buttonRemove;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.habit_name);
             textViewCategory = itemView.findViewById(R.id.habit_category);
             textViewImpact = itemView.findViewById(R.id.habit_impact);
-            buttonAdd = itemView.findViewById(R.id.habit_add);
+            buttonRemove = itemView.findViewById(R.id.habit_remove);
+
         }
 
 
@@ -43,16 +46,18 @@ public class HabitAdapter extends AbstractHabitAdapter<HabitAdapter.MyViewHolder
 
     @NonNull
     @Override
-    public HabitAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ActiveHabitAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.habit_card, parent, false);
-        return new MyViewHolder(view);
+                .inflate(R.layout.active_habit_card, parent, false);
+        return new ActiveHabitAdapter.MyViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(HabitAdapter.MyViewHolder holder, int position) {
 
-        String name =habits.get(position).getName();
+
+    @Override
+    public void onBindViewHolder(ActiveHabitAdapter.MyViewHolder holder, int position) {
+
+        String name = habits.get(position).getName();
         String category = habits.get(position).getCategory();
         int impact = habits.get(position).getImpact();
 
@@ -61,13 +66,10 @@ public class HabitAdapter extends AbstractHabitAdapter<HabitAdapter.MyViewHolder
         holder.textViewImpact.setText("Impact: " + Integer.toString(impact));
         final int finalPosition = position;
 
-        holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
+        holder.buttonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                view.displayHabitDialog(habits.get(finalPosition));
-
-
+                view.removeActiveHabit(habits.get(finalPosition));
             }
         });
 
@@ -75,5 +77,5 @@ public class HabitAdapter extends AbstractHabitAdapter<HabitAdapter.MyViewHolder
 
 
 
-
 }
+

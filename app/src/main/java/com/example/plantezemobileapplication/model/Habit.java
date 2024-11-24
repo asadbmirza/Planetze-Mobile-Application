@@ -3,16 +3,18 @@ package com.example.plantezemobileapplication.model;
 import java.util.ArrayList;
 
 public class Habit {
-    String name;
-    String category;
-    String activity;
-    int impact;
+    private String id;
+    private String name;
+    private String category;
+    private String activity;
+    private int impact;
 
-    String time;
-    ArrayList<Integer> days;
+    private String time;
+    private ArrayList<Integer> days;
 
 
     public Habit() {
+
     }
     public Habit(String name, String category, String activity, int impact) {
         this.name = name;
@@ -29,6 +31,14 @@ public class Habit {
         this.impact = impact;
         this.time = time;
         this.days = days;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -43,6 +43,7 @@ public class EcoTrackerModel {
 
         DatabaseReference newRef = ref.child("active_habits").push();
         TaskCompletionSource<Boolean> taskCompletionSource = new TaskCompletionSource<>();
+        habit.setId(newRef.getKey());
         newRef.setValue(habit).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 taskCompletionSource.setResult(true);
@@ -80,6 +81,17 @@ public class EcoTrackerModel {
                 Log.e("Firebase", "Error: " + databaseError.getMessage());
             }
         });
+    }
+
+    public void removeActiveHabit(String id) {
+
+        ref.child("active_habits").child(id).removeValue()
+            .addOnSuccessListener(aVoid -> {
+                System.out.println("Habit successfully removed from Firebase!");
+            })
+            .addOnFailureListener(e -> {
+                System.err.println("Error removing habit: " + e.getMessage());
+            });
     }
 
 

@@ -61,6 +61,17 @@
                 android:text="Filter" />
         </LinearLayout>
 
+
+
+        <ToggleButton
+            android:id="@+id/toggleHabitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton"
+            android:textOff="Display Active Habits"
+            android:textOn="Display New Habits"
+            android:backgroundTint="#56E6D8"/>
+
         <TextView
             android:id="@+id/no_habit_text"
             android:layout_width="wrap_content"
@@ -75,6 +86,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:layout_weight="1" />
+            android:layout_weight="1" >
+
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

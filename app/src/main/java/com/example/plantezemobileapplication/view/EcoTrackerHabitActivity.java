@@ -38,6 +38,7 @@ import java.util.Calendar;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.widget.ToggleButton;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -48,8 +49,9 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
     private EcoTrackerHabitPresenter presenter;
     private RecyclerView recyclerView;
     private HabitAdapter habitAdapter;
+    private ActiveHabitAdapter activeHabitAdapter;
+    private AbstractHabitAdapter displayedHabitAdapter;
     private SearchView searchView;
-    private boolean checkboxInit = false;
     private String categories[] = {
         "Food Consumption",
                 "Consumption and Shopping",
@@ -57,7 +59,7 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
                 "Home and Energy"
     };
     ;
-    private int impacts[] = {1, 2, 3, 4, 5};
+    private Integer impacts[] = {1, 2, 3, 4, 5};
     private ArrayList<String> cFilters;
     private ArrayList<Integer> iFilters;
     private CheckBox[] cCheckboxes;
@@ -65,6 +67,7 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
     private TextView noHabitsMessage;
     private Dialog dialog;
     private HabitNotification notification;
+    private ToggleButton toggleHabitButton;
 
 
     @Override
@@ -81,34 +84,37 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         });
 
         presenter = new EcoTrackerHabitPresenter(this, new EcoTrackerModel());
-        habitAdapter = new HabitAdapter(new ArrayList<Habit>(), this);
+        habitAdapter = new HabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
+        activeHabitAdapter = new ActiveHabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
+        displayedHabitAdapter = habitAdapter;
 
         cCheckboxes = new CheckBox[categories.length];
         cFilters = new ArrayList<>();
         iCheckboxes = new CheckBox[impacts.length];
         iFilters = new ArrayList<>();
         recyclerView = findViewById(R.id.recycler_view_habit);
-        recyclerView.setAdapter(habitAdapter);
+        recyclerView.setAdapter(displayedHabitAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchView = findViewById(R.id.search_view_habit);
         noHabitsMessage = findViewById(R.id.no_habit_text);
         dialog = new Dialog(this);
         notification = new HabitNotification(this);
+        toggleHabitButton = findViewById(R.id.toggleHabitButton);
 
         Button filterButton = findViewById(R.id.filter_button);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                habitAdapter.filterByName(query);
-                toggleNoHabitsMessage(habitAdapter.getItemCount());
+                displayedHabitAdapter.filterByName(query);
+                toggleNoHabitsMessage(displayedHabitAdapter.getItemCount());
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                habitAdapter.filterByName(newText);
-                toggleNoHabitsMessage(habitAdapter.getItemCount());
+                displayedHabitAdapter.filterByName(newText);
+                toggleNoHabitsMessage(displayedHabitAdapter.getItemCount());
                 return false;
             }
         });
@@ -120,11 +126,44 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
             }
         });
 
+        toggleHabitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (toggleHabitButton.isChecked()) {
+                    displayedHabitAdapter = activeHabitAdapter;
+
+                } else {
+                    displayedHabitAdapter = habitAdapter;
+
+                }
+                recyclerView.setAdapter(displayedHabitAdapter);
+
+
+                searchView.setQuery(displayedHabitAdapter.getSearchQuery(), false);
+                cFilters = displayedHabitAdapter.getcFilters();
+                iFilters = displayedHabitAdapter.getiFilters();
+                System.out.println(cFilters);
+                System.out.println(iFilters);
+                toggleNoHabitsMessage(displayedHabitAdapter.getItemCount());
+
+            }
+        });
     }
 
     public void setHabits(ArrayList<Habit> habits) {
 
         habitAdapter.updateHabits(habits);
+        habitAdapter.filterByCategory(cFilters);
+        habitAdapter.filterByImpact(iFilters);
+    }
+
+    public void removeActiveHabit(Habit habit) {
+        this.presenter.removeActiveHabit(habit);
+        notification.removeWeeklyNotification(habit);
+    }
+
+    public void setActiveHabits(ArrayList<Habit> habits) {
+        activeHabitAdapter.updateHabits(habits);
         habitAdapter.filterByCategory(cFilters);
         habitAdapter.filterByImpact(iFilters);
     }
@@ -277,9 +316,9 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
                     }
                 }
 
-                habitAdapter.filterByCategory(cFilters);
-                habitAdapter.filterByImpact(iFilters);
-                toggleNoHabitsMessage(habitAdapter.getItemCount());
+                displayedHabitAdapter.filterByCategory(cFilters);
+                displayedHabitAdapter.filterByImpact(iFilters);
+                toggleNoHabitsMessage(displayedHabitAdapter.getItemCount());
 
                 dialog.dismiss();
             }
@@ -301,13 +340,21 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         LinearLayout iLayout = dialog.findViewById(R.id.filters_impact);
 
         for (int i = 0; i < categories.length; i++) {
+
             cCheckboxes[i] = initCheckBox(categories[i]);
-            cCheckboxes[i].setChecked(true);
+            cCheckboxes[i].setChecked(false);
+            if (cFilters.contains(categories[i]) && cFilters.size() != categories.length) {
+                cCheckboxes[i].setChecked(true);
+            }
             cLayout.addView(cCheckboxes[i]);
         }
+
         for (int i = 0; i < impacts.length; i++) {
             iCheckboxes[i] = initCheckBox(Integer.toString(impacts[i]));
-            iCheckboxes[i].setChecked(true);
+            iCheckboxes[i].setChecked(false);
+            if (iFilters.contains(impacts[i]) && iFilters.size() != impacts.length) {
+                iCheckboxes[i].setChecked(true);
+            }
             iLayout.addView(iCheckboxes[i]);
         }
     }

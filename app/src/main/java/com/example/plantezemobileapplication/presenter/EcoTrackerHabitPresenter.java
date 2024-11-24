@@ -1,5 +1,8 @@
 package com.example.plantezemobileapplication.presenter;
 
+import static com.example.plantezemobileapplication.presenter.JSONParsing.loadJSONFromAsset;
+import static com.example.plantezemobileapplication.presenter.JSONParsing.parseJSON;
+
 import android.content.Context;
 
 import com.example.plantezemobileapplication.model.EcoTrackerModel;
@@ -28,35 +31,10 @@ public class EcoTrackerHabitPresenter {
 
         try {
             String json = loadJSONFromAsset(view);
-            if (json != null) {
-                parseJSON(json);
-            }
-            fetchActiveHabits();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    private String loadJSONFromAsset(Context context) throws IOException {
-        String json = null;
-        InputStream is = context.getAssets().open("habitList.json");
-        int size = is.available();  // Get the file size
-        byte[] buffer = new byte[size];
-        is.read(buffer);  // Read the file
-        is.close();
-        json = new String(buffer, StandardCharsets.UTF_8);  // Convert byte array to String
-        return json;
-    }
-
-    private void parseJSON(String json) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray habitsArray = jsonObject.getJSONArray("habits");
-
-            // Parse habits data and add to habitList
-            for (int i = 0; i < habitsArray.length(); i++) {
-                JSONObject habitObject = habitsArray.getJSONObject(i);
-                // Parse each habit object, and add it to habitList
+            JSONArray j = parseJSON(json, "habits");
+            if (j == null) throw new Exception("Habits not found");
+            for (int i = 0; i < j.length(); i++) {
+                JSONObject habitObject = j.getJSONObject(i);
                 String name = habitObject.getString("name");
                 String category = habitObject.getString("category");
                 String impact = habitObject.getString("impact");
@@ -64,9 +42,11 @@ public class EcoTrackerHabitPresenter {
                 Habit habit = new Habit(name, category, activity, Integer.parseInt(impact));
                 this.habits.add(habit);
             }
-        } catch (JSONException e) {
+            fetchActiveHabits();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     public Task<Boolean> addHabit(Habit habit) {
@@ -87,8 +67,17 @@ public class EcoTrackerHabitPresenter {
             }
             System.out.println("Habits fetched: " + habits.size());
             view.setHabits(habits);
+            view.setActiveHabits(activeHabitList);
             view.createNotifications(activeHabitList);
         });
+    }
+
+    public void removeActiveHabit(Habit habit) {
+        String id = habit.getId();
+        System.out.println(id);
+        this.model.removeActiveHabit(id);
+        habits.add(habit);
+        view.setHabits(habits);
     }
     public void redirectUser() {
         boolean filledSurvey = false; //Will be replaced with firebase auth call later

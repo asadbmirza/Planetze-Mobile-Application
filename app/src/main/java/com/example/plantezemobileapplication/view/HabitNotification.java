@@ -92,12 +92,25 @@ public class HabitNotification {
 
             WorkManager.getInstance(context.getApplicationContext())
                     .enqueueUniquePeriodicWork(
-                            "WeeklyNotificationWork_" + habit.hashCode() + "_Day_" + day,
+                            "WeeklyNotificationWork_" + habit.getId() + "_Day_" + day,
                             ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
                             weeklyWorkRequest
                     );
 
         }
 
+
+
+    }
+
+    public void removeWeeklyNotification(Habit habit) {
+        if (habit.getDays() == null || habit.getDays().isEmpty()) {
+            return;
+        }
+
+        for (int day : habit.getDays()) {
+            WorkManager.getInstance(context.getApplicationContext())
+                    .cancelUniqueWork("WeeklyNotificationWork_" + habit.getId() + "_Day_" + day);
+        }
     }
 }
