@@ -19,13 +19,15 @@ public class EcoHubFragment extends AppCompatActivity {
         findViewById(R.id.articlesButton).setOnClickListener(v -> {
             startActivity(new Intent(EcoHubFragment.this, ArticlesFragment.class));
         });
+        findViewById(R.id.videosButton).setOnClickListener(v -> {
+            startActivity(new Intent(EcoHubFragment.this, VideosFragment.class));
+        });
     }
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        Log.d("EcoHubActivity", "Articles button clicked");
     }
 }
 
