@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <SearchView
+            <android.widget.SearchView
                 android:id="@+id/search_view_habit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -2,6 +2,7 @@ package com.example.plantezemobileapplication.view;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -22,6 +23,7 @@ public class NotificationWorker extends Worker {
     @Override
     public Result doWork() {
         String habitName = getInputData().getString("habitName");
+        String habitId = getInputData().getString("habitId");
         System.out.println("HabitName: " + habitName);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Habit Notifications";
@@ -34,16 +36,28 @@ public class NotificationWorker extends Worker {
             notificationManager.createNotificationChannel(channel);
         }
 
+        Intent intent = new Intent(getApplicationContext(), EcoTrackerHabitActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("habitId", habitId); // Pass any additional data if needed
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                getApplicationContext(),
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+
         // Create the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "habit_channel")
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentTitle("Eco Friendly Habit Reminder")
                 .setContentText(habitName)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-        String habitId = UUID.randomUUID().toString();
         notificationManager.notify(habitId.hashCode(), builder.build());
 
         return Result.success();

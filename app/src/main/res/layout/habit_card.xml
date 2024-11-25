@@ -8,61 +8,68 @@
     android:layout_marginBottom="16dp"
     android:background="@drawable/habit_border"
 
+    android:orientation="vertical"
     android:padding="12dp">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/habit_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Habit"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:ellipsize="none"
-            android:singleLine="false"
-            android:maxLines="10"
-            />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/habit_category"
-                android:layout_width="wrap_content"
+                android:id="@+id/habit_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:text="Category: " />
+                android:layout_marginBottom="16dp"
+                android:ellipsize="none"
+                android:maxLines="10"
+                android:singleLine="false"
+                android:text="Habit"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/habit_impact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
         </LinearLayout>
+
+        <Button
+
+            android:id="@+id/habit_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:backgroundTint="#009999"
+            android:text="Add" />
 
     </LinearLayout>
 
-    <Button
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        android:id="@+id/habit_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:backgroundTint="#009999"
-        android:text="Add" />
+        <TextView
+            android:id="@+id/habit_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="Category: " />
+
+        <TextView
+            android:id="@+id/habit_impact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
+    </LinearLayout>
 
 
 </LinearLayout>

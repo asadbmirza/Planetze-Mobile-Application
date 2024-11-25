@@ -84,6 +84,7 @@ public class HabitNotification {
             long timeDifference = calculateTimeDifference(habit, day);
             Data inputData = new Data.Builder()
                     .putString("habitName", habit.getName())
+                    .putString("habitId", habit.getId())
                     .build();
 
             PeriodicWorkRequest weeklyWorkRequest = new PeriodicWorkRequest.Builder(
