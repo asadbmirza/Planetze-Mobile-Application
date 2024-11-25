@@ -10,6 +10,9 @@ import androidx.work.Data;
 
 import com.example.plantezemobileapplication.model.Habit;
 import com.example.plantezemobileapplication.view.NotificationWorker;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 
 import java.text.ParseException;
 import java.util.concurrent.TimeUnit;
@@ -103,14 +106,27 @@ public class HabitNotification {
 
     }
 
-    public void removeWeeklyNotification(Habit habit) {
+    public Task<Void> removeWeeklyNotification(Habit habit) {
         if (habit.getDays() == null || habit.getDays().isEmpty()) {
-            return;
+            return Tasks.forResult(null);
         }
+
+        TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
 
         for (int day : habit.getDays()) {
             WorkManager.getInstance(context.getApplicationContext())
                     .cancelUniqueWork("WeeklyNotificationWork_" + habit.getId() + "_Day_" + day);
         }
+
+        taskCompletionSource.setResult(null);
+        return taskCompletionSource.getTask();
+    }
+
+    public void removeCreateWeeklyNotification(Habit habit) {
+        removeWeeklyNotification(habit).addOnCompleteListener(task -> {
+           if (task.isSuccessful()) {
+               createWeeklyNotifications(habit);
+           }
+        });
     }
 }

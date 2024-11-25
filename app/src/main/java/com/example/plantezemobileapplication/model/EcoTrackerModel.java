@@ -3,6 +3,7 @@ package com.example.plantezemobileapplication.model;
 import android.util.Log;
 
 import com.example.plantezemobileapplication.presenter.EcoTrackerHabitPresenter;
+import com.example.plantezemobileapplication.utils.TaskResult;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
@@ -39,20 +40,36 @@ public class EcoTrackerModel {
         ref = db.getReference().child("users").child(userId);
     }
 
-    public Task<Boolean> addHabit(Habit habit) {
+    public Task<TaskResult> addHabit(Habit habit) {
 
         DatabaseReference newRef = ref.child("active_habits").push();
-        TaskCompletionSource<Boolean> taskCompletionSource = new TaskCompletionSource<>();
+        TaskCompletionSource<TaskResult> taskCompletionSource = new TaskCompletionSource<>();
         habit.setId(newRef.getKey());
         newRef.setValue(habit).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                taskCompletionSource.setResult(true);
+                taskCompletionSource.setResult(new TaskResult(true, "Habit added successfully!"));
             } else {
-                taskCompletionSource.setResult(false);
+                taskCompletionSource.setResult(new TaskResult(false, "Failed to add habit: " + task.getException().getMessage()));
             }
+
         });
 
-        // Return the Task that will eventually hold the result (true/false)
+        return taskCompletionSource.getTask();
+    }
+
+    public Task<TaskResult> updateHabit(Habit habit) {
+
+        DatabaseReference newRef = ref.child("active_habits").child(habit.getId());
+        TaskCompletionSource<TaskResult> taskCompletionSource = new TaskCompletionSource<>();
+        newRef.setValue(habit).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                taskCompletionSource.setResult(new TaskResult(true, "Habit updated successfully!"));
+            } else {
+                taskCompletionSource.setResult(new TaskResult(false, "Failed to update habit: " + task.getException().getMessage()));
+            }
+
+        });
+
         return taskCompletionSource.getTask();
     }
 

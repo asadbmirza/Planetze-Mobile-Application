@@ -7,6 +7,7 @@ import android.content.Context;
 
 import com.example.plantezemobileapplication.model.EcoTrackerModel;
 import com.example.plantezemobileapplication.model.Habit;
+import com.example.plantezemobileapplication.utils.TaskResult;
 import com.example.plantezemobileapplication.view.EcoTrackerHabitActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -49,13 +50,16 @@ public class EcoTrackerHabitPresenter {
 
     }
 
-    public Task<Boolean> addHabit(Habit habit) {
+    public Task<TaskResult> addHabit(Habit habit) {
         if (habits.contains(habit)) {
             return model.addHabit(habit);
         }
-        TaskCompletionSource<Boolean> taskCompletionSource = new TaskCompletionSource<>();
-        taskCompletionSource.setResult(false);
-        return taskCompletionSource.getTask();
+        else {
+            return updateHabit(habit);
+        }
+    }
+    public Task<TaskResult> updateHabit(Habit habit) {
+        return model.updateHabit(habit);
     }
 
     public void fetchActiveHabits() {

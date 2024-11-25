@@ -11,7 +11,7 @@ public class Habit {
 
     private String time;
     private ArrayList<Integer> days;
-
+    private int TimesCompleted;
 
     public Habit() {
 
@@ -68,6 +68,14 @@ public class Habit {
 
     public String getTime() {
         return time;
+    }
+
+    public int getTimesCompleted() {
+        return TimesCompleted;
+    }
+
+    public void setTimesCompleted(int timesCompleted) {
+        TimesCompleted = timesCompleted;
     }
 
     public void setTime(String time) {

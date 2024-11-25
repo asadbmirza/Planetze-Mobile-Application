@@ -28,6 +28,7 @@ import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.EcoTrackerModel;
 import com.example.plantezemobileapplication.model.Habit;
 import com.example.plantezemobileapplication.presenter.EcoTrackerHabitPresenter;
+import com.example.plantezemobileapplication.utils.TaskResult;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.FirebaseApp;
@@ -216,9 +217,18 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         ChipGroup chipGroup = dialog.findViewById(R.id.chipGroupDays);
         Button submitHabit = dialog.findViewById(R.id.submit_habit_button);
         Button exitHabit = dialog.findViewById(R.id.exit_habit_button);
-
         Button pickTime = dialog.findViewById(R.id.time_picker_button);
-        String selectedTime[] = {""}; // store selected time
+        String selectedTime[] = {habit.getTime()}; // store selected time
+        if (selectedTime[0] != "") {
+            pickTime.setText(selectedTime[0]);
+        }
+        System.out.println(habit.getDays());
+        System.out.println(chipGroup.getChildCount());
+        for (int i = 0; i < habit.getDays().size(); i++) {
+
+            Chip chip = (Chip) chipGroup.getChildAt(habit.getDays().get(i) - 1);
+            chip.setChecked(true);
+        }
         pickTime.setOnClickListener(v -> showTimePickerDialog(selectedTime));
 
         submitHabit.setOnClickListener(new View.OnClickListener() {
@@ -245,19 +255,15 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
                     habit.setDays(activeDays);
                     habit.setTime(selectedTime[0]);
                     presenter.addHabit(habit).addOnCompleteListener(completedTask -> {
-                        if (completedTask.isSuccessful()) {
+                        if (completedTask.isSuccessful() && completedTask.getResult() != null) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                                 if (ContextCompat.checkSelfPermission(EcoTrackerHabitActivity.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                                     ActivityCompat.requestPermissions(EcoTrackerHabitActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
                                 }
                             }
-                            Boolean result = completedTask.getResult();
-                            if (result != null && result) {
-                                Toast.makeText(EcoTrackerHabitActivity.this, "Habit added successfully", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(EcoTrackerHabitActivity.this, "Habit addition failed", Toast.LENGTH_SHORT).show();
-                            }
-                            notification.createWeeklyNotifications(habit);
+                            TaskResult taskResult = completedTask.getResult();
+                            Toast.makeText(EcoTrackerHabitActivity.this, taskResult.getMessage(), Toast.LENGTH_SHORT).show();
+                            notification.removeCreateWeeklyNotification(habit);
                         } else {
                             Toast.makeText(EcoTrackerHabitActivity.this, "An unexpected error occurred", Toast.LENGTH_SHORT).show();
                         }
@@ -325,7 +331,27 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
 
+    void displayRemoveDialog(Habit habit) {
+        dialog.setContentView(R.layout.remove_habit_dialog);
+        Button remove = dialog.findViewById(R.id.submit_remove_habit_button);
+        Button cancel = dialog.findViewById(R.id.exit_remove_button);
+
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.removeActiveHabit(habit);
+                dialog.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
 
