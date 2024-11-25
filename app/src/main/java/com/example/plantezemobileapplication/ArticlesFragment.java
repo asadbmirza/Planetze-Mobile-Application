@@ -20,7 +20,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import com.example.plantezemobileapplication.BuildConfig;
 
 public class ArticlesFragment extends AppCompatActivity {
 
@@ -72,7 +71,7 @@ public class ArticlesFragment extends AppCompatActivity {
     }
 
     private void fetchArticles(String query) {
-        NewsApiService apiService = RetrofitClient.getInstance().create(NewsApiService.class);
+        NewsApiService apiService = RetrofitClient.getInstance("https://newsapi.org/").create(NewsApiService.class);
         String apiKey = BuildConfig.NEWS_API_KEY;
         String language = "en";
 
