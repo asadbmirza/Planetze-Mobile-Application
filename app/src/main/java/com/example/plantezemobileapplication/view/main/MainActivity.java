@@ -19,6 +19,7 @@ import com.example.plantezemobileapplication.model.MainModel;
 import com.example.plantezemobileapplication.presenter.MainPresenter;
 import com.example.plantezemobileapplication.view.CreditsFragment;
 import com.example.plantezemobileapplication.view.EcoGaugeFragment;
+import com.example.plantezemobileapplication.view.SettingsFragment;
 import com.example.plantezemobileapplication.view.login.LoginActivity;
 import com.example.plantezemobileapplication.view.welcome.WelcomeActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
@@ -86,14 +87,22 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.credits) {
-            return loadFragment(new CreditsFragment());
-        } else if(item.getItemId() == R.id.log_out) {
+        // Sets all navigation icons to inactive state
+        bottomNavigationView.getMenu().setGroupCheckable(0, true, false);
+        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
+            bottomNavigationView.getMenu().getItem(i).setChecked(false);
+        }
+
+        if(item.getItemId() == R.id.log_out) {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
             finish();
             return true;
+        } else if(item.getItemId() == R.id.settings) {
+            return loadFragment(new SettingsFragment());
+        } else if(item.getItemId() == R.id.credits) {
+            return loadFragment(new CreditsFragment());
         } else {
             return super.onOptionsItemSelected(item);
         }
@@ -101,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     private Fragment getFragmentForItem(int itemId) {
         Fragment selectedFragment = null;
+
+        bottomNavigationView.getMenu().setGroupCheckable(0, true, true);
+
         if (itemId == R.id.ecoGauge) {
             selectedFragment = new EcoGaugeFragment();
         } else if (itemId == R.id.ecoBalance) {
