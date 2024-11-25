@@ -7,6 +7,7 @@ if (localPropertiesFile.exists()) {
 }
 
 val newsApiKey: String = localProperties.getProperty("NEWS_API_KEY")
+val youtubeApiKey: String = localProperties.getProperty("YOUTUBE_API_KEY")
 
 plugins {
     id("com.google.gms.google-services")
@@ -15,6 +16,11 @@ plugins {
 }
 
 android {
+    packaging {
+        resources {
+            excludes += "META-INF/DEPENDENCIES"
+        }
+    }
     buildFeatures {
         buildConfig = true
     }
@@ -35,9 +41,11 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "NEWS_API_KEY", "\"$newsApiKey\"")
+            buildConfigField("String", "YOUTUBE_API_KEY", "\"$youtubeApiKey\"")
         }
         release {
             buildConfigField("String", "NEWS_API_KEY", "\"${newsApiKey}\"")
+            buildConfigField("String", "YOUTUBE_API_KEY", "\"$youtubeApiKey\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -68,5 +76,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.glide)
-    implementation(libs.picasso)
+    implementation(libs.google.api.client.android)
+    implementation(libs.google.api.services.youtube)
+    implementation(libs.google.http.client.android)
+    implementation(libs.google.http.client)
 }
