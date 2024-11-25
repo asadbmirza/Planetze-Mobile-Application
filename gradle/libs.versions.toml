@@ -3,6 +3,10 @@ agp = "8.7.2"
 converterGson = "2.9.0"
 firebaseBom = "33.5.1"
 glide = "4.12.0"
+googleApiClientAndroid = "1.32.2"
+googleApiServicesYoutube = "v3-rev222-1.25.0"
+googleHttpClient = "1.42.0"
+googleHttpClientAndroid = "1.42.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -22,6 +26,10 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-database = { module = "com.google.firebase:firebase-database" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+google-api-client-android = { module = "com.google.api-client:google-api-client-android", version.ref = "googleApiClientAndroid" }
+google-api-services-youtube = { module = "com.google.apis:google-api-services-youtube", version.ref = "googleApiServicesYoutube" }
+google-http-client = { module = "com.google.http-client:google-http-client", version.ref = "googleHttpClient" }
+google-http-client-android = { module = "com.google.http-client:google-http-client-android", version.ref = "googleHttpClientAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
