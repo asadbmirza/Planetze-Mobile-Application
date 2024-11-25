@@ -25,6 +25,9 @@
             android:name=".ArticlesFragment"
             android:exported="false" />
         <activity
+            android:name=".VideosFragment"
+            android:exported="false" />
+        <activity
             android:name=".EcoHubFragment"
             android:exported="true">
             <intent-filter>
