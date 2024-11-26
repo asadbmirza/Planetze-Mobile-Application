@@ -184,17 +184,14 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
             android:fontFamily="@font/bitter_semibold"
             android:text="@string/account_exists"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/loginLink"
-            android:layout_width="118dp"
-            android:layout_height="58dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginBottom="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/bitter_semibold"
