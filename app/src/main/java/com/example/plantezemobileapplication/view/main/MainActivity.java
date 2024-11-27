@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
         });
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.ecoGauge);
+
         myRef = FirebaseDatabase.getInstance().getReference("users");
         auth = FirebaseAuth.getInstance();
         presenter = new MainPresenter(this, new MainModel(auth, myRef));
@@ -120,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
         } else if (itemId == R.id.ecoHub) {
             selectedFragment = new EcoGaugeFragment();
         } else if (itemId == R.id.ecoTracker) {
+            selectedFragment = new EcoGaugeFragment();
+        } else if (itemId == R.id.ecoAgent) {
             selectedFragment = new EcoGaugeFragment();
         }
         return selectedFragment;
