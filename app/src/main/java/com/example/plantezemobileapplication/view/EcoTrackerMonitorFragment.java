@@ -9,8 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.plantezemobileapplication.R;
+import com.example.plantezemobileapplication.model.EcoMonitorModel;
+import com.example.plantezemobileapplication.presenter.EcoTrackerMonitorPresenter;
 import com.example.plantezemobileapplication.utils.Answer;
 import com.example.plantezemobileapplication.utils.Question;
 
@@ -22,7 +25,7 @@ import java.util.List;
  * Use the {@link EcoTrackerMonitorFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EcoTrackerMonitorFragment extends Fragment {
+public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +35,12 @@ public class EcoTrackerMonitorFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    TextView totalDailyEmissionView;
+    TextView transportationEmissionView;
+    TextView foodEmissionView;
+    TextView consumptionEmissionView;
+    EcoTrackerMonitorPresenter presenter;
+    EcoMonitorModel model;
 
     public EcoTrackerMonitorFragment() {
         // Required empty public constructor
@@ -68,23 +77,70 @@ public class EcoTrackerMonitorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_eco_tracker_monitor, container, false);;
-        Button btn = view.findViewById(R.id.button5);
+        Button transporationActivityBtn = view.findViewById(R.id.transportation_log_btn);
+        Button foodActivityBtn = view.findViewById(R.id.food_consumption_log);
+        Button consumptionActivityBtn = view.findViewById(R.id.consumption_log_btn);
 
-        //Redirect user to specific activity log
-        btn.setOnClickListener(v -> {
-            Answer[] answers = {new Answer("Answer1", 2)};
-            List<Question> questionList = new ArrayList<>();
-            questionList.add(new Question("What is your favourite color?", answers,"Food"));
-            Fragment targetFragment = ActivityListFragment.newInstance(questionList);
-            FragmentTransaction transaction = requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction();
+        //Update CO2 tracker display
+        totalDailyEmissionView = view.findViewById(R.id.daily_emission_text);
+        transportationEmissionView = view.findViewById(R.id.transportation_emission_text);
+        foodEmissionView = view.findViewById(R.id.food_emission_text);
+        consumptionEmissionView = view.findViewById(R.id.consumption_emission_text);
 
-            transaction.replace(R.id.fragmentContainerView, targetFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
+        presenter = new EcoTrackerMonitorPresenter(this);
+        model = new EcoMonitorModel(this);
+        model.getTodaysActivities();
+
+        transporationActivityBtn.setOnClickListener(this);
+        foodActivityBtn.setOnClickListener(this);
+        consumptionActivityBtn.setOnClickListener(this);
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public void setTotalDailyEmissionView(String text) {
+        totalDailyEmissionView.setText(text);
+    }
+
+    public void setTransportationEmissionView(String text) {
+        transportationEmissionView.setText(text);
+    }
+
+    public void setFoodEmissionView(String text) {
+        foodEmissionView.setText(text);
+    }
+
+    public void setConsumptionEmissionView(String text) {
+        consumptionEmissionView.setText(text);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Button clickedBtn = (Button) v;
+        List<Question> questionList = null;
+        String activityName = "";
+
+        if (clickedBtn.getId() == R.id.transportation_log_btn) {
+            questionList = presenter.initializeTransportationQuestions();
+            activityName = "Transportation Activities";
+        }
+        else if (clickedBtn.getId() == R.id.food_consumption_log) {
+            questionList = presenter.initializeFoodQuestions();
+            activityName = "Food Consumption Activities";
+        }
+        else if (clickedBtn.getId() == R.id.consumption_log_btn) {
+            questionList = presenter.initializeConsumptionQuestions();
+            activityName = "Shopping & Consumption Activities";
+        }
+
+        Fragment targetFragment = ActivityListFragment.newInstance(activityName, questionList);
+        FragmentTransaction transaction = requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction();
+
+        transaction.replace(R.id.fragmentContainerView, targetFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
