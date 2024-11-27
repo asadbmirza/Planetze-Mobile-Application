@@ -78,7 +78,9 @@ public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.
         ArrayAdapter<Answer> adapter = new ArrayAdapter<>(holder.itemView.getContext(), android.R.layout.simple_spinner_item, question.getAnswers());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.optionSpinner.setAdapter(adapter);
-//        holder.optionSpinner.setSelection(1); USE THIS TO SET DEFAULT
+        if (question.getSelectedAnswer() >= 0) {
+            holder.optionSpinner.setSelection(question.getSelectedAnswer());
+        }
         holder.optionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
