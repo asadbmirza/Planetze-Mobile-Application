@@ -22,10 +22,10 @@
             android:name=".view.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ArticlesFragment"
+            android:name=".view.EcoHub.Articles.ArticlesFragment"
             android:exported="false" />
         <activity
-            android:name=".VideosFragment"
+            android:name=".view.EcoHub.Videos.VideosFragment"
             android:exported="false" />
         <activity
             android:name=".EcoHubFragment"
