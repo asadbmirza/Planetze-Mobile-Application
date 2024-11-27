@@ -9,7 +9,6 @@ import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireRes
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -82,7 +81,7 @@ public class QuestionnaireResultPresenter {
     }
 
 
-    public void uploadUserResults(Map<String, Double> totalEmissions, String country) {
-        model.saveQuestionnaireInfo(totalEmissions, country);
+    public void uploadUserResults(Map<String, Double> totalEmissions, String country, Map<String, Object> additionalUserInfo) {
+        model.saveQuestionnaireInfo(totalEmissions, country, additionalUserInfo);
     }
 }

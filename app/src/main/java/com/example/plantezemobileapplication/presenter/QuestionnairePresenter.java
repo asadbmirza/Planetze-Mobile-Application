@@ -322,7 +322,7 @@ public class QuestionnairePresenter {
 
     private void updateAnswerWeight() {
         //Question 2 & 3
-        int question2Answer = questions[1].getSelectedAnswer() == 4 ? 0 : questions[1].getSelectedAnswer(); // Watch out for the option "I don't know"
+        int question2Answer = questions[1].getSelectedAnswer() == 4 ? 0 : questions[1].getSelectedAnswer();
         int question3Answer = questions[2].getSelectedAnswer();
         if (question2Answer != -1 || question3Answer != -1) {
             questions[2].getAnswers()[question3Answer].setWeight(questions[1].getAnswers()[question2Answer].getWeight() * questions[2].getAnswers()[question3Answer].getWeight());
@@ -332,7 +332,7 @@ public class QuestionnairePresenter {
         //Question 4 & 5
         int question4Answer = questions[3].getSelectedAnswer() - 1;
         int question5Answer = questions[4].getSelectedAnswer() - 1;
-        if (question4Answer != -2) {
+        if (question4Answer >= 0) {
             questions[4].getAnswers()[question5Answer].setWeight(answer5Matrix[question4Answer][question5Answer]);
         }
 
@@ -340,9 +340,9 @@ public class QuestionnairePresenter {
         int question11Answer = questions[13].getSelectedAnswer() == 4 ? 2 : questions[13].getSelectedAnswer(); // type of home (row), if other then choose townhouse
         int question12Answer = questions[14].getSelectedAnswer(); // # of occupants (row)
         int question13Answer = questions[15].getSelectedAnswer(); // size of home (row)
-        int question14Answer = questions[16].getSelectedAnswer() == 5 ? 1 : questions[16].getSelectedAnswer(); // type of energy for water (col), if other then choose electricity
+        int question14Answer = questions[16].getSelectedAnswer() == 5 ? 1 : questions[16].getSelectedAnswer(); // type of energy for water (col)
         int question15Answer = questions[17].getSelectedAnswer(); // monthly bill (col)
-        int question16Answer = questions[18].getSelectedAnswer() == 5 ? 1 : questions[18].getSelectedAnswer(); // type of energy for electricity/heating (col), if other then choose electricity
+        int question16Answer = questions[18].getSelectedAnswer() == 5 ? 1 : questions[18].getSelectedAnswer(); // type of energy for electricity/heating (col)
 
         JsonParser jsonReader = new JsonParser(this.view);
         questions[16].getAnswers()[question14Answer].setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question14Answer + (5 * question15Answer)));
@@ -368,6 +368,13 @@ public class QuestionnairePresenter {
             }
         }
         return -1;
+    }
+
+    public Map<String, Object> getAdditionalUserInfo() {
+        Map<String, Object> additionalUserInfo = new HashMap<>();
+        additionalUserInfo.put("defaultVehicle", questions[1].getSelectedAnswer());
+        additionalUserInfo.put("energySource", questions[18].getSelectedAnswer());
+        return additionalUserInfo;
     }
 }
 

@@ -33,6 +33,7 @@ public class QuestionnaireResultActivity extends AppCompatActivity implements Vi
     LinearLayout layout;
     Map<String, Double> totalEmissions;
     String selectedCountry;
+    Map<String, Object> additionalUserInfo;
     QuestionnaireResultPresenter presenter;
     QuestionnaireModel model;
 
@@ -60,6 +61,7 @@ public class QuestionnaireResultActivity extends AppCompatActivity implements Vi
 
         totalEmissions = (HashMap<String, Double>) intent.getSerializableExtra("totalEmissions");
         selectedCountry = intent.getStringExtra("userCountry");
+        additionalUserInfo = (HashMap<String, Object>) intent.getSerializableExtra("selectedAnswerIndexes");
 
         presenter.displayTotalEmissions(totalEmissions);
         presenter.displayCountryComparison(totalEmissions, selectedCountry);
@@ -78,7 +80,7 @@ public class QuestionnaireResultActivity extends AppCompatActivity implements Vi
     public void onClick(View v) {
         Button clickedBtn = (Button) v;
         if (clickedBtn.getId() == R.id.btnCompleteQuiz) {
-            presenter.uploadUserResults(totalEmissions, selectedCountry);
+            presenter.uploadUserResults(totalEmissions, selectedCountry, additionalUserInfo);
         }
     }
 

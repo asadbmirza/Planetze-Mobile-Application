@@ -14,7 +14,7 @@ public class QuestionnaireModel {
         auth = FirebaseAuth.getInstance();
     }
 
-    public void saveQuestionnaireInfo(Map<String, Double> categoryEmissions, String userCountry) {
+    public void saveQuestionnaireInfo(Map<String, Double> categoryEmissions, String userCountry, Map<String, Object> selectedAnswerIndexes) {
         FirebaseUser currUser = auth.getCurrentUser();
         String userId = "";
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -27,5 +27,6 @@ public class QuestionnaireModel {
         }
         ref.child("users").child(userId).child("annualEmissions").setValue(categoryEmissions);
         ref.child("users").child(userId).child("country").setValue(userCountry);
+        ref.child("users").child(userId).updateChildren(selectedAnswerIndexes);
     }
 }

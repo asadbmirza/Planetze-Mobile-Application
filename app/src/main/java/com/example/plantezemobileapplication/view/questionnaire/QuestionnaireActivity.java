@@ -177,10 +177,13 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
 
     private void submitQuiz() {
         Map<String, Double> categoryTotals;
+        Map<String, Object> additionalUserInfo;
         Intent switchActivityIntent = new Intent(this, QuestionnaireResultActivity.class);
         categoryTotals = presenter.calculateQuizResult();
+        additionalUserInfo = presenter.getAdditionalUserInfo();
         switchActivityIntent.putExtra("totalEmissions", (Serializable) categoryTotals);
         switchActivityIntent.putExtra("userCountry", selectedCountry);
+        switchActivityIntent.putExtra("selectedAnswerIndexes", (Serializable) additionalUserInfo);
         startActivity(switchActivityIntent);
     }
 
