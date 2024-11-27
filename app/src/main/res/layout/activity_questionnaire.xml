@@ -26,22 +26,25 @@
         android:text="This is a question"
         android:textAlignment="center"
         android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"/>
+        android:textStyle="bold"/>
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:padding="12dp"/>
 
     <LinearLayout
         android:id="@+id/answers_layout"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginBottom="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
     </LinearLayout>
 
@@ -49,7 +52,6 @@
         android:id="@+id/quiz_navigation_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:orientation="horizontal">
 
         <android.widget.Button
