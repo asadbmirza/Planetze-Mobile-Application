@@ -332,7 +332,7 @@ public class QuestionnairePresenter {
         //Question 4 & 5
         int question4Answer = questions[3].getSelectedAnswer() - 1;
         int question5Answer = questions[4].getSelectedAnswer() - 1;
-        if (question4Answer >= 0) {
+        if (question4Answer >= 0 && question5Answer >= 0) {
             questions[4].getAnswers()[question5Answer].setWeight(answer5Matrix[question4Answer][question5Answer]);
         }
 
