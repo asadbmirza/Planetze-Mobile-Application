@@ -9,15 +9,16 @@ import java.util.Map;
 
 public class QuestionnaireModel {
     private FirebaseAuth auth;
+    private String userId;
+    private DatabaseReference ref;
 
     public QuestionnaireModel() {
         auth = FirebaseAuth.getInstance();
+        ref = FirebaseDatabase.getInstance().getReference();
     }
 
     public void saveQuestionnaireInfo(Map<String, Double> categoryEmissions, String userCountry, Map<String, Object> selectedAnswerIndexes) {
         FirebaseUser currUser = auth.getCurrentUser();
-        String userId = "";
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
         if (currUser != null) {
             userId = currUser.getUid();
