@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.plantezemobileapplication.Emissions;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.MainModel;
 import com.example.plantezemobileapplication.presenter.MainPresenter;
@@ -66,10 +67,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
-        }
-
-        if (savedInstanceState == null) {
-            loadFragment(new EcoGaugeFragment());
         }
 
         presenter.loadUserData();
@@ -137,6 +134,15 @@ public class MainActivity extends AppCompatActivity implements MainView{
             return true;
         }
         return false;
+    }
+
+    public void displayUserData(Emissions emissions) {
+        EcoGaugeFragment fragment = new EcoGaugeFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("emissions_key", emissions);
+        fragment.setArguments(args);
+
+        loadFragment(fragment);
     }
 
     @Override
