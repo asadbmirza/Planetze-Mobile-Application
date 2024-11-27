@@ -35,9 +35,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="4.0"
-                android:textSize="35sp"
-                android:gravity="end"/>
+                android:gravity="end"
+                android:text="0.0"
+                android:textSize="35sp" />
 
             <TextView
                 android:id="@+id/daily_emission_units"
@@ -73,13 +73,13 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/transportation_emission_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2.5kg"
+                        android:text="0.0kg"
+                        android:textAlignment="center"
                         android:textSize="25sp"
-                        android:textStyle="bold"
-                        android:textAlignment="center"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView11"
@@ -104,13 +104,13 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/food_emission_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="1kg"
+                        android:text="0.0kg"
+                        android:textAlignment="center"
                         android:textSize="25sp"
-                        android:textStyle="bold"
-                        android:textAlignment="center"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView12"
@@ -134,13 +134,13 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/consumption_emission_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="0.5kg"
+                        android:text="0.0kg"
+                        android:textAlignment="center"
                         android:textSize="25sp"
-                        android:textStyle="bold"
-                        android:textAlignment="center"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView13"
@@ -154,19 +154,19 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/transportation_log_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="+ Log Transportation" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/food_consumption_log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="+ Log Food Consumption" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/consumption_log_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="+ Log Consumption and Shopping" />
