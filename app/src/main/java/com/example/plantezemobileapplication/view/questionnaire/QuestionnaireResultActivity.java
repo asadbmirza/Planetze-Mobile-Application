@@ -24,18 +24,18 @@ import java.util.List;
 import java.util.Map;
 
 public class QuestionnaireResultActivity extends AppCompatActivity implements View.OnClickListener {
-    TextView totalEmissionView;
-    TextView countryComparisonView;
-    TextView countryComparisonSubtextView;
-    TextView globalTargetComparisonView;
-    TextView globalTargetComparsionSubtextView;
-    Button completeQuizButton;
-    LinearLayout layout;
-    Map<String, Double> totalEmissions;
-    String selectedCountry;
-    Map<String, Object> additionalUserInfo;
-    QuestionnaireResultPresenter presenter;
-    QuestionnaireModel model;
+    private TextView totalEmissionView;
+    private TextView countryComparisonView;
+    private TextView countryComparisonSubtextView;
+    private TextView globalTargetComparisonView;
+    private TextView globalTargetComparsionSubtextView;
+    private Button completeQuizButton;
+    private LinearLayout layout;
+    private Map<String, Double> totalEmissions;
+    private String selectedCountry;
+    private Map<String, Object> additionalUserInfo;
+    private QuestionnaireResultPresenter presenter;
+    private QuestionnaireModel model;
 
     @SuppressLint("ResourceAsColor")
     @Override
