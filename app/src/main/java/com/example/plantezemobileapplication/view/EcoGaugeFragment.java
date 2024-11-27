@@ -6,10 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.plantezemobileapplication.Emissions;
 import com.example.plantezemobileapplication.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -32,6 +34,7 @@ public class EcoGaugeFragment extends Fragment {
 
     PieChart emissionsBreakdownPieChart;
     LineChart emissionsTrendLineChart;
+    static Emissions emissions;
 
     public EcoGaugeFragment() {
         // Required empty public constructor
@@ -44,8 +47,17 @@ public class EcoGaugeFragment extends Fragment {
         emissionsBreakdownPieChart = view.findViewById(R.id.emission_breakdown_chart);
         emissionsTrendLineChart = view.findViewById(R.id.emissions_trend_chart);
 
-        renderEmissionsBreakdown();
-        renderEmissionsTrend();
+        if (getArguments() != null) {
+            emissions = (Emissions) getArguments().getSerializable("emissions_key");
+            if(emissions == null) {
+                Log.e("EmissionsRetrieval", "Emissions is null.");
+                emissions = new Emissions();
+            }
+            renderEmissionsBreakdown();
+            renderEmissionsTrend();
+        } else {
+            Log.e("EmissionsRetrieval", "Failed to get emissions");
+        }
     }
 
     private void renderEmissionsBreakdown() {
@@ -75,10 +87,10 @@ public class EcoGaugeFragment extends Fragment {
     private static PieDataSet getEmissionsBreakdownDataSet() {
         ArrayList<PieEntry> entries = new ArrayList<>();
 
-        entries.add(new PieEntry(80f, "Transportation"));
-        entries.add(new PieEntry(130f, "Consumption"));
-        entries.add(new PieEntry(75f, "Food"));
-        entries.add(new PieEntry(60f, "Housing"));
+        entries.add(new PieEntry(emissions.getTransportation(), "Transportation"));
+        entries.add(new PieEntry(emissions.getConsumption(), "Consumption"));
+        entries.add(new PieEntry(emissions.getFood(), "Food"));
+        entries.add(new PieEntry(emissions.getHousing(), "Housing"));
 
         return new PieDataSet(entries, "");
     }
