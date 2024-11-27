@@ -51,6 +51,38 @@ public class EcoMonitorModel {
         return dateFormat.format(currentDate);
     }
 
+    public int getDefaultVehicle() {
+        FirebaseUser currUser = auth.getCurrentUser();
+        String userId = "";
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
+        if (currUser != null) {
+            userId = currUser.getUid();
+        }
+        else {
+            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
+        }
+
+        ref.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return 0;
+    }
+
+    public int getUserEnergyType() {
+        return 0;
+    }
+
     public void uploadActivityEmissions(Map<String, Object> emissions) {
         FirebaseUser currUser = auth.getCurrentUser();
         String userId = "";
