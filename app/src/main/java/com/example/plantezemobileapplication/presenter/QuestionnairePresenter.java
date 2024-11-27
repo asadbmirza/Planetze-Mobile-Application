@@ -264,8 +264,8 @@ public class QuestionnairePresenter {
     public void handleNextQuestion() {
         int selectedAnswerIndex = questions[currQuestionIndex].getSelectedAnswer();
         // Check if the question skips to another question based on a specific answer
-        if (questions[currQuestionIndex].getAnswers()[selectedAnswerIndex] instanceof SpecialAnswer) {
-            int nextQuestionIndex = ((SpecialAnswer) questions[currQuestionIndex].getAnswers()[selectedAnswerIndex]).getNextQuestionIndex();
+        if (questions[currQuestionIndex].getSelectedAnswerObject() instanceof SpecialAnswer) {
+            int nextQuestionIndex = ((SpecialAnswer) questions[currQuestionIndex].getSelectedAnswerObject()).getNextQuestionIndex();
             ((SpecialQuestion) questions[nextQuestionIndex]).setPreviousQuestionIndex(currQuestionIndex);
             currQuestionIndex = nextQuestionIndex;
         }

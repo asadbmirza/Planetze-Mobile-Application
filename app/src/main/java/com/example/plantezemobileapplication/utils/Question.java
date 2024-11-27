@@ -33,4 +33,11 @@ public class Question {
     public void setSelectedAnswer(int selectedAnswer) {
         this.selectedAnswer = selectedAnswer;
     }
+
+    public Answer getSelectedAnswerObject() {
+        if (selectedAnswer == -1 || selectedAnswer >= answers.length) {
+            return null;
+        }
+        return answers[selectedAnswer];
+    }
 }
