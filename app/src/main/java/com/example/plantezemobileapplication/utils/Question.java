@@ -48,6 +48,13 @@ public class Question implements Parcelable {
         return selectedAnswer;
     }
 
+    public Answer getSelectedAnswerObject() {
+        if (selectedAnswer == -1 || selectedAnswer >= answers.length) {
+            return null;
+        }
+        return answers[selectedAnswer];
+    }
+
     public Answer[] getAnswers() {
         return answers;
     }
