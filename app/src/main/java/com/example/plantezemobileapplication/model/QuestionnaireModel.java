@@ -8,7 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Map;
 
 public class QuestionnaireModel {
-    FirebaseAuth auth;
+    private FirebaseAuth auth;
 
     public QuestionnaireModel() {
         auth = FirebaseAuth.getInstance();
@@ -23,7 +23,7 @@ public class QuestionnaireModel {
             userId = currUser.getUid();
         }
         else {
-            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2";
+            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
         }
         ref.child("users").child(userId).child("annualEmissions").setValue(categoryEmissions);
         ref.child("users").child(userId).child("country").setValue(userCountry);
