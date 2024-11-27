@@ -15,6 +15,8 @@ import java.util.Map;
 public class EcoTrackerMonitorPresenter {
     private EcoMonitorModel model;
     private EcoTrackerMonitorFragment view;
+    private int defaultVehicleIndex;
+    private int energyTypeIndex;
     //TODO: USE SHAREDPREFERENCES TO RETRIEVE/STORE DAILY EMISSIONS?
 
     public EcoTrackerMonitorPresenter() {}
@@ -51,6 +53,8 @@ public class EcoTrackerMonitorPresenter {
         transportationQuestions.add(new Question("Cycling or Walking$Enter distance travelled (in km)", new Answer[0],"transportation"));
         transportationQuestions.add(new Question("Flight (Short-Haul or Long-Haul)$Enter number of flights taken", answers3,"transportation"));
 
+        System.out.println(defaultVehicleIndex);
+        transportationQuestions.get(0).setSelectedAnswer(defaultVehicleIndex);
         return transportationQuestions;
     }
 
@@ -82,11 +86,10 @@ public class EcoTrackerMonitorPresenter {
                 new Answer("Furniture", 200),
                 new Answer("Appliances", 500),
         };
-        double energyFactors[] = {0.9, 0.7, 2.5, 1.5, 0.4};
-        int chosenEnergyIndex = 0; // TODO: GET MODEL TO FIGURE OUT WHICH ENERGY WAS CHOSEN
+        final double[] energyFactors = {0.9, 0.7, 2.5, 1.5, 0.4};
         Answer[] answers4 = {
                 new Answer("Electricity", 0.7),
-                new Answer("Gas", energyFactors[chosenEnergyIndex]),
+                new Answer("Gas", energyFactors[energyTypeIndex]),
                 new Answer("Water", 0.4),
         };
         consumptionQuestions.add(new Question("Buy New Clothes$Enter number of clothing items purchased", answers1,"consumption"));
@@ -98,4 +101,11 @@ public class EcoTrackerMonitorPresenter {
         return consumptionQuestions;
     }
 
+    public void setDefaultVehicle(int defaultVehicleIndex) {
+        this.defaultVehicleIndex = defaultVehicleIndex;
+    }
+
+    public void setUserEnergy(int energyTypeIndex) {
+        this.energyTypeIndex = energyTypeIndex;
+    }
 }

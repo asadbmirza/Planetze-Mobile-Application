@@ -14,10 +14,8 @@ import android.widget.TextView;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.EcoMonitorModel;
 import com.example.plantezemobileapplication.presenter.EcoTrackerMonitorPresenter;
-import com.example.plantezemobileapplication.utils.Answer;
 import com.example.plantezemobileapplication.utils.Question;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -88,8 +86,10 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         consumptionEmissionView = view.findViewById(R.id.consumption_emission_text);
 
         presenter = new EcoTrackerMonitorPresenter(this);
-        model = new EcoMonitorModel(this);
+        model = new EcoMonitorModel(this, presenter);
         model.getTodaysActivities();
+        model.setDefaultVehicle();
+        model.setUserEnergy();
 
         transporationActivityBtn.setOnClickListener(this);
         foodActivityBtn.setOnClickListener(this);

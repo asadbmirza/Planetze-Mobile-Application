@@ -1,16 +1,10 @@
 package com.example.plantezemobileapplication.model;
 
-import android.app.Activity;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.plantezemobileapplication.presenter.ActivityListPresenter;
 import com.example.plantezemobileapplication.presenter.EcoTrackerMonitorPresenter;
 import com.example.plantezemobileapplication.view.EcoTrackerMonitorFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class EcoMonitorModel {
@@ -45,13 +38,19 @@ public class EcoMonitorModel {
         this.view = view;
     }
 
+    public EcoMonitorModel(EcoTrackerMonitorFragment view, EcoTrackerMonitorPresenter presenter) {
+        auth = FirebaseAuth.getInstance();
+        this.view = view;
+        this.presenter = presenter;
+    }
+
     public String getFormattedDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date currentDate = new Date();
         return dateFormat.format(currentDate);
     }
 
-    public int getDefaultVehicle() {
+    public void setDefaultVehicle() {
         FirebaseUser currUser = auth.getCurrentUser();
         String userId = "";
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -63,11 +62,11 @@ public class EcoMonitorModel {
             userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
         }
 
-        ref.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child("users").child(userId).child("defaultVehicle").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-
+                if (snapshot.exists() && snapshot.getValue() != null) {
+                    presenter.setDefaultVehicle(snapshot.getValue(int.class));
                 }
             }
 
@@ -76,11 +75,33 @@ public class EcoMonitorModel {
 
             }
         });
-        return 0;
     }
 
-    public int getUserEnergyType() {
-        return 0;
+    public void setUserEnergy() {
+        FirebaseUser currUser = auth.getCurrentUser();
+        String userId = "";
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
+        if (currUser != null) {
+            userId = currUser.getUid();
+        }
+        else {
+            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
+        }
+
+        ref.child("users").child(userId).child("energySource").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && snapshot.getValue() != null) {
+                    presenter.setUserEnergy(snapshot.getValue(int.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void uploadActivityEmissions(Map<String, Object> emissions) {
@@ -192,4 +213,5 @@ public class EcoMonitorModel {
             }
         });
     }
- }
+
+}
