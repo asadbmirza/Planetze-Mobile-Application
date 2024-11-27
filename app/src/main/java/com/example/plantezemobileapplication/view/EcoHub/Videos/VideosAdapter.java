@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.Videos;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,15 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.VideoItem;
+import com.example.plantezemobileapplication.model.VideoItemModel;
 
 import java.util.List;
 
 public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewHolder> {
     private Context context;
-    private List<VideoItem> videoList;
+    private List<VideoItemModel> videoList;
 
-    public VideosAdapter(Context context, List<VideoItem> videoList) {
+    public VideosAdapter(Context context, List<VideoItemModel> videoList) {
         this.context = context;
         this.videoList = videoList;
     }
@@ -37,7 +37,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
 
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
-        VideoItem video = videoList.get(position);
+        VideoItemModel video = videoList.get(position);
 
         holder.title.setText(video.getTitle());
         holder.description.setText(video.getDescription());

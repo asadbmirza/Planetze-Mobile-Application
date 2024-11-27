@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.Articles;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,16 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.Article;
+import com.example.plantezemobileapplication.model.ArticleModel;
 
 import java.util.List;
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder> {
 
-    private List<Article> articles;
+    private List<ArticleModel> articles;
     private Context context;
 
-    public ArticlesAdapter(Context context, List<Article> articles) {
+    public ArticlesAdapter(Context context, List<ArticleModel> articles) {
         this.context = context;
         this.articles = articles;
     }
@@ -38,7 +38,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
 
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
-        Article article = articles.get(position);
+        ArticleModel article = articles.get(position);
         holder.title.setText(article.getTitle());
         holder.description.setText(article.getDescription());
 

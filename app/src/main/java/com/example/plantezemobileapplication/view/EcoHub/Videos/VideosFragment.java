@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.Videos;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.VideoItem;
+import com.example.plantezemobileapplication.model.VideoItemModel;
 import com.example.plantezemobileapplication.presenter.VideosPresenter;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.List;
 public class VideosFragment extends AppCompatActivity implements VideosView {
     private RecyclerView recyclerView;
     private VideosAdapter adapter;
-    private final List<VideoItem> videoList = new ArrayList<>();
+    private final List<VideoItemModel> videoList = new ArrayList<>();
     private VideosPresenter presenter;
 
     private Runnable searchRunnable;
@@ -69,7 +69,7 @@ public class VideosFragment extends AppCompatActivity implements VideosView {
     }
 
     @Override
-    public void showVideos(List<VideoItem> videos) {
+    public void showVideos(List<VideoItemModel> videos) {
         runOnUiThread(() -> {
             videoList.clear();
             videoList.addAll(videos);

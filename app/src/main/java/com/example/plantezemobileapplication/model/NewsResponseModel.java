@@ -2,10 +2,10 @@ package com.example.plantezemobileapplication.model;
 
 import java.util.List;
 
-public class NewsResponse {
+public class NewsResponseModel {
     private String status;
     private int totalResults;
-    private List<Article> articles;
+    private List<ArticleModel> articles;
 
     public String getStatus() {
         return status;
@@ -15,7 +15,7 @@ public class NewsResponse {
         return totalResults;
     }
 
-    public List<Article> getArticles() {
+    public List<ArticleModel> getArticles() {
         return articles;
     }
 }

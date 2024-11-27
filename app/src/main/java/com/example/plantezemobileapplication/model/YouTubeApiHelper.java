@@ -1,8 +1,8 @@
-package com.example.plantezemobileapplication;
+package com.example.plantezemobileapplication.model;
 
 import android.text.Html;
 
-import com.example.plantezemobileapplication.model.VideoItem;
+import com.example.plantezemobileapplication.BuildConfig;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -20,7 +20,7 @@ public class YouTubeApiHelper {
     private static final String APPLICATION_NAME = "PlanetZe";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
-    public List<VideoItem> searchVideos(String query) throws GeneralSecurityException, IOException {
+    public List<VideoItemModel> searchVideos(String query) throws GeneralSecurityException, IOException {
         YouTube youtube = new YouTube.Builder(
                 new NetHttpTransport(),
                 JSON_FACTORY,
@@ -35,10 +35,10 @@ public class YouTubeApiHelper {
         search.setFields("items(id/videoId,snippet/title,snippet/description,snippet/thumbnails/high/url)");
 
         List<SearchResult> results = search.execute().getItems();
-        List<VideoItem> videoItems = new ArrayList<>();
+        List<VideoItemModel> videoItems = new ArrayList<>();
 
         for (SearchResult result : results) {
-            videoItems.add(new VideoItem(
+            videoItems.add(new VideoItemModel(
                     result.getId().getVideoId(),
                     Html.fromHtml(result.getSnippet().getTitle(), Html.FROM_HTML_MODE_LEGACY).toString(),
                     result.getSnippet().getDescription(),

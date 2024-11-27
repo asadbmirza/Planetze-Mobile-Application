@@ -1,22 +1,20 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.Articles;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.BuildConfig;
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.Article;
+import com.example.plantezemobileapplication.model.ArticleModel;
 import com.example.plantezemobileapplication.model.NewsApiService;
 import com.example.plantezemobileapplication.model.RetrofitClient;
 import com.example.plantezemobileapplication.presenter.ArticlesPresenter;
@@ -76,7 +74,7 @@ public class ArticlesFragment extends AppCompatActivity implements ArticlesView 
     }
 
     @Override
-    public void showArticles(List<Article> articles) {
+    public void showArticles(List<ArticleModel> articles) {
         adapter = new ArticlesAdapter(this, articles);
         recyclerView.setAdapter(adapter);
     }

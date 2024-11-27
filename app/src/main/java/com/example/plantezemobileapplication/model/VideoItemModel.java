@@ -1,12 +1,12 @@
 package com.example.plantezemobileapplication.model;
 
-public class VideoItem {
+public class VideoItemModel {
     private String videoId;
     private String title;
     private String description;
     private String thumbnailUrl;
 
-    public VideoItem(String videoId, String title, String description, String thumbnailUrl) {
+    public VideoItemModel(String videoId, String title, String description, String thumbnailUrl) {
         this.videoId = videoId;
         this.title = title;
         this.description = description;

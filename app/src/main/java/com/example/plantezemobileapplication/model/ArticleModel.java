@@ -1,6 +1,6 @@
 package com.example.plantezemobileapplication.model;
 
-public class Article {
+public class ArticleModel {
     private String title;
     private String description;
     private String url;
