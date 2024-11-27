@@ -1,6 +1,8 @@
 package com.example.plantezemobileapplication;
 
 import android.text.Html;
+
+import com.example.plantezemobileapplication.model.VideoItem;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;

@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication;
+package com.example.plantezemobileapplication.model;
 
 public class VideoItem {
     private String videoId;

@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication;
+package com.example.plantezemobileapplication.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.example.plantezemobileapplication.R;
+import com.example.plantezemobileapplication.model.Article;
+
 import java.util.List;
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder> {
