@@ -110,7 +110,7 @@ public class QuestionnaireResultActivity extends AppCompatActivity implements Vi
                 TextView text = new TextView(this);
                 text.setId(TextView.generateViewId());
                 text.setWidth(RelativeLayout.LayoutParams.MATCH_PARENT);
-                text.setTextSize(25);
+                text.setTextSize(16);
                 text.setText(category.getKey().toUpperCase() + ": " + String.format("%.3g%n", category.getValue() * 0.001) + "tonne(s)/yr");
                 layout.addView(text);
             }

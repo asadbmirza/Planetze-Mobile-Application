@@ -77,7 +77,7 @@ public class QuestionnaireResultPresenter {
 
 
     public void displayTotalEmissions(Map<String, Double> totalEmissions) {
-        view.setUserTotalText(String.format("%.3g%n", totalEmissions.get("Total") * 0.001));
+        view.setUserTotalText(String.format("%.3f", totalEmissions.get("Total") * 0.001));
     }
 
 
