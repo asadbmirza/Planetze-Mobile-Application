@@ -6,6 +6,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.plantezemobileapplication.Emissions;
+import com.example.plantezemobileapplication.User;
 import com.example.plantezemobileapplication.model.MainModel;
 import com.example.plantezemobileapplication.view.main.MainView;
 import com.google.firebase.database.DataSnapshot;
@@ -27,9 +29,16 @@ public class MainPresenter {
         mainModel.loadUserData(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String name = dataSnapshot.child("fullName").getValue(String.class);
-                String welcomeText = name != null ? String.format("%s, %s", getTimeGreeting(), name.split(" ")[0]) : getTimeGreeting();
-                view.setWelcomeText(welcomeText);
+                User user = dataSnapshot.getValue(User.class);
+
+                if (user != null) {
+                    String name = user.getFullName();
+                    Emissions emissions = user.getAnnualEmissions();
+
+                    String welcomeText = name != null ? String.format("%s, %s", getTimeGreeting(), name.split(" ")[0]) : getTimeGreeting();
+                    view.setWelcomeText(welcomeText);
+                    view.displayUserData(emissions);
+                }
             }
 
             @Override
