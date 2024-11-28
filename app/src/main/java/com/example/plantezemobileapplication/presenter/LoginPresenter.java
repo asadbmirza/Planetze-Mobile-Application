@@ -31,7 +31,7 @@ public class LoginPresenter {
 
     private void verifyUser() {
         if (loginModel.isVerified()) {
-            view.showProcessSuccess("Logged in.");
+            loginModel.navigateUser();
         } else {
             view.showProcessFailure("Please verify your email before logging in.");
         }
