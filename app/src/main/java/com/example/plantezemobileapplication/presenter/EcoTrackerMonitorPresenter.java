@@ -5,24 +5,16 @@ import android.util.Log;
 import com.example.plantezemobileapplication.model.EcoMonitorModel;
 import com.example.plantezemobileapplication.utils.Answer;
 import com.example.plantezemobileapplication.utils.Question;
-import com.example.plantezemobileapplication.view.EcoTrackerMonitorFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class EcoTrackerMonitorPresenter {
-    private EcoTrackerMonitorFragment view;
     private int defaultVehicleIndex;
     private int energyTypeIndex;
-    //TODO: USE SHAREDPREFERENCES TO RETRIEVE/STORE DAILY EMISSIONS?
 
     public EcoTrackerMonitorPresenter() {}
 
-    public EcoTrackerMonitorPresenter(EcoTrackerMonitorFragment view) {
-        this.view = view;
-    }
 
     public List<Question> initializeTransportationQuestions() {
         List<Question> transportationQuestions = new ArrayList<>();
@@ -46,6 +38,8 @@ public class EcoTrackerMonitorPresenter {
         transportationQuestions.add(new Question("Cycling or Walking$Enter distance travelled (in km)", new Answer[0],"transportation"));
         transportationQuestions.add(new Question("Flight (Short-Haul or Long-Haul)$Enter number of flights taken", answers3,"transportation"));
 
+        // Set user's default vehicle if already chosen from annual questionnaire
+        transportationQuestions.get(0).setSelectedAnswer(defaultVehicleIndex);
         return transportationQuestions;
     }
 
@@ -86,8 +80,9 @@ public class EcoTrackerMonitorPresenter {
         consumptionQuestions.add(new Question("Buy New Clothes$Enter number of clothing items purchased", answers1,"consumption"));
         consumptionQuestions.add(new Question("Buy Electronics$Enter number of devices purchased", answers2,"consumption"));
         consumptionQuestions.add(new Question("Other Purchases$Enter number of purchases", answers3,"consumption"));
-        consumptionQuestions.add(new Question("Energy Bills$Enter the specific bill amount", answers4,"consumption"));
+        consumptionQuestions.add(new Question("Energy Bills$Enter the specific bill amount", answers4,"energyConsumption"));
 
+        // Set new clothes factor since user cannot choose
         consumptionQuestions.get(0).setSelectedAnswer(0);
         return consumptionQuestions;
     }

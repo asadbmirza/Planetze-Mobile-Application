@@ -44,6 +44,12 @@ public class EcoMonitorModel {
         return dateFormat.format(currentDate);
     }
 
+    public String getCurrentMonth() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+        Date currentDate = new Date();
+        return dateFormat.format(currentDate);
+    }
+
     public void setDefaultVehicle() {
         FirebaseUser currUser = auth.getCurrentUser();
 
@@ -60,11 +66,14 @@ public class EcoMonitorModel {
                 if (snapshot.exists() && snapshot.getValue() != null) {
                     presenter.setDefaultVehicle(snapshot.getValue(int.class));
                 }
+                else {
+                    presenter.setDefaultVehicle(-1);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                presenter.setDefaultVehicle(-1);
             }
         });
     }
@@ -94,7 +103,7 @@ public class EcoMonitorModel {
         });
     }
 
-    public void uploadActivityEmissions(Map<String, Object> emissions) {
+    public void uploadDailyEmissions(Map<String, Object> emissions) {
         FirebaseUser currUser = auth.getCurrentUser();
 
         if (currUser != null) {
@@ -104,10 +113,50 @@ public class EcoMonitorModel {
             userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
         }
 
-        //TODO: CHECK IF ENTRY IF ALREADY CREATED AND ADD TO IT, OTHERWISE JUST ADD
         String formattedDate = getFormattedDate();
+
         for (String activity : emissions.keySet()) {
             ref.child("users").child(userId).child("dailyEmissions").child(formattedDate).child(activity).runTransaction(new Transaction.Handler() {
+                @NonNull
+                @Override
+                public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                    Object value = currentData.getValue();
+                    // If value already exists
+                    if (value instanceof Number) {
+                        currentData.setValue(((Number) value).doubleValue() + (double) emissions.get(activity));
+                    }
+                    else {
+                        currentData.setValue(emissions.get(activity));
+                    }
+                    return Transaction.success(currentData);
+                }
+
+                @Override
+                public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                    if (error != null) {
+                        System.out.println("Transaction failed: " + error.getMessage());
+                    } else {
+                        System.out.println("Transaction successful for activity: " + activity);
+                    }
+                }
+            });
+        }
+    }
+
+    public void uploadMonthlyEmissions(Map<String, Object> emissions) {
+        FirebaseUser currUser = auth.getCurrentUser();
+
+        if (currUser != null) {
+            userId = currUser.getUid();
+        }
+        else {
+            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
+        }
+
+        String currentMonth = getCurrentMonth();
+
+        for (String activity : emissions.keySet()) {
+            ref.child("users").child(userId).child("monthlyEmissions").child(currentMonth).child(activity).runTransaction(new Transaction.Handler() {
                 @NonNull
                 @Override
                 public Transaction.Result doTransaction(@NonNull MutableData currentData) {
