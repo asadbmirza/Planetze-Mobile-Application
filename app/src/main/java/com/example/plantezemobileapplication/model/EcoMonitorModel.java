@@ -99,7 +99,6 @@ public class EcoMonitorModel {
 
     public void getTodaysActivities() {
         String formattedDate = getFormattedDate();
-
         FirebaseUser currUser = auth.getCurrentUser();
 
         if (currUser != null) {
