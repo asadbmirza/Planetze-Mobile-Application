@@ -39,7 +39,6 @@ public class ActivityListFragment extends Fragment {
 
     private List<Question> questions;
     private String activityName;
-    private EcoMonitorModel model;
 
     public ActivityListFragment() {
         // Required empty public constructor
@@ -80,7 +79,7 @@ public class ActivityListFragment extends Fragment {
         // Submit answer
         Button submitActivityBtn = view.findViewById(R.id.submit_activity_btn);
 
-        ActivityListPresenter presenter = new ActivityListPresenter(this);
+        ActivityListPresenter presenter = new ActivityListPresenter();
 
         submitActivityBtn.setOnClickListener(v -> {
             presenter.calculateTodaysActivity(questions, adapter.getEnteredAmounts());

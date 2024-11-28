@@ -85,7 +85,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         foodEmissionView = view.findViewById(R.id.food_emission_text);
         consumptionEmissionView = view.findViewById(R.id.consumption_emission_text);
 
-        presenter = new EcoTrackerMonitorPresenter(this);
+        presenter = new EcoTrackerMonitorPresenter();
         model = new EcoMonitorModel(this, presenter);
         model.getTodaysActivities();
         model.setDefaultVehicle();
