@@ -1,17 +1,19 @@
 package com.example.plantezemobileapplication.presenter;
 
-import com.example.plantezemobileapplication.model.EcoMonitorModel;
+import com.example.plantezemobileapplication.model.ActivityListModel;
 import com.example.plantezemobileapplication.utils.Question;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ActivityListPresenter {
-    private EcoMonitorModel model;
+    private ActivityListModel model;
 
     public ActivityListPresenter() {
-        this.model = new EcoMonitorModel();
+        this.model = new ActivityListModel(this);
     }
 
     public void calculateTodaysActivity(List<Question> questions, List<Integer> enteredValues) {
@@ -41,8 +43,20 @@ public class ActivityListPresenter {
         dailyTotals.put("total", dailyTotal);
         monthlyTotals.put(questions.get(0).getCategory(), dailyTotal);
         monthlyTotals.put("total", dailyTotal);
-        model.uploadDailyEmissions(dailyTotals);
-        model.uploadMonthlyEmissions(monthlyTotals);
+        model.uploadEmissions("dailyEmissions", getCurrentDay(), dailyTotals);
+        model.uploadEmissions("monthlyEmissions", getCurrentMonth(), dailyTotals);
         model.uploadActivityLog(loggedActivities);
+    }
+
+    public String getCurrentDay() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date currentDate = new Date();
+        return dateFormat.format(currentDate);
+    }
+
+    public String getCurrentMonth() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+        Date currentDate = new Date();
+        return dateFormat.format(currentDate);
     }
 }
