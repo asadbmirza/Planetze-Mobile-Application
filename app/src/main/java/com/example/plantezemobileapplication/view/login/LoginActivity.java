@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.LoginModel;
 import com.example.plantezemobileapplication.presenter.LoginPresenter;
+import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireActivity;
 import com.example.plantezemobileapplication.view.registration.RegistrationActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements ProcessView {
     TextView forgotPass, registerLink;
     Intent intent;
     private LoginPresenter presenter;
+    private LoginModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,8 @@ public class LoginActivity extends AppCompatActivity implements ProcessView {
             return insets;
         });
 
-        presenter = new LoginPresenter(this, new LoginModel(FirebaseAuth.getInstance()));
+        model = new LoginModel(this, FirebaseAuth.getInstance());
+        presenter = new LoginPresenter(this, model);
 
         emailText = findViewById(R.id.email);
         passwordText = findViewById(R.id.password);
@@ -96,4 +99,15 @@ public class LoginActivity extends AppCompatActivity implements ProcessView {
         progressBar.setVisibility(View.GONE);
         logInBtn.setVisibility(View.VISIBLE);
     }
+
+    public void navigateToQuestionnaire() {
+        intent = new Intent(LoginActivity.this, QuestionnaireActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void navigateToMainMenu() {
+        System.out.println("TEST");
+    }
+
 }
