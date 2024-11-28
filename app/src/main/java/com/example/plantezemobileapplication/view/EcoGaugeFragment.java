@@ -62,7 +62,12 @@ public class EcoGaugeFragment extends Fragment {
 
     private void renderEmissionsBreakdown() {
         PieDataSet pieDataSet = getEmissionsBreakdownDataSet();
-        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        int[] pieChartColors = {
+                Color.rgb(170,188,210),
+                Color.rgb(0,153,153),
+                Color.rgb(57,62,81),
+                Color.rgb(217,219,228)};
+        pieDataSet.setColors(ColorTemplate.createColors(pieChartColors));
 
         PieData pieData = new PieData(pieDataSet);
         emissionsBreakdownPieChart.setData(pieData);
