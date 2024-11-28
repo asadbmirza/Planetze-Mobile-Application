@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+
 android {
     namespace = "com.example.plantezemobileapplication"
     compileSdk = 34
@@ -33,7 +34,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.material.calendar.view)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

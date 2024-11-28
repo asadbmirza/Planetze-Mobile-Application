@@ -13,16 +13,7 @@
         android:theme="@style/Theme.PlantezeMobileApplication"
         tools:targetApi="31">
         <activity
-            android:name=".view.registration.RegistrationActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".view.login.ForgotPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.login.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.welcome.WelcomeActivity"
+            android:name=".view.EcoTrackerCalendarActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <meta-data
             android:name="preloaded_fonts"
