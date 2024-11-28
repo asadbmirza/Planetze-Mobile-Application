@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 public class EcoTrackerMonitorPresenter {
-    private EcoMonitorModel model;
     private EcoTrackerMonitorFragment view;
     private int defaultVehicleIndex;
     private int energyTypeIndex;
@@ -22,12 +21,6 @@ public class EcoTrackerMonitorPresenter {
     public EcoTrackerMonitorPresenter() {}
 
     public EcoTrackerMonitorPresenter(EcoTrackerMonitorFragment view) {
-        model = new EcoMonitorModel(this);
-        this.view = view;
-    }
-
-    public EcoTrackerMonitorPresenter(EcoMonitorModel model, EcoTrackerMonitorFragment view) {
-        this.model = model;
         this.view = view;
     }
 
@@ -53,8 +46,6 @@ public class EcoTrackerMonitorPresenter {
         transportationQuestions.add(new Question("Cycling or Walking$Enter distance travelled (in km)", new Answer[0],"transportation"));
         transportationQuestions.add(new Question("Flight (Short-Haul or Long-Haul)$Enter number of flights taken", answers3,"transportation"));
 
-        System.out.println(defaultVehicleIndex);
-        transportationQuestions.get(0).setSelectedAnswer(defaultVehicleIndex);
         return transportationQuestions;
     }
 

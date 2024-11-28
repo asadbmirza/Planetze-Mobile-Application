@@ -23,23 +23,17 @@ public class EcoMonitorModel {
     private FirebaseAuth auth;
     private EcoTrackerMonitorPresenter presenter;
     private EcoTrackerMonitorFragment view;
+    private DatabaseReference ref;
+    private String userId;
 
     public EcoMonitorModel() {
         auth = FirebaseAuth.getInstance();
-    }
-
-    public EcoMonitorModel(EcoTrackerMonitorPresenter presenter) {
-        auth = FirebaseAuth.getInstance();
-        this.presenter = presenter;
-    }
-
-    public EcoMonitorModel(EcoTrackerMonitorFragment view) {
-        auth = FirebaseAuth.getInstance();
-        this.view = view;
+        ref = FirebaseDatabase.getInstance().getReference();
     }
 
     public EcoMonitorModel(EcoTrackerMonitorFragment view, EcoTrackerMonitorPresenter presenter) {
         auth = FirebaseAuth.getInstance();
+        ref = FirebaseDatabase.getInstance().getReference();
         this.view = view;
         this.presenter = presenter;
     }
@@ -52,8 +46,6 @@ public class EcoMonitorModel {
 
     public void setDefaultVehicle() {
         FirebaseUser currUser = auth.getCurrentUser();
-        String userId = "";
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
         if (currUser != null) {
             userId = currUser.getUid();
@@ -79,8 +71,6 @@ public class EcoMonitorModel {
 
     public void setUserEnergy() {
         FirebaseUser currUser = auth.getCurrentUser();
-        String userId = "";
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
         if (currUser != null) {
             userId = currUser.getUid();
@@ -106,8 +96,6 @@ public class EcoMonitorModel {
 
     public void uploadActivityEmissions(Map<String, Object> emissions) {
         FirebaseUser currUser = auth.getCurrentUser();
-        String userId = "";
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
         if (currUser != null) {
             userId = currUser.getUid();
@@ -148,8 +136,6 @@ public class EcoMonitorModel {
 
     public void uploadActivityLog(Map<String, Object> activities) {
         FirebaseUser currUser = auth.getCurrentUser();
-        String userId = "";
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
         if (currUser != null) {
             userId = currUser.getUid();
@@ -169,8 +155,6 @@ public class EcoMonitorModel {
         String formattedDate = dateFormat.format(currentDate);
 
         FirebaseUser currUser = auth.getCurrentUser();
-        String userId = "";
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
         if (currUser != null) {
             userId = currUser.getUid();
