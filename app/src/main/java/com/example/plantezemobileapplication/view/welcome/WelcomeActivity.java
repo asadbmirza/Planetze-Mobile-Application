@@ -2,7 +2,10 @@ package com.example.plantezemobileapplication.view.welcome;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +32,9 @@ public class WelcomeActivity extends AppCompatActivity {
         });
         Button signUpBtn = findViewById(R.id.signUpBtn);
         Button loginBtn = findViewById(R.id.LoginBtn);
+        ImageView imageView = findViewById(R.id.planetzeRing);
+        Animation rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        imageView.startAnimation(rotateAnimation);
 
         signUpBtn.setOnClickListener(v-> {
             Intent intent = new Intent(WelcomeActivity.this, RegistrationActivity.class);

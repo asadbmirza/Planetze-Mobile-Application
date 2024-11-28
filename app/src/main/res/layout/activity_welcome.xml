@@ -5,13 +5,13 @@
     android:id="@+id/welcomePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/welcome_page_background">
+    android:background="@color/lightblue">
 
 
     <ImageView
         android:id="@+id/appLogo"
-        android:layout_width="194dp"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:contentDescription="@string/app_logo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,47 +19,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/planetze_logo" />
 
-    <Button
-        android:id="@+id/LoginBtn"
-        android:layout_width="155dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="260dp"
-        android:backgroundTint="#70C0C8"
-        android:text="@string/Loginbtn"
-        android:textColor="@color/lightgrey"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/signUpBtn"
-        android:layout_width="155dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="260dp"
-        android:backgroundTint="#7B91BC"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/signUpBtn"
-        android:textColor="@color/lightgrey"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="425dp"
-        android:layout_height="143dp"
-        android:layout_marginBottom="52dp"
-        android:fontFamily="@font/bitter_semibold"
-        android:text="@string/welcome_message"
-        android:textAlignment="center"
-        android:textColor="@color/oxfordblue"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/planetzeRing"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:contentDescription="@string/planetze_ring"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.586"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageView9"
+        app:layout_constraintTop_toBottomOf="@id/imageView9"
+        android:src="@drawable/planetze_logo_ring"/>
 
     <ImageView
         android:id="@+id/imageView9"
@@ -68,9 +37,70 @@
         android:layout_marginTop="32dp"
         android:contentDescription="@string/app_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appLogo"
         app:srcCompat="@drawable/planteze_icon" />
+
+
+    <LinearLayout
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="vertical"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintBottom_toTopOf="@id/action_buttons"
+        app:layout_constraintTop_toBottomOf="@id/planetzeRing">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@color/oxfordblue"
+            android:text="@string/empowering_you_to_live_sustainably"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/oxfordblue"
+            android:gravity="center"
+            android:paddingLeft="40sp"
+            android:paddingRight="40sp"
+            android:text="@string/supporting_individuals_and_groups_on_their_sustainability_journey"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:id="@+id/action_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView2"
+        tools:layout_editor_absoluteX="0dp">
+
+        <Button
+            android:id="@+id/signUpBtn"
+            style="@style/CustomButton"
+            android:layout_height="70dp"
+            android:text="@string/signUpBtn" />
+
+        <Button
+            android:id="@+id/LoginBtn"
+            style="@style/CustomButton"
+            android:layout_marginTop="5dp"
+            android:layout_height="70dp"
+            android:backgroundTint="@color/oxfordblue"
+            android:text="@string/Loginbtn" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
