@@ -9,17 +9,4 @@
                 android:angle="270" />
         </shape>
     </item>
-
-    <!-- Radial glow effect -->
-    <item>
-        <shape android:shape="rectangle">
-            <gradient
-                android:centerColor="#60FFFFFF"
-                android:endColor="#00FFFFFF"
-                android:type="radial"
-                android:gradientRadius="600dp"
-                android:centerX="0.5"
-                android:centerY="0.5" />
-        </shape>
-    </item>
 </layer-list>

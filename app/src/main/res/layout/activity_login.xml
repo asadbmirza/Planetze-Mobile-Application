@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/register_page_background"
+    android:background="@drawable/page_background"
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -35,23 +35,18 @@
             android:layout_gravity="center"
             android:elevation="4dp"
             android:background="@color/white"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="20dp"
+            android:padding="16dp"
             >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="5dp"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:text="@string/welcome_back"
-                android:fontFamily="@font/acme"
-                android:textColor="@color/oxfordblue"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/oxfordblue" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +55,7 @@
                 android:text="@string/login_prompt"
                 android:fontFamily="@font/bitter_semibold"
                 android:textColor="@color/oxfordblue"
-                android:paddingBottom="20dp" />
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -105,21 +100,15 @@
             <TextView
                 android:id="@+id/forgot_psw"
                 android:text="@string/forgot_password"
-                android:fontFamily="@font/bitter_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#3FD0E7"
+                android:textColor="@color/skyblue"
                 android:layout_marginBottom="20dp"/>
 
             <Button
+                style="@style/CustomButton"
                 android:id="@+id/login_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/skyblue"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/Loginbtn"
-                android:textColor="@color/white"
-                android:textSize="28sp" />
+                android:text="@string/Loginbtn" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -152,7 +141,7 @@
             android:focusable="true"
             android:fontFamily="@font/bitter_semibold"
             android:text="@string/registerBtn"
-            android:textColor="#3FD0E7"
+            android:textColor="@color/skyblue"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
