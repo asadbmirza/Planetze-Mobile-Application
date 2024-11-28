@@ -303,6 +303,9 @@ public class QuestionnairePresenter {
         for (Question question : questions) {
             currCategory = question.getCategory();
             selectedAnswer = question.getSelectedAnswer();
+            if (question.getTitle().equals("Do you buy second-hand or eco-friendly products?")) {
+                continue;
+            }
             // Check if question was skipped
             if (selectedAnswer != -1) {
                 currWeight = question.getAnswers()[selectedAnswer].getWeight();
