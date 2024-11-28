@@ -81,6 +81,7 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
 
         presenter = new QuestionnairePresenter(this);
 
+        previousBtn.setEnabled(false);
         presenter.loadQuestion();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -103,6 +104,7 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
             answerLayout.removeAllViews();
             presenter.loadQuestion();
             nextBtn.setEnabled(false);
+            previousBtn.setEnabled(true);
         }
         // Redirect to country selector if last question
         else if (clickedBtn.getId() == R.id.btnNext && presenter.currQuestionIndex >= presenter.questions.length - 1 && !visitedCountrySelector) {
