@@ -23,6 +23,9 @@ public class EcoHubFragment extends AppCompatActivity {
         findViewById(R.id.videosButton).setOnClickListener(v -> {
             startActivity(new Intent(EcoHubFragment.this, VideosFragment.class));
         });
+        findViewById(R.id.energyEfficientButton).setOnClickListener(v -> {
+            startActivity(new Intent(EcoHubFragment.this, AppliancesFragment.class));
+        });
     }
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
