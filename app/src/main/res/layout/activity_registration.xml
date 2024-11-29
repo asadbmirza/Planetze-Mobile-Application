@@ -52,7 +52,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:fontFamily="@font/bitter_semibold"
                 android:text="@string/signUpInstruction"
                 android:textAlignment="center"
                 android:textColor="@color/oxfordblue"
@@ -62,10 +61,10 @@
                 android:id="@+id/fullNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/acme"
+                android:layout_marginBottom="4dp"
                 android:text="@string/fullName"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/editTextFullName"
@@ -85,10 +84,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/acme"
+                android:layout_marginBottom="4dp"
                 android:text="@string/email"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/editTextEmail"
@@ -108,10 +107,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/acme"
+                android:layout_marginBottom="4dp"
                 android:text="@string/password"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/editTextPassword"
@@ -131,10 +130,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/acme"
+                android:layout_marginBottom="4dp"
                 android:text="@string/confirmPassword"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/editTextConfirmPassword"
@@ -179,9 +178,8 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/bitter_semibold"
             android:text="@string/account_exists"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/loginLink"
@@ -189,10 +187,9 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:fontFamily="@font/bitter_semibold"
             android:text="@string/Loginbtn"
             android:textColor="@color/skyblue"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
