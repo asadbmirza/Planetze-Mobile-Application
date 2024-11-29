@@ -44,12 +44,19 @@ public class ActivityListPresenter {
         monthlyTotals.put(questions.get(0).getCategory(), dailyTotal);
         monthlyTotals.put("total", dailyTotal);
         model.uploadEmissions("dailyEmissions", getCurrentDay(), dailyTotals);
+        model.uploadEmissions("weeklyEmissions", getCurrentWeek(), dailyTotals);
         model.uploadEmissions("monthlyEmissions", getCurrentMonth(), dailyTotals);
         model.uploadActivityLog(loggedActivities);
     }
 
     public String getCurrentDay() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date currentDate = new Date();
+        return dateFormat.format(currentDate);
+    }
+
+    public String getCurrentWeek() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-ww");
         Date currentDate = new Date();
         return dateFormat.format(currentDate);
     }
