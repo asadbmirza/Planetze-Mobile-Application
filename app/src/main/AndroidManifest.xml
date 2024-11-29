@@ -25,6 +25,12 @@
             android:name=".view.login.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".view.questionnaire.QuestionnaireResultActivity"
+            android:exported="false" />
+         <activity
+            android:name=".view.questionnaire.QuestionnaireActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.welcome.WelcomeActivity"
             android:exported="true">
             <intent-filter>
