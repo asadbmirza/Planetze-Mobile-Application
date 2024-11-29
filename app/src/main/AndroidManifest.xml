@@ -28,6 +28,9 @@
             android:name=".view.EcoHub.Videos.VideosFragment"
             android:exported="false" />
         <activity
+            android:name=".AppliancesFragment"
+            android:exported="false" />
+        <activity
             android:name=".EcoHubFragment"
             android:exported="true">
             <intent-filter>
