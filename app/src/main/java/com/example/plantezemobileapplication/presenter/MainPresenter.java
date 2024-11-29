@@ -35,6 +35,10 @@ public class MainPresenter {
                     String name = user.getFullName();
                     Emissions emissions = user.getAnnualEmissions();
 
+                    if(emissions == null) {
+                        view.goToQuestionnaire();
+                    }
+
                     String welcomeText = name != null ? String.format("%s, %s", getTimeGreeting(), name.split(" ")[0]) : getTimeGreeting();
                     view.setWelcomeText(welcomeText);
                     view.displayUserData(emissions);

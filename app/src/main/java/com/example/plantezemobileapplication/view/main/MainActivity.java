@@ -22,6 +22,7 @@ import com.example.plantezemobileapplication.view.CreditsFragment;
 import com.example.plantezemobileapplication.view.EcoGaugeFragment;
 import com.example.plantezemobileapplication.view.SettingsFragment;
 import com.example.plantezemobileapplication.view.login.LoginActivity;
+import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireActivity;
 import com.example.plantezemobileapplication.view.welcome.WelcomeActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     BottomNavigationView bottomNavigationView;
     FirebaseAuth auth;
     Toolbar toolbar;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,4 +158,12 @@ public class MainActivity extends AppCompatActivity implements MainView{
         TextView dateText = findViewById(R.id.date_text);
         dateText.setText(date);
     }
+
+    @Override
+    public void goToQuestionnaire() {
+        intent = new Intent(MainActivity.this, QuestionnaireActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

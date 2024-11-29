@@ -18,8 +18,7 @@ public class MainModel {
         FirebaseUser user = auth.getCurrentUser();
 
         if (user != null) {
-            // Temporary
-            myRef.child("hRGBz0zBIGRbm6wJm9RA5Jii97M2").addValueEventListener(listener);
+            myRef.child(user.getUid()).addValueEventListener(listener);
         }
     }
 }
