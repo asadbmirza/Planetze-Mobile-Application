@@ -8,6 +8,7 @@ if (localPropertiesFile.exists()) {
 
 val newsApiKey: String = localProperties.getProperty("NEWS_API_KEY")
 val youtubeApiKey: String = localProperties.getProperty("YOUTUBE_API_KEY")
+val rapidApiKey: String = localProperties.getProperty("RAPID_API_KEY")
 
 plugins {
     id("com.google.gms.google-services")
@@ -42,10 +43,12 @@ android {
         debug {
             buildConfigField("String", "NEWS_API_KEY", "\"$newsApiKey\"")
             buildConfigField("String", "YOUTUBE_API_KEY", "\"$youtubeApiKey\"")
+            buildConfigField("String", "RAPID_API_KEY", "\"$rapidApiKey\"")
         }
         release {
             buildConfigField("String", "NEWS_API_KEY", "\"${newsApiKey}\"")
             buildConfigField("String", "YOUTUBE_API_KEY", "\"$youtubeApiKey\"")
+            buildConfigField("String", "RAPID_API_KEY", "\"$rapidApiKey\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
