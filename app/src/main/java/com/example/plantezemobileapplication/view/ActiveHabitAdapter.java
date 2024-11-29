@@ -20,10 +20,19 @@ import java.util.ArrayList;
 public class ActiveHabitAdapter extends AbstractHabitAdapter<ActiveHabitAdapter.MyViewHolder> {
 
     protected EcoTrackerHabitActivity view;
+    private double consumption;
+    private double transportation;
+    private double food;
+
 
     public ActiveHabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, Activity context) {
         super(habits, originalCategories, originalImpacts);
         this.view = (EcoTrackerHabitActivity) context;
+
+    }
+
+    private void suggestHabitSort() {
+
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

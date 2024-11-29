@@ -81,6 +81,14 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
+        <TextView
+            android:id="@+id/suggested_habits_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Suggested Habits"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_habit"
             android:layout_width="match_parent"

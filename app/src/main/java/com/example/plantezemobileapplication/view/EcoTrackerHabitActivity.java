@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -37,7 +36,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.widget.ToggleButton;
 
@@ -49,12 +47,12 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
 
     private EcoTrackerHabitPresenter presenter;
     private RecyclerView recyclerView;
-    private HabitAdapter habitAdapter;
+    private InactiveHabitAdapter inactiveHabitAdapter;
     private ActiveHabitAdapter activeHabitAdapter;
     private AbstractHabitAdapter displayedHabitAdapter;
     private SearchView searchView;
     private String categories[] = {
-        "Food Consumption",
+                "Food Consumption",
                 "Consumption and Shopping",
                 "Transportation",
                 "Home and Energy"
@@ -66,6 +64,7 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
     private CheckBox[] cCheckboxes;
     private CheckBox[] iCheckboxes;
     private TextView noHabitsMessage;
+    private TextView suggestedHabitsMessage;
     private Dialog dialog;
     private HabitNotification notification;
     private ToggleButton toggleHabitButton;
@@ -85,9 +84,9 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         });
 
         presenter = new EcoTrackerHabitPresenter(this, new EcoTrackerModel());
-        habitAdapter = new HabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
+        inactiveHabitAdapter = new InactiveHabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
         activeHabitAdapter = new ActiveHabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
-        displayedHabitAdapter = habitAdapter;
+        displayedHabitAdapter = inactiveHabitAdapter;
 
         cCheckboxes = new CheckBox[categories.length];
         cFilters = new ArrayList<>();
@@ -98,6 +97,7 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchView = findViewById(R.id.search_view_habit);
         noHabitsMessage = findViewById(R.id.no_habit_text);
+        suggestedHabitsMessage = findViewById(R.id.suggested_habits_text);
         dialog = new Dialog(this);
         notification = new HabitNotification(this);
         toggleHabitButton = findViewById(R.id.toggleHabitButton);
@@ -132,9 +132,11 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (toggleHabitButton.isChecked()) {
                     displayedHabitAdapter = activeHabitAdapter;
-
+                    suggestedHabitsMessage.setVisibility(View.GONE);
                 } else {
-                    displayedHabitAdapter = habitAdapter;
+                    displayedHabitAdapter = inactiveHabitAdapter;
+                    suggestedHabitsMessage.setVisibility(View.VISIBLE);
+
 
                 }
                 recyclerView.setAdapter(displayedHabitAdapter);
@@ -153,9 +155,9 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
 
     public void setHabits(ArrayList<Habit> habits) {
 
-        habitAdapter.updateHabits(habits);
-        habitAdapter.filterByCategory(cFilters);
-        habitAdapter.filterByImpact(iFilters);
+        inactiveHabitAdapter.updateHabits(habits);
+        inactiveHabitAdapter.filterByCategory(cFilters);
+        inactiveHabitAdapter.filterByImpact(iFilters);
     }
 
     public void removeActiveHabit(Habit habit) {
@@ -165,14 +167,17 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
 
     public void setActiveHabits(ArrayList<Habit> habits) {
         activeHabitAdapter.updateHabits(habits);
-        habitAdapter.filterByCategory(cFilters);
-        habitAdapter.filterByImpact(iFilters);
+        inactiveHabitAdapter.filterByCategory(cFilters);
+        inactiveHabitAdapter.filterByImpact(iFilters);
     }
 
     public void createNotifications(ArrayList<Habit> habits) {
         for (Habit habit: habits) {
             notification.createWeeklyNotifications(habit);
         }
+    }
+
+    private void getEmissions() {
     }
 
     //For enabling permissions

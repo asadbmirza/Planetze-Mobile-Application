@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.Habit;
-import com.example.plantezemobileapplication.presenter.EcoTrackerHabitPresenter;
 
 import java.util.ArrayList;
 
-public class HabitAdapter extends AbstractHabitAdapter<HabitAdapter.MyViewHolder> {
+public class InactiveHabitAdapter extends AbstractHabitAdapter<InactiveHabitAdapter.MyViewHolder> {
     protected EcoTrackerHabitActivity view;
 
-    public HabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, Activity context) {
+    public InactiveHabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, Activity context) {
         super(habits, originalCategories, originalImpacts);
         this.view = (EcoTrackerHabitActivity) context;
     }
@@ -41,16 +40,18 @@ public class HabitAdapter extends AbstractHabitAdapter<HabitAdapter.MyViewHolder
 
     }
 
+
+
     @NonNull
     @Override
-    public HabitAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public InactiveHabitAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.habit_card, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(HabitAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(InactiveHabitAdapter.MyViewHolder holder, int position) {
 
         String name =habits.get(position).getName();
         String category = habits.get(position).getCategory();
