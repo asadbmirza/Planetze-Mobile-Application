@@ -34,12 +34,6 @@ public class LoginPresenter {
         });
     }
 
-    public void alreadyLoggedIn() {
-        if(loginModel.isLoggedIn()){
-            view.goToHomepage();
-        }
-    }
-
     private void verifyUser() {
         if (loginModel.getUser() != null) {
             loginModel.getUser().reload().addOnCompleteListener(task -> {

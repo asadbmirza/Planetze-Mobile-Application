@@ -18,6 +18,7 @@ import com.example.plantezemobileapplication.view.main.MainActivity;
 import com.example.plantezemobileapplication.view.login.LoginActivity;
 import com.example.plantezemobileapplication.view.registration.RegistrationActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class WelcomeActivity extends AppCompatActivity {
     @Override
@@ -52,8 +53,8 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null && user.isEmailVerified()) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
