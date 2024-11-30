@@ -38,10 +38,11 @@ public class MainPresenter {
                     if(emissions == null) {
                         view.goToQuestionnaire();
                     }
-
-                    String welcomeText = name != null ? String.format("%s, %s", getTimeGreeting(), name.split(" ")[0]) : getTimeGreeting();
-                    view.setWelcomeText(welcomeText);
-                    view.displayUserData(emissions);
+                    else {
+                        String welcomeText = name != null ? String.format("%s, %s", getTimeGreeting(), name.split(" ")[0]) : getTimeGreeting();
+                        view.setWelcomeText(welcomeText);
+                        view.displayUserData(emissions);
+                    }
                 }
             }
 
