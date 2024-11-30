@@ -29,15 +29,20 @@ public class ActivityListPresenter {
             if (questions.get(i).getCategory().equals("energyConsumption")) {
                 factor = questions.get(i).getSelectedAnswerObject().getWeight();
                 monthlyTotals.put("energyEmissions", enteredValues.get(i) * factor);
+                continue;
             }
-            else {
-                if (enteredValues.get(i) != 0) {
-                    String questionName = questions.get(i).getTitle().substring(0, questions.get(i).getTitle().indexOf('$'));
-                    loggedActivities.put(questionName, enteredValues.get(i));
+            if (enteredValues.get(i) != 0) {
+                Map<String, Object> userInput = new HashMap<>();
+                String questionName = questions.get(i).getTitle().substring(0, questions.get(i).getTitle().indexOf('$'));
+                userInput.put("enteredValue", enteredValues.get(i));
+                if (questions.get(i).getAnswers().length > 0) {
+                    String selectedAnswer = questions.get(i).getSelectedAnswerObject().getAnswerText();
+                    userInput.put("selectedOption", selectedAnswer);
                 }
-                factor = questions.get(i).getSelectedAnswerObject().getWeight();
-                dailyTotal += enteredValues.get(i) * factor;
+                loggedActivities.put(questionName, userInput);
             }
+            factor = questions.get(i).getSelectedAnswerObject().getWeight();
+            dailyTotal += enteredValues.get(i) * factor;
         }
         dailyTotals.put(questions.get(0).getCategory(), dailyTotal);
         dailyTotals.put("total", dailyTotal);
