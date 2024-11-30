@@ -13,7 +13,7 @@
     <string name="fullName">Full Name</string>
     <string name="placeholderEmail">abc123@email.com</string>
     <string name="signUpInstruction">Please enter the following information</string>
-    <string name="account_exists">Already have an account?</string>
+    <string name="account_exists">Already have an account?\ </string>
     <string name="welcome_back">Welcome Back</string>
     <string name="login_prompt">Please enter your login details below</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
@@ -21,4 +21,23 @@
     <string name="reset_instructions">Send reset instructions</string>
     <string name="reset_your_password">Reset Your Password</string>
     <string name="back_to_login">Back to Login</string>
+    <string name="balance">Balance</string>
+    <string name="home">Home</string>
+    <string name="hub">Hub</string>
+    <string name="tracker">Tracker</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="welcome_user">Welcome back, John Doe</string>
+    <string name="today_date">Today\'s date</string>
+    <string name="log_out">Log Out</string>
+    <string name="credits">Credits</string>
+    <string name="settings">Settings</string>
+    <string name="password_instructions">Enter the email associated with your account and we\'ll send you password reset instructions</string>
+    <string name="emissions_trend">Emissions Trend</string>
+    <string name="emissions_breakdown">Emissions Breakdown</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="empowering_you_to_live_sustainably">Empowering You to Live Sustainably</string>
+    <string name="supporting_individuals_and_groups_on_their_sustainability_journey">Supporting Individuals and Groups on Their Sustainability Journey.</string>
+    <string name="planetze_ring">Planetze Ring</string>
 </resources>

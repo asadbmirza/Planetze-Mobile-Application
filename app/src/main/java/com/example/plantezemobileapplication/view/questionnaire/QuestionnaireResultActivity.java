@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.QuestionnaireModel;
 import com.example.plantezemobileapplication.presenter.QuestionnaireResultPresenter;
+import com.example.plantezemobileapplication.view.main.MainActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -86,6 +87,9 @@ public class QuestionnaireResultActivity extends AppCompatActivity implements Vi
         Button clickedBtn = (Button) v;
         if (clickedBtn.getId() == R.id.btnCompleteQuiz) {
             presenter.uploadUserResults(totalEmissions, selectedCountry, additionalUserInfo);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
