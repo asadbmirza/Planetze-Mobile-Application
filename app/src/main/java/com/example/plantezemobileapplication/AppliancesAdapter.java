@@ -43,7 +43,6 @@ public class AppliancesAdapter extends RecyclerView.Adapter<AppliancesAdapter.Ap
                 .override(200, 200)
                 .placeholder(R.drawable.ic_placeholder)
                 .into(holder.imageView);
-        Log.d("Appliance Image URL", appliance.getImageUrl());
 
         holder.buyNowButton.setOnClickListener(v -> {
             String url = appliance.getUrl();
