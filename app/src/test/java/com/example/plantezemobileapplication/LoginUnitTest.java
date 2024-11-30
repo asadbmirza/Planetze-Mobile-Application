@@ -4,7 +4,7 @@ import static org.mockito.Mockito.*;
 
 import com.example.plantezemobileapplication.model.LoginModel;
 import com.example.plantezemobileapplication.presenter.LoginPresenter;
-import com.example.plantezemobileapplication.view.login.LoginView;
+import com.example.plantezemobileapplication.view.login.ProcessView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -18,7 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 public class LoginUnitTest {
     @Mock
-    private LoginView mockView;
+    private ProcessView mockView;
 
     @Mock
     private LoginModel mockLoginModel;

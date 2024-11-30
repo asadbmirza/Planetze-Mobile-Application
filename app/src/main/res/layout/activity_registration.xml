@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/page_background"
+    android:background="@drawable/register_page_background"
     tools:context=".view.registration.RegistrationActivity">
 
     <ImageView
@@ -40,18 +40,19 @@
                 android:id="@+id/signUpText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:fontFamily="@font/acme"
                 android:text="@string/signUpBtn"
                 android:textAlignment="center"
                 android:textColor="@color/oxfordblue"
-                android:layout_marginBottom="5dp"
-                android:textSize="30sp" />
+                android:textSize="35sp" />
 
             <TextView
                 android:id="@+id/signUpInstructions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/bitter_semibold"
                 android:text="@string/signUpInstruction"
                 android:textAlignment="center"
                 android:textColor="@color/oxfordblue"
@@ -61,10 +62,10 @@
                 android:id="@+id/fullNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/acme"
                 android:text="@string/fullName"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextFullName"
@@ -84,10 +85,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/acme"
                 android:text="@string/email"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextEmail"
@@ -107,10 +108,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/acme"
                 android:text="@string/password"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextPassword"
@@ -130,16 +131,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/acme"
                 android:text="@string/confirmPassword"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginBottom="16dp"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/baseline_lock_24"
                 android:drawablePadding="6dp"
@@ -150,9 +150,15 @@
                 android:textColorHint="#64646A" />
 
             <Button
-                style="@style/CustomButton"
                 android:id="@+id/registerBtn"
-                android:text="@string/registerBtn" />
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/skyblue"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/registerBtn"
+                android:textColor="@color/white"
+                android:textSize="28sp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -178,18 +184,23 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:fontFamily="@font/bitter_semibold"
             android:text="@string/account_exists"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/loginLink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="118dp"
+            android:layout_height="58dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="64dp"
             android:clickable="true"
             android:focusable="true"
+            android:fontFamily="@font/bitter_semibold"
             android:text="@string/Loginbtn"
-            android:textColor="@color/skyblue"
-            android:textSize="18sp"
+            android:textColor="#3FD0E7"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

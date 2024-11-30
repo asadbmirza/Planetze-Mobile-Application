@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.LoginModel;
 import com.example.plantezemobileapplication.presenter.LoginPresenter;
-import com.example.plantezemobileapplication.view.main.MainActivity;
+import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireActivity;
 import com.example.plantezemobileapplication.view.registration.RegistrationActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,13 +25,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class LoginActivity extends AppCompatActivity implements LoginView {
+public class LoginActivity extends AppCompatActivity implements ProcessView {
 
-    private TextInputEditText emailText, passwordText;
-    private Button logInBtn;
-    private ProgressBar progressBar;
-    private Intent intent;
-    private LoginPresenter loginPresenter;
+    TextInputEditText emailText, passwordText;
+    Button logInBtn;
+    ProgressBar progressBar;
+    TextView forgotPass, registerLink;
+    Intent intent;
+    private LoginPresenter presenter;
+    private LoginModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +46,21 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             return insets;
         });
 
-        loginPresenter = new LoginPresenter(this, new LoginModel(FirebaseAuth.getInstance()));
+        model = new LoginModel(this, FirebaseAuth.getInstance());
+        presenter = new LoginPresenter(this, model);
 
         emailText = findViewById(R.id.email);
         passwordText = findViewById(R.id.password);
         logInBtn = findViewById(R.id.login_btn);
         progressBar = findViewById(R.id.progress_bar);
-        TextView forgotPass = findViewById(R.id.forgot_psw);
-        TextView registerLink = findViewById(R.id.registerLink);
+        forgotPass = findViewById(R.id.forgot_psw);
+        registerLink = findViewById(R.id.registerLink);
 
         logInBtn.setOnClickListener(v -> {
             String email = Objects.requireNonNull(emailText.getText()).toString();
             String password = Objects.requireNonNull(passwordText.getText()).toString();
 
-            loginPresenter.loginUser(email, password);
+            presenter.loginUser(email, password);
         });
 
         forgotPass.setOnClickListener(v -> {
@@ -72,11 +75,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         });
     }
 
-    public void goToHomepage() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
 
     @Override
     public void showProcessSuccess(String message) {
@@ -101,4 +99,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         progressBar.setVisibility(View.GONE);
         logInBtn.setVisibility(View.VISIBLE);
     }
+
+    public void navigateToQuestionnaire() {
+        intent = new Intent(LoginActivity.this, QuestionnaireActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void navigateToMainMenu() {
+        System.out.println("TEST");
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.example.plantezemobileapplication.presenter;
 
-import com.example.plantezemobileapplication.User;
+import com.example.plantezemobileapplication.model.UserModel;
 import com.example.plantezemobileapplication.view.registration.RegistrationContract;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,7 +61,7 @@ public class RegistrationPresenter implements RegistrationContract.Presenter {
 
     private void saveUserDetails(FirebaseUser user, String fullName, String email) {
         String userId = user.getUid();
-        User newUser = new User(fullName, email, null);
+        UserModel newUser = new UserModel(fullName, email);
 
         dbRef.child(userId).setValue(newUser)
                 .addOnSuccessListener(aVoid -> sendEmailVerification(user))

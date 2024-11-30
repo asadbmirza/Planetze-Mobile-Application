@@ -95,4 +95,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         startActivity(new Intent(RegistrationActivity.this, WelcomeActivity.class));
         finish();
     }
+
+
 }

@@ -17,20 +17,24 @@ public class ForgotPasswordPresenter {
         auth = FirebaseAuth.getInstance();
     }
 
+
     public void sendPasswordReset(String email) {
         if(view != null) {
             view.showLoading();
         }
 
         auth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(task -> {
-                    if (view != null) {
-                        view.hideLoading();
-                    }
-                    if (task.isSuccessful()) {
-                        view.showProcessSuccess("Password reset sent to email.");
-                    } else {
-                        view.showProcessFailure("Password reset could not be sent.");
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (view != null) {
+                            view.hideLoading();
+                        }
+                        if (task.isSuccessful()) {
+                            view.showProcessSuccess("Password reset sent to email.");
+                        } else {
+                            view.showProcessFailure("Password reset could not be sent.");
+                        }
                     }
                 });
     }

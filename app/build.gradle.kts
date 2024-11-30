@@ -47,5 +47,4 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.database)
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
