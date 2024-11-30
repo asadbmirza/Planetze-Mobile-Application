@@ -107,7 +107,11 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
             previousBtn.setEnabled(true);
         }
         // Redirect to country selector if last question
-        else if (clickedBtn.getId() == R.id.btnNext && presenter.currQuestionIndex >= presenter.questions.length - 1 && !visitedCountrySelector) {
+        else if (clickedBtn.getId() == R.id.btnNext
+                && presenter.currQuestionIndex >= presenter.questions.length - 1
+                && !visitedCountrySelector) {
+            presenter.currQuestionIndex++;
+            answerLayout.setVisibility(View.GONE);
             loadCountrySelector();
         }
         // If user selects a country
@@ -116,8 +120,11 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
         }
         //If previous btn is clicked
         else if (clickedBtn.getId() == R.id.btnPrevious && presenter.currQuestionIndex > 0) {
-            visitedCountrySelector = false;
-            spinner.setVisibility(View.GONE);
+            if (visitedCountrySelector) {
+                visitedCountrySelector = false;
+                spinner.setVisibility(View.GONE);
+                answerLayout.setVisibility(View.VISIBLE);
+            }
             nextBtn.setText("Next");
             presenter.handlePreviousQuestion();
             answerLayout.removeAllViews();
@@ -182,7 +189,7 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
         Map<String, Object> additionalUserInfo;
         Intent switchActivityIntent = new Intent(this, QuestionnaireResultActivity.class);
         categoryTotals = presenter.calculateQuizResult();
-        additionalUserInfo = presenter.getAdditionalUserInfo();
+        additionalUserInfo = presenter.setAdditionalUserInfo();
         switchActivityIntent.putExtra("totalEmissions", (Serializable) categoryTotals);
         switchActivityIntent.putExtra("userCountry", selectedCountry);
         switchActivityIntent.putExtra("selectedAnswerIndexes", (Serializable) additionalUserInfo);

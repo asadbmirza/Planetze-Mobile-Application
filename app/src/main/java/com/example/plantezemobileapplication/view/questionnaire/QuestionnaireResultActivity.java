@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.QuestionnaireModel;
@@ -31,7 +33,6 @@ public class QuestionnaireResultActivity extends AppCompatActivity implements Vi
     private TextView globalTargetComparisonView;
     private TextView globalTargetComparsionSubtextView;
     private Button completeQuizButton;
-    private LinearLayout layout;
     private Map<String, Double> totalEmissions;
     private String selectedCountry;
     private Map<String, Object> additionalUserInfo;
@@ -45,7 +46,6 @@ public class QuestionnaireResultActivity extends AppCompatActivity implements Vi
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_quiz_result);
 
-        layout = findViewById(R.id.category_layout);
         totalEmissionView = findViewById(R.id.user_emissions);
         countryComparisonView = findViewById(R.id.country_comparison);
         countryComparisonSubtextView = findViewById(R.id.country_comparison_subtext);
@@ -68,7 +68,12 @@ public class QuestionnaireResultActivity extends AppCompatActivity implements Vi
         presenter.displayCountryComparison(totalEmissions, selectedCountry);
         presenter.displayGlobalTargetComparison(totalEmissions);
 
-        displayCategories();
+        List<Map.Entry<String, Double>> sortedCategories = presenter.sortCategories(totalEmissions);
+        sortedCategories.remove(0);
+        RecyclerView recyclerView = findViewById(R.id.category_layout);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        CategoryAdapter adapter = new CategoryAdapter(sortedCategories);
+        recyclerView.setAdapter(adapter);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -105,19 +110,5 @@ public class QuestionnaireResultActivity extends AppCompatActivity implements Vi
 
     public void setGlobalTargetComparisonSubtext(String msg) {
         globalTargetComparsionSubtextView.setText(msg);
-    }
-
-    public void displayCategories() {
-        List<Map.Entry<String, Double>> sortedCategories = presenter.sortCategories(totalEmissions);
-        for (Map.Entry<String, Double> category : sortedCategories) {
-            if (!category.getKey().equals("Total")) {
-                TextView text = new TextView(this);
-                text.setId(TextView.generateViewId());
-                text.setWidth(RelativeLayout.LayoutParams.MATCH_PARENT);
-                text.setTextSize(16);
-                text.setText(category.getKey().toUpperCase() + ": " + String.format("%.3g%n", category.getValue() * 0.001) + "tonne(s)/yr");
-                layout.addView(text);
-            }
-        }
     }
 }

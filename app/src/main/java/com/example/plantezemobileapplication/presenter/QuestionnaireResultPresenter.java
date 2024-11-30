@@ -62,7 +62,6 @@ public class QuestionnaireResultPresenter {
 
 
     public void displayGlobalTargetComparison(Map<String, Double> totalEmissions) {
-        double userEmissions = totalEmissions.get("Total") * 0.001;
         double percentage = calculatePercentage(totalEmissions.get("Total"), 2);;
         if (percentage >= 0) {
             view.setGlobalTargetComparison(String.format("%.0f", percentage) + "%");
@@ -77,7 +76,7 @@ public class QuestionnaireResultPresenter {
 
 
     public void displayTotalEmissions(Map<String, Double> totalEmissions) {
-        view.setUserTotalText(String.format("%.3f", totalEmissions.get("Total") * 0.001));
+        view.setUserTotalText(String.format("%.2f", totalEmissions.get("Total") * 0.001));
     }
 
 

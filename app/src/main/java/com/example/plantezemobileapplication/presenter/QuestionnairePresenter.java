@@ -281,7 +281,7 @@ public class QuestionnairePresenter {
     }
 
     public void handlePreviousQuestion() {
-        if (questions[currQuestionIndex] instanceof SpecialQuestion) {
+        if (currQuestionIndex < questions.length && questions[currQuestionIndex] instanceof SpecialQuestion) {
             int prevQuestionIndex = ((SpecialQuestion) questions[currQuestionIndex]).getPreviousQuestionIndex();
             ((SpecialQuestion) questions[currQuestionIndex]).setPreviousQuestionIndex(currQuestionIndex - 1); // Reset previous question redirection
             currQuestionIndex = prevQuestionIndex;
@@ -373,7 +373,7 @@ public class QuestionnairePresenter {
         return -1;
     }
 
-    public Map<String, Object> getAdditionalUserInfo() {
+    public Map<String, Object> setAdditionalUserInfo() {
         Map<String, Object> additionalUserInfo = new HashMap<>();
         additionalUserInfo.put("defaultVehicle", questions[1].getSelectedAnswer());
         additionalUserInfo.put("energySource", questions[18].getSelectedAnswer());
