@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -9,6 +8,23 @@
     android:gravity="center"
     android:layout_margin="20dp"
     tools:context=".view.questionnaire.QuestionnaireActivity">
+
+    <TextView
+        android:id="@+id/progress_bar_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0% complete"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        android:textStyle="bold"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="24"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:id="@+id/category"
@@ -31,8 +47,8 @@
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:spinnerMode="dropdown"
         android:padding="12dp"/>
 

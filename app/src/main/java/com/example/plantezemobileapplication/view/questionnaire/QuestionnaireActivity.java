@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,6 +41,8 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
     private boolean visitedCountrySelector;
     private final String[] countries = {"Afghanistan", "Africa", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Asia", "Asia (excl. China and India)", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bonaire Sint Eustatius and Saba", "Bosnia and Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Curacao", "Cyprus", "Czechia", "Democratic Republic of Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Europe", "Europe (excl. EU-27)", "Europe (excl. EU-28)", "European Union (27)", "European Union (28)", "Faroe Islands", "Fiji", "Finland", "France", "French Polynesia", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Greenland", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "High-income countries", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Low-income countries", "Lower-middle-income countries", "Luxembourg", "Macao", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia (country)", "Moldova", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "North America", "North America (excl. USA)", "North Korea", "North Macedonia", "Norway", "Oceania", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Helena", "Saint Kitts and Nevis", "Saint Lucia", "Saint Pierre and Miquelon", "Saint Vincent and the Grenadines", "Samoa", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Sint Maarten (Dutch part)", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South America", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Upper-middle-income countries", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Wallis and Futuna", "World", "Yemen", "Zambia", "Zimbabwe"};
     private String selectedCountry;
+    private ProgressBar progressBar;
+    private TextView progressBarText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,9 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
         });
         spinner.setVisibility(View.GONE);
 
+        progressBar = findViewById(R.id.progress_bar);
+        progressBarText = findViewById(R.id.progress_bar_text);
+
         params = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -105,6 +111,7 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
             presenter.loadQuestion();
             nextBtn.setEnabled(false);
             previousBtn.setEnabled(true);
+            adjustProgressBar();
         }
         // Redirect to country selector if last question
         else if (clickedBtn.getId() == R.id.btnNext
@@ -112,7 +119,9 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
                 && !visitedCountrySelector) {
             presenter.currQuestionIndex++;
             answerLayout.setVisibility(View.GONE);
+            nextBtn.setText("Submit");
             loadCountrySelector();
+            adjustProgressBar();
         }
         // If user selects a country
         else if (clickedBtn.getId() == R.id.btnNext && visitedCountrySelector) {
@@ -124,11 +133,12 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
                 visitedCountrySelector = false;
                 spinner.setVisibility(View.GONE);
                 answerLayout.setVisibility(View.VISIBLE);
+                nextBtn.setText("Next");
             }
-            nextBtn.setText("Next");
             presenter.handlePreviousQuestion();
             answerLayout.removeAllViews();
             presenter.loadQuestion();
+            adjustProgressBar();
         }
         //If any answer btns are clicked
         else {
@@ -194,6 +204,16 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
         switchActivityIntent.putExtra("userCountry", selectedCountry);
         switchActivityIntent.putExtra("selectedAnswerIndexes", (Serializable) additionalUserInfo);
         startActivity(switchActivityIntent);
+    }
+
+    private void adjustProgressBar() {
+        int progress = presenter.currQuestionIndex;
+        if (progress > progressBar.getMax()) {
+            progress = 0;
+        }
+        float progressPercentage = (float) progress / progressBar.getMax() * 100;
+        progressBarText.setText(String.format("%.1f", progressPercentage) + "% Completed");
+        progressBar.setProgress(progress);
     }
 
 }
