@@ -3,10 +3,10 @@ package com.example.plantezemobileapplication.presenter;
 import static com.example.plantezemobileapplication.presenter.JSONParsing.loadJSONFromAsset;
 import static com.example.plantezemobileapplication.presenter.JSONParsing.parseJSON;
 
-import android.content.Context;
-
+import com.example.plantezemobileapplication.model.DailyEmission;
 import com.example.plantezemobileapplication.model.EcoTrackerModel;
 import com.example.plantezemobileapplication.model.Habit;
+import com.example.plantezemobileapplication.model.MonthlyEmission;
 import com.example.plantezemobileapplication.utils.TaskResult;
 import com.example.plantezemobileapplication.view.EcoTrackerHabitActivity;
 import com.google.android.gms.tasks.Task;
@@ -15,17 +15,14 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import org.json.JSONObject;
 import org.json.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 
-public class EcoTrackerHabitPresenter {
+public class EcoTrackerPresenter {
     private EcoTrackerHabitActivity view;
     private EcoTrackerModel model;
     private ArrayList<Habit> habits;
-    public EcoTrackerHabitPresenter(EcoTrackerHabitActivity view, EcoTrackerModel model) {
+    public EcoTrackerPresenter(EcoTrackerHabitActivity view, EcoTrackerModel model) {
         this.view = view;
         this.model = model;
         this.habits = new ArrayList<Habit>();
@@ -43,7 +40,10 @@ public class EcoTrackerHabitPresenter {
                 Habit habit = new Habit(name, category, activity, Integer.parseInt(impact));
                 this.habits.add(habit);
             }
-            fetchActiveHabits();
+            fetchMonthlyEmissions().addOnCompleteListener(task ->  {
+                fetchActiveHabits();
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,6 +83,19 @@ public class EcoTrackerHabitPresenter {
         habits.add(habit);
         view.setHabits(habits);
     }
+
+    public Task<Void> fetchMonthlyEmissions() {
+        TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
+        this.model.getMonthlyEmissions(new EcoTrackerModel.OnMonthlyEmissionsListener() {
+            @Override
+            public void onMonthlyEmissionsFetched(ArrayList<MonthlyEmission> itemList) {
+                view.setMonthlyEmissions(itemList);
+                taskCompletionSource.setResult(null);
+            }
+        });
+        return taskCompletionSource.getTask();
+    }
+
     public void redirectUser() {
         boolean filledSurvey = false; //Will be replaced with firebase auth call later
 

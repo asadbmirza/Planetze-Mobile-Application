@@ -24,14 +24,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.R;
+import com.example.plantezemobileapplication.model.DailyEmission;
 import com.example.plantezemobileapplication.model.EcoTrackerModel;
 import com.example.plantezemobileapplication.model.Habit;
-import com.example.plantezemobileapplication.presenter.EcoTrackerHabitPresenter;
+import com.example.plantezemobileapplication.model.MonthlyEmission;
+import com.example.plantezemobileapplication.presenter.EcoTrackerPresenter;
 import com.example.plantezemobileapplication.utils.TaskResult;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.FirebaseApp;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -45,7 +48,7 @@ import androidx.core.content.ContextCompat;
 
 public class EcoTrackerHabitActivity extends AppCompatActivity {
 
-    private EcoTrackerHabitPresenter presenter;
+    private EcoTrackerPresenter presenter;
     private RecyclerView recyclerView;
     private InactiveHabitAdapter inactiveHabitAdapter;
     private ActiveHabitAdapter activeHabitAdapter;
@@ -83,9 +86,10 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
             return insets;
         });
 
-        presenter = new EcoTrackerHabitPresenter(this, new EcoTrackerModel());
+
         inactiveHabitAdapter = new InactiveHabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
         activeHabitAdapter = new ActiveHabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
+        presenter = new EcoTrackerPresenter(this, new EcoTrackerModel());
         displayedHabitAdapter = inactiveHabitAdapter;
 
         cCheckboxes = new CheckBox[categories.length];
@@ -177,7 +181,31 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         }
     }
 
-    private void getEmissions() {
+
+    public void setMonthlyEmissions(ArrayList<MonthlyEmission> emissions) {
+        ArrayList<Double> consumption = new ArrayList<>();
+        ArrayList<Double> transportation = new ArrayList<>();
+        ArrayList<Double> food = new ArrayList<>();
+        ArrayList<Double> energyEmissions = new ArrayList<>();
+
+        for (MonthlyEmission emission : emissions) {
+            if (emission.getConsumption() != 0) {
+                consumption.add(emission.getConsumption());
+            }
+            if (emission.getFood() != 0) {
+                food.add(emission.getFood());
+            }
+            if (emission.getTransportation() != 0) {
+                transportation.add(emission.getTransportation());
+            }
+            if (emission.getEnergyEmissions() != 0) {
+                energyEmissions.add(emission.getEnergyEmissions());
+            }
+        }
+        inactiveHabitAdapter.setFood(food);
+        inactiveHabitAdapter.setEnergyEmissions(energyEmissions);
+        inactiveHabitAdapter.setConsumption(consumption);
+        inactiveHabitAdapter.setTransportation(transportation);
     }
 
     //For enabling permissions

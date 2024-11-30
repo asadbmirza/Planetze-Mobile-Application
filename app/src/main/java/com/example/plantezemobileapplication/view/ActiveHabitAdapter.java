@@ -1,6 +1,8 @@
 package com.example.plantezemobileapplication.view;
 
 
+import static java.util.Map.entry;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.Habit;
-import com.example.plantezemobileapplication.presenter.EcoTrackerHabitPresenter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActiveHabitAdapter extends AbstractHabitAdapter<ActiveHabitAdapter.MyViewHolder> {
 
     protected EcoTrackerHabitActivity view;
-    private double consumption;
-    private double transportation;
-    private double food;
-
 
     public ActiveHabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, Activity context) {
         super(habits, originalCategories, originalImpacts);
@@ -31,9 +30,7 @@ public class ActiveHabitAdapter extends AbstractHabitAdapter<ActiveHabitAdapter.
 
     }
 
-    private void suggestHabitSort() {
 
-    }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewName;

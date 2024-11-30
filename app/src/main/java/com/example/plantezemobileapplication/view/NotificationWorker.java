@@ -13,6 +13,8 @@ import androidx.work.WorkerParameters;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.plantezemobileapplication.R;
+
 public class NotificationWorker extends Worker {
 
     public NotificationWorker(Context context, WorkerParameters workerParams) {
@@ -50,7 +52,7 @@ public class NotificationWorker extends Worker {
 
         // Create the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "habit_channel")
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setSmallIcon(R.drawable.planteze_icon)
                 .setContentTitle("Eco Friendly Habit Reminder")
                 .setContentText(habitName)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

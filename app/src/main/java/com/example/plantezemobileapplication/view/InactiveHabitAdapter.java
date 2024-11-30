@@ -14,14 +14,114 @@ import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.Habit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class InactiveHabitAdapter extends AbstractHabitAdapter<InactiveHabitAdapter.MyViewHolder> {
     protected EcoTrackerHabitActivity view;
 
+    private ArrayList<Double> consumption;
+    private ArrayList<Double> transportation;
+    private ArrayList<Double> food;
+    private ArrayList<Double> energyEmissions;
+    private double highest;
+
     public InactiveHabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, Activity context) {
         super(habits, originalCategories, originalImpacts);
         this.view = (EcoTrackerHabitActivity) context;
+        this.consumption = new ArrayList<>();
+        this.transportation = new ArrayList<>();
+        this.food = new ArrayList<>();
+        this.energyEmissions = new ArrayList<>();
     }
+
+    public void setConsumption(ArrayList<Double> consumption) {
+        this.consumption = consumption;
+    }
+
+    public ArrayList<Double> getConsumption() {
+        return consumption;
+    }
+
+    public void setTransportation(ArrayList<Double> transportation) {
+        this.transportation = transportation;
+    }
+    public ArrayList<Double> getTransportation() {
+        return transportation;
+    }
+
+    public void setFood(ArrayList<Double> food) {
+        this.food = food;
+    }
+
+    public ArrayList<Double> getFood() {
+        return food;
+    }
+
+    public void setEnergyEmissions(ArrayList<Double> energyEmissions) {
+        this.energyEmissions = energyEmissions;
+    }
+
+    public ArrayList<Double> getEnergyEmissions() {
+        return energyEmissions;
+    }
+
+    public void suggestHabitSort() {
+        double tAvg = computeAvg(transportation);
+        double fAvg = computeAvg(food);
+        double cAvg = computeAvg(consumption);
+        double eAvg = computeAvg(energyEmissions);
+
+        HashMap<String, Double> hashs = new HashMap<>();
+        hashs.put("Transportation", tAvg);
+        hashs.put("Food Consumption", fAvg);
+        hashs.put("Consumption and Shopping", cAvg);
+        hashs.put("Home and Energy", eAvg);
+
+        ArrayList<String> order  = new ArrayList<>();
+        for (String key : hashs.keySet()) {
+            if (hashs.get(key) == - 1 || order.isEmpty()) {
+                order.add(0, key);
+            }
+            else {
+                int count = 0;
+                while (count < order.size() && hashs.get(key) < hashs.get(order.get(count))) {
+                    count ++;
+
+                }
+                order.add(count, key);
+            }
+        }
+
+        ArrayList<Habit> newHabits = new ArrayList<>();
+
+        for (String key: order) {
+            for (int i = 0; i < habits.size(); i ++) {
+                if (habits.get(i).getCategory().equals(key)) {
+                    newHabits.add(habits.get(i));
+                }
+            }
+        }
+        super.updateHabits(newHabits);
+    }
+
+    @Override
+    public void updateHabits(ArrayList<Habit> habits) {
+        super.updateHabits(habits);
+        suggestHabitSort();
+    }
+
+    private double computeAvg(ArrayList<Double> ds) {
+        double sum = 0;
+        for (Double d : ds) {
+            sum = sum + d;
+        }
+        if (ds.isEmpty()) {
+            return -1;
+        }
+        return sum / ds.size();
+    }
+
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewName;
