@@ -31,6 +31,9 @@
             android:name=".AppliancesFragment"
             android:exported="false" />
         <activity
+            android:name=".FashionFragment"
+            android:exported="false" />
+        <activity
             android:name=".EcoHubFragment"
             android:exported="true">
             <intent-filter>
