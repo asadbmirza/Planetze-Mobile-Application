@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity implements MainView{
 
@@ -129,8 +130,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
     }
 
     private boolean loadFragment(Fragment fragment) {
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction()
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (!fragmentManager.isDestroyed() && fragment != null) {
+            fragmentManager.beginTransaction()
                     .replace(R.id.frameLayout, fragment)
                     .commit();
             return true;
