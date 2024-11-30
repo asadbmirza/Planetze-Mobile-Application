@@ -30,12 +30,16 @@
     <string name="articles">Articles</string>
     <string name="videos">Videos</string>
     <string name="appliances">Energy-Efficient Appliances</string>
+    <string name="fashion">Sustainable Fashion</string>
     <string name="search_articles">Search Articles...</string>
     <string name="search_videos">Search Videos...</string>
     <string name="search_appliances">Search Appliances...</string>
+    <string name="search_fashion">Search Categories...</string>
     <string name="read_more">Read More</string>
     <string name="watch_now">Watch Now</string>
     <string name="buy_now">Buy Now</string>
+    <string name="learn_more">Learn More</string>
+    <string name="credit_good_on_you">Data sourced from Good On You: https://directory.goodonyou.eco/</string>
 
 
 </resources>
