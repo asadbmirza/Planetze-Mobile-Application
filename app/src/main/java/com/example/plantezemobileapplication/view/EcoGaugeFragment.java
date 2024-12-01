@@ -60,6 +60,17 @@ public class EcoGaugeFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (emissions != null) {
+            renderEmissionsBreakdown();
+            renderEmissionsTrend();
+        } else {
+            Log.e("EmissionsRetrieval", "Emissions is null in onResume.");
+        }
+    }
+
     private void renderEmissionsBreakdown() {
         PieDataSet pieDataSet = getEmissionsBreakdownDataSet();
         int[] pieChartColors = {
