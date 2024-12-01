@@ -1,11 +1,14 @@
 package com.example.plantezemobileapplication;
 
-import java.io.Serializable;
+import androidx.annotation.NonNull;
+
+import java.util.HashMap;
 
 public class User  {
     private String fullName;
-    private Emissions annualEmissions;
     private String email;
+    private Emissions annualEmissions;
+    private HashMap<String, Emissions> dailyEmissions, weeklyEmissions, monthlyEmissions;
 
     public User() { }
 
@@ -37,5 +40,29 @@ public class User  {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public HashMap<String, Emissions> getDailyEmissions() {
+        return dailyEmissions;
+    }
+
+    public void setDailyEmissions(HashMap<String, Emissions> dailyEmissions) {
+        this.dailyEmissions = dailyEmissions;
+    }
+
+    public HashMap<String, Emissions> getWeeklyEmissions() {
+        return weeklyEmissions;
+    }
+
+    public void setWeeklyEmissions(HashMap<String, Emissions> weeklyEmissions) {
+        this.weeklyEmissions = weeklyEmissions;
+    }
+
+    public HashMap<String, Emissions> getMonthlyEmissions() {
+        return monthlyEmissions;
+    }
+
+    public void setMonthlyEmissions(HashMap<String, Emissions> monthlyEmissions) {
+        this.monthlyEmissions = monthlyEmissions;
     }
 }

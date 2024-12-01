@@ -30,6 +30,7 @@ public class MainPresenter {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                Log.i("User data", String.valueOf(user));
 
                 if (user != null) {
                     String name = user.getFullName();
