@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,14 +16,20 @@
         android:theme="@style/Theme.PlantezeMobileApplication"
         tools:targetApi="31">
         <activity
-            android:name=".view.EcoTrackerHabitActivity"
-            android:exported="true">
+            android:name=".view.EcoTrackerActivity"
+            android:exported="true"
+            android:label="@string/title_activity_eco_tracker"
+            android:theme="@style/Theme.PlantezeMobileApplication" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.EcoTrackerHabitActivity"
+            android:exported="true" />
+
 
         <meta-data
             android:name="preloaded_fonts"
