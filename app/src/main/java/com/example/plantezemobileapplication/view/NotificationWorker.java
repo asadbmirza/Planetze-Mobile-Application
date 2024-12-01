@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import java.util.UUID;
 
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
@@ -38,7 +37,7 @@ public class NotificationWorker extends Worker {
             notificationManager.createNotificationChannel(channel);
         }
 
-        Intent intent = new Intent(getApplicationContext(), EcoTrackerHabitActivity.class);
+        Intent intent = new Intent(getApplicationContext(), EcoTrackerHabitFragment.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("habitId", habitId); // Pass any additional data if needed
 

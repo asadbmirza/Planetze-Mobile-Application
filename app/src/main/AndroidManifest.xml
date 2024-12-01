@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.EcoTrackerHabitActivity"
+            android:name=".view.EcoTrackerHabitFragment"
             android:exported="true" />
 
 

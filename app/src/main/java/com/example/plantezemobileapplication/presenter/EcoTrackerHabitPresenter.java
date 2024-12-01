@@ -3,12 +3,13 @@ package com.example.plantezemobileapplication.presenter;
 import static com.example.plantezemobileapplication.presenter.JSONParsing.loadJSONFromAsset;
 import static com.example.plantezemobileapplication.presenter.JSONParsing.parseJSON;
 
-import com.example.plantezemobileapplication.model.DailyEmission;
+import androidx.fragment.app.FragmentActivity;
+
 import com.example.plantezemobileapplication.model.EcoTrackerModel;
 import com.example.plantezemobileapplication.model.Habit;
 import com.example.plantezemobileapplication.model.MonthlyEmission;
 import com.example.plantezemobileapplication.utils.TaskResult;
-import com.example.plantezemobileapplication.view.EcoTrackerHabitActivity;
+import com.example.plantezemobileapplication.view.EcoTrackerHabitFragment;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
@@ -18,17 +19,17 @@ import org.json.*;
 import java.util.ArrayList;
 
 
-public class EcoTrackerPresenter {
-    private EcoTrackerHabitActivity view;
+public class EcoTrackerHabitPresenter {
+    private EcoTrackerHabitFragment view;
     private EcoTrackerModel model;
     private ArrayList<Habit> habits;
-    public EcoTrackerPresenter(EcoTrackerHabitActivity view, EcoTrackerModel model) {
+    public EcoTrackerHabitPresenter(EcoTrackerHabitFragment view, EcoTrackerModel model, FragmentActivity context) {
         this.view = view;
         this.model = model;
         this.habits = new ArrayList<Habit>();
 
         try {
-            String json = loadJSONFromAsset(view);
+            String json = loadJSONFromAsset(context);
             JSONArray j = parseJSON(json, "habits");
             if (j == null) throw new Exception("Habits not found");
             for (int i = 0; i < j.length(); i++) {

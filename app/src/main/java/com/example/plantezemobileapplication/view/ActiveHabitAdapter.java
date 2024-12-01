@@ -1,8 +1,6 @@
 package com.example.plantezemobileapplication.view;
 
 
-import static java.util.Map.entry;
-
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +15,14 @@ import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.Habit;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ActiveHabitAdapter extends AbstractHabitAdapter<ActiveHabitAdapter.MyViewHolder> {
 
-    protected EcoTrackerHabitActivity view;
+    protected EcoTrackerHabitFragment view;
 
-    public ActiveHabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, Activity context) {
+    public ActiveHabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, EcoTrackerHabitFragment view) {
         super(habits, originalCategories, originalImpacts);
-        this.view = (EcoTrackerHabitActivity) context;
+        this.view = view;
 
     }
 

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InactiveHabitAdapter extends AbstractHabitAdapter<InactiveHabitAdapter.MyViewHolder> {
-    protected EcoTrackerHabitActivity view;
+    protected EcoTrackerHabitFragment view;
 
     private ArrayList<Double> consumption;
     private ArrayList<Double> transportation;
@@ -25,9 +25,9 @@ public class InactiveHabitAdapter extends AbstractHabitAdapter<InactiveHabitAdap
     private ArrayList<Double> energyEmissions;
     private double highest;
 
-    public InactiveHabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, Activity context) {
+    public InactiveHabitAdapter(ArrayList<Habit> habits, String[] originalCategories, Integer[] originalImpacts, EcoTrackerHabitFragment view) {
         super(habits, originalCategories, originalImpacts);
-        this.view = (EcoTrackerHabitActivity) context;
+        this.view = view;
         this.consumption = new ArrayList<>();
         this.transportation = new ArrayList<>();
         this.food = new ArrayList<>();

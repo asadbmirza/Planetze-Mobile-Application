@@ -6,7 +6,9 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -14,27 +16,21 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.DailyEmission;
 import com.example.plantezemobileapplication.model.EcoTrackerModel;
 import com.example.plantezemobileapplication.model.Habit;
 import com.example.plantezemobileapplication.model.MonthlyEmission;
-import com.example.plantezemobileapplication.presenter.EcoTrackerPresenter;
+import com.example.plantezemobileapplication.presenter.EcoTrackerHabitPresenter;
 import com.example.plantezemobileapplication.utils.TaskResult;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.FirebaseApp;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -46,9 +42,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
-public class EcoTrackerHabitActivity extends AppCompatActivity {
+public class EcoTrackerHabitFragment extends Fragment {
 
-    private EcoTrackerPresenter presenter;
+    private EcoTrackerHabitPresenter presenter;
     private RecyclerView recyclerView;
     private InactiveHabitAdapter inactiveHabitAdapter;
     private ActiveHabitAdapter activeHabitAdapter;
@@ -74,39 +70,31 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        FirebaseApp.initializeApp(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_eco_tracker_habit, container, false);
 
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_eco_tracker_habit);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.eco_tracker_habit), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
+        FirebaseApp.initializeApp(requireContext());
 
         inactiveHabitAdapter = new InactiveHabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
         activeHabitAdapter = new ActiveHabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
-        presenter = new EcoTrackerPresenter(this, new EcoTrackerModel());
+        presenter = new EcoTrackerHabitPresenter(this, new EcoTrackerModel(), getActivity());
         displayedHabitAdapter = inactiveHabitAdapter;
 
         cCheckboxes = new CheckBox[categories.length];
         cFilters = new ArrayList<>();
         iCheckboxes = new CheckBox[impacts.length];
         iFilters = new ArrayList<>();
-        recyclerView = findViewById(R.id.recycler_view_habit);
+        recyclerView = view.findViewById(R.id.recycler_view_habit);
         recyclerView.setAdapter(displayedHabitAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        searchView = findViewById(R.id.search_view_habit);
-        noHabitsMessage = findViewById(R.id.no_habit_text);
-        suggestedHabitsMessage = findViewById(R.id.suggested_habits_text);
-        dialog = new Dialog(this);
-        notification = new HabitNotification(this);
-        toggleHabitButton = findViewById(R.id.toggleHabitButton);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        searchView = view.findViewById(R.id.search_view_habit);
+        noHabitsMessage = view.findViewById(R.id.no_habit_text);
+        suggestedHabitsMessage = view.findViewById(R.id.suggested_habits_text);
+        dialog = new Dialog(getContext());
+        notification = new HabitNotification(getActivity());
+        toggleHabitButton = view.findViewById(R.id.toggleHabitButton);
 
-        Button filterButton = findViewById(R.id.filter_button);
+        Button filterButton = view.findViewById(R.id.filter_button);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -155,6 +143,7 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
 
             }
         });
+        return view;
     }
 
     public void setHabits(ArrayList<Habit> habits) {
@@ -215,9 +204,9 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_CODE_POST_NOTIFICATIONS) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission granted. Notifications enabled.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Permission granted. Notifications enabled.", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Permission denied. Notifications disabled.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Permission denied. Notifications disabled.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -228,7 +217,7 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
         int minute = calendar.get(Calendar.MINUTE);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(
-                this,
+                getContext(),
                 (view, hourOfDay, minuteOfHour) -> {
                     // Format selected time (HH:mm)
                     selectedTime[0] = String.format("%02d:%02d", hourOfDay, minuteOfHour);
@@ -278,10 +267,10 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
 
 
                 if (activeDays.size() == 0) {
-                    Toast.makeText(EcoTrackerHabitActivity.this, "Need at least one active day", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Need at least one active day", Toast.LENGTH_SHORT).show();
                 }
                 else if (selectedTime[0].equals("")) {
-                    Toast.makeText(EcoTrackerHabitActivity.this, "Need to select a time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Need to select a time", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     System.out.println(selectedTime[0] + " " + activeDays.toString());
@@ -290,15 +279,15 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
                     presenter.addHabit(habit).addOnCompleteListener(completedTask -> {
                         if (completedTask.isSuccessful() && completedTask.getResult() != null) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                                if (ContextCompat.checkSelfPermission(EcoTrackerHabitActivity.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                                    ActivityCompat.requestPermissions(EcoTrackerHabitActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+                                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
                                 }
                             }
                             TaskResult taskResult = completedTask.getResult();
-                            Toast.makeText(EcoTrackerHabitActivity.this, taskResult.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), taskResult.getMessage(), Toast.LENGTH_SHORT).show();
                             notification.removeCreateWeeklyNotification(habit);
                         } else {
-                            Toast.makeText(EcoTrackerHabitActivity.this, "An unexpected error occurred", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "An unexpected error occurred", Toast.LENGTH_SHORT).show();
                         }
                     });
                     dialog.dismiss();
@@ -389,7 +378,7 @@ public class EcoTrackerHabitActivity extends AppCompatActivity {
 
 
     private CheckBox initCheckBox(String query) {
-        CheckBox c = new CheckBox(this);
+        CheckBox c = new CheckBox(getContext());
         c.setText(query);
         return c;
     }

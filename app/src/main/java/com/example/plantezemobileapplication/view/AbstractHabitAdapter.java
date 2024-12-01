@@ -44,6 +44,7 @@ public abstract class AbstractHabitAdapter<VH extends RecyclerView.ViewHolder> e
         searchQuery = query;
         ArrayList<Habit> newHabits = new ArrayList<>();
         System.out.println("Filtered list query: " + query);
+
         for (Habit habit : filteredHabits) {
             if (habit.getName().toLowerCase().contains(query.toLowerCase())) {
                 newHabits.add(habit);
