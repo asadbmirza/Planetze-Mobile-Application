@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.plantezemobileapplication.User;
 import com.example.plantezemobileapplication.view.ComingSoonFragment;
 import com.example.plantezemobileapplication.Emissions;
 import com.example.plantezemobileapplication.R;
@@ -141,10 +142,10 @@ public class MainActivity extends AppCompatActivity implements MainView{
         return false;
     }
 
-    public void displayUserData(Emissions emissions) {
+    public void displayUserData(User user) {
         EcoGaugeFragment fragment = new EcoGaugeFragment();
         Bundle args = new Bundle();
-        args.putSerializable("emissions_key", emissions);
+        args.putSerializable("user_key", user);
         fragment.setArguments(args);
 
         loadFragment(fragment);

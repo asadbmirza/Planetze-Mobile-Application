@@ -34,15 +34,14 @@ public class MainPresenter {
 
                 if (user != null) {
                     String name = user.getFullName();
-                    Emissions emissions = user.getAnnualEmissions();
 
-                    if(emissions == null) {
+                    if(user.getAnnualEmissions() == null) {
                         view.goToQuestionnaire();
                     }
                     else {
                         String welcomeText = name != null ? String.format("%s, %s", getTimeGreeting(), name.split(" ")[0]) : getTimeGreeting();
                         view.setWelcomeText(welcomeText);
-                        view.displayUserData(emissions);
+                        view.displayUserData(user);
                     }
                 }
             }

@@ -1,10 +1,9 @@
 package com.example.plantezemobileapplication;
 
-import androidx.annotation.NonNull;
-
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class User  {
+public class User  implements Serializable {
     private String fullName;
     private String email;
     private Emissions annualEmissions;
