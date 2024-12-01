@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.plantezemobileapplication.view.ComingSoonFragment;
 import com.example.plantezemobileapplication.Emissions;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.MainModel;
@@ -118,13 +119,13 @@ public class MainActivity extends AppCompatActivity implements MainView{
         if (itemId == R.id.ecoGauge) {
             selectedFragment = new EcoGaugeFragment();
         } else if (itemId == R.id.ecoBalance) {
-            selectedFragment = new EcoGaugeFragment();
+            selectedFragment = new ComingSoonFragment();
         } else if (itemId == R.id.ecoHub) {
-            selectedFragment = new EcoGaugeFragment();
+            selectedFragment = new ComingSoonFragment();
         } else if (itemId == R.id.ecoTracker) {
-            selectedFragment = new EcoGaugeFragment();
+            selectedFragment = new ComingSoonFragment();
         } else if (itemId == R.id.ecoAgent) {
-            selectedFragment = new EcoGaugeFragment();
+            selectedFragment = new ComingSoonFragment();
         }
         return selectedFragment;
     }
