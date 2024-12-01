@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     FirebaseAuth auth;
     Toolbar toolbar;
     Intent intent;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +119,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
         if (itemId == R.id.ecoGauge) {
             selectedFragment = new EcoGaugeFragment();
+            Bundle args = new Bundle();
+            args.putSerializable("user_key", user);
+            selectedFragment.setArguments(args);
         } else if (itemId == R.id.ecoBalance) {
             selectedFragment = new ComingSoonFragment();
         } else if (itemId == R.id.ecoHub) {
@@ -141,15 +145,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
         return false;
     }
 
-    public void displayUserData(User user) {
-        EcoGaugeFragment fragment = new EcoGaugeFragment();
-        Bundle args = new Bundle();
-        args.putSerializable("user_key", user);
-        fragment.setArguments(args);
-
-        loadFragment(fragment);
-    }
-
     @Override
     public void setWelcomeText(String text) {
         TextView welcomeText = findViewById(R.id.welcome_user_text);
@@ -169,4 +164,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
         finish();
     }
 
+    @Override
+    public void displayUserData(User user) {
+        this.user = user;
+        loadFragment(getFragmentForItem(R.id.ecoGauge));
+    }
 }
