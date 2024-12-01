@@ -133,6 +133,7 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
                 visitedCountrySelector = false;
                 spinner.setVisibility(View.GONE);
                 answerLayout.setVisibility(View.VISIBLE);
+                nextBtn.setEnabled(false);
                 nextBtn.setText("Next");
             }
             presenter.handlePreviousQuestion();
@@ -142,9 +143,11 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
         }
         //If any answer btns are clicked
         else {
+            if (clickedBtn.getId() != R.id.btnPrevious) {
+                updateButtonStyle(clickedBtn, R.drawable.rectangular_button);
+            }
             String currAnswer = clickedBtn.getText().toString();
             presenter.handleAnswer(currAnswer);
-            updateButtonStyle(clickedBtn, R.drawable.rectangular_button);
             nextBtn.setEnabled(true);
         }
     }
