@@ -6,7 +6,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.plantezemobileapplication.Emissions;
 import com.example.plantezemobileapplication.User;
 import com.example.plantezemobileapplication.model.MainModel;
 import com.example.plantezemobileapplication.view.main.MainView;
@@ -30,7 +29,6 @@ public class MainPresenter {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                Log.i("User data", String.valueOf(user));
 
                 if (user != null) {
                     String name = user.getFullName();

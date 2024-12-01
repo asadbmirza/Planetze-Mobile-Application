@@ -16,12 +16,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plantezemobileapplication.User;
 import com.example.plantezemobileapplication.view.ComingSoonFragment;
-import com.example.plantezemobileapplication.Emissions;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.MainModel;
 import com.example.plantezemobileapplication.presenter.MainPresenter;
 import com.example.plantezemobileapplication.view.CreditsFragment;
-import com.example.plantezemobileapplication.view.EcoGaugeFragment;
+import com.example.plantezemobileapplication.view.ecogauge.EcoGaugeFragment;
 import com.example.plantezemobileapplication.view.SettingsFragment;
 import com.example.plantezemobileapplication.view.login.LoginActivity;
 import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireActivity;
