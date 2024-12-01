@@ -51,12 +51,12 @@ public class QuestionnaireResultPresenter {
         double percentage = calculatePercentage(totalEmissions.get("Total"), countryEmissions);
         if (percentage >= 0) {
             view.setCountryComparison(String.format("%.0f", percentage) + "%");
-            view.setCountryComparisonSubtext("ABOVE the national average for " + country);
+            view.setCountryComparisonSubtext("ABOVE the average for " + country);
         }
         else {
             percentage = Math.abs(percentage);
             view.setCountryComparison(String.format("%.0f", percentage) + "%");
-            view.setCountryComparisonSubtext("BELOW the national average for " + country);
+            view.setCountryComparisonSubtext("BELOW the average for " + country);
         }
     }
 
