@@ -343,13 +343,22 @@ public class QuestionnairePresenter {
         int question11Answer = questions[13].getSelectedAnswer() == 4 ? 2 : questions[13].getSelectedAnswer(); // type of home (row), if other then choose townhouse
         int question12Answer = questions[14].getSelectedAnswer(); // # of occupants (row)
         int question13Answer = questions[15].getSelectedAnswer(); // size of home (row)
-        int question14Answer = questions[16].getSelectedAnswer() == 5 ? 1 : questions[16].getSelectedAnswer(); // type of energy for water (col)
+        int question14Answer = questions[16].getSelectedAnswer(); // type of energy for water (col)
         int question15Answer = questions[17].getSelectedAnswer(); // monthly bill (col)
-        int question16Answer = questions[18].getSelectedAnswer() == 5 ? 1 : questions[18].getSelectedAnswer(); // type of energy for electricity/heating (col)
+        int question16Answer = questions[18].getSelectedAnswer(); // type of energy for electricity/heating (col)
+
+        if (question14Answer == 5) {
+            question14Answer = 1;
+            questions[16].setSelectedAnswer(1);
+        }
+        if (question16Answer == 5) {
+            question16Answer = 1;
+            questions[18].setSelectedAnswer(1);
+        }
 
         JsonParser jsonReader = new JsonParser(this.view);
         questions[16].getAnswers()[question14Answer].setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question14Answer + (5 * question15Answer)));
-        if (question14Answer != question15Answer) {
+        if (question14Answer != question16Answer) {
             questions[18].getAnswers()[question16Answer].setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question16Answer + (5 * question15Answer)) + 255);
         }
         else {
