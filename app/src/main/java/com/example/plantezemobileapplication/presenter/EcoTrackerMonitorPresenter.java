@@ -30,13 +30,17 @@ public class EcoTrackerMonitorPresenter {
                 new Answer("Subway", 3),
         };
         Answer[] answers3 = {
+                new Answer("Walking", 0),
+                new Answer("Cycling", 0),
+        };
+        Answer[] answers4 = {
                 new Answer("Short-Haul (<1,500km)", 225),
                 new Answer("Long-Haul (>1,500km)", 825),
         };
         transportationQuestions.add(new Question("Drive Personal Vehicle$Distance driven (in km)", answers1,"transportation"));
         transportationQuestions.add(new Question("Take Public Transportation$Time spent (in hours)", answers2,"transportation"));
-        transportationQuestions.add(new Question("Cycling or Walking$Distance travelled (in km)", new Answer[0],"transportation"));
-        transportationQuestions.add(new Question("Flight (Short-Haul or Long-Haul)$Number of flights taken", answers3,"transportation"));
+        transportationQuestions.add(new Question("Active Transportation (Walking or Cycling)$Distance travelled (in km)", answers3,"transportation"));
+        transportationQuestions.add(new Question("Flight (Short-Haul or Long-Haul)$Number of flights taken", answers4,"transportation"));
 
         // Set user's default vehicle if already chosen from annual questionnaire
         transportationQuestions.get(0).setSelectedAnswer(defaultVehicleIndex);
