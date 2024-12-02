@@ -1,32 +1,30 @@
-package com.example.plantezemobileapplication;
+package com.example.plantezemobileapplication.view;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
+import com.example.plantezemobileapplication.R;
+import com.example.plantezemobileapplication.model.FashionCategory;
+import com.example.plantezemobileapplication.presenter.FashionPresenter;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.util.List;
 
-public class FashionFragment extends AppCompatActivity {
+public class FashionFragment extends AppCompatActivity implements FashionView {
+
     private RecyclerView recyclerView;
     private FashionAdapter adapter;
+    private FashionPresenter presenter;
     private Runnable searchRunnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +34,8 @@ public class FashionFragment extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         EditText searchBar = findViewById(R.id.searchBar);
 
-        loadFashionCategories();
+        presenter = new FashionPresenter(this);
+        presenter.loadFashionCategories(this);
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -49,9 +48,9 @@ public class FashionFragment extends AppCompatActivity {
                 }
                 searchRunnable = () -> {
                     if (!s.toString().trim().isEmpty()) {
-                        adapter.filterList(s.toString().trim());
+                        presenter.filterFashionList(s.toString().trim(), FashionFragment.this);
                     } else {
-                        adapter.filterList("");
+                        presenter.filterFashionList("", FashionFragment.this);
                     }
                 };
                 new Handler(Looper.getMainLooper()).postDelayed(searchRunnable, 500);
@@ -62,33 +61,16 @@ public class FashionFragment extends AppCompatActivity {
         });
     }
 
-    private String loadJSONFromRaw() {
-        String json = null;
-        try {
-            InputStream is = getResources().openRawResource(R.raw.sustainable_fashion);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return json;
+    @Override
+    public void setFashionCategories(List<FashionCategory> fashionCategories) {
+        adapter = new FashionAdapter(fashionCategories, this);
+        recyclerView.setAdapter(adapter);
     }
 
-    private void loadFashionCategories() {
-        String json = loadJSONFromRaw();
-
-        if (json != null) {
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<FashionCategory>>() {}.getType();
-            List<FashionCategory> fashionCategories = gson.fromJson(json, listType);
-
-            adapter = new FashionAdapter(fashionCategories, this);
-            recyclerView.setAdapter(adapter);
-        } else {
-            Toast.makeText(this, "Error loading JSON", Toast.LENGTH_SHORT).show();
-        }
+    @Override
+    public void showError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
+
+

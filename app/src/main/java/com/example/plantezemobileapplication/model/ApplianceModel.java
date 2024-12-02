@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication;
+package com.example.plantezemobileapplication.model;
 
 public class Appliance {
     private String product_price;

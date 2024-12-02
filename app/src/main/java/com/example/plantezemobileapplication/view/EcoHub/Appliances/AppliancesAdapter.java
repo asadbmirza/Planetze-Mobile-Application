@@ -1,9 +1,8 @@
-package com.example.plantezemobileapplication;
+package com.example.plantezemobileapplication.view;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,9 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.example.plantezemobileapplication.R;
+import com.example.plantezemobileapplication.model.Appliance;
+
 import java.util.List;
 
 public class AppliancesAdapter extends RecyclerView.Adapter<AppliancesAdapter.ApplianceViewHolder> {
