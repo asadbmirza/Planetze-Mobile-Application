@@ -32,10 +32,12 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,20 +48,21 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
+    private static final String ARG_DAY = "currentDay";
+    private static final String ARG_MONTH = "currentMonth";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     TextView totalDailyEmissionView;
     TextView transportationEmissionView;
     TextView foodEmissionView;
     TextView consumptionEmissionView;
+    TextView montitorHeading;
     EcoTrackerMonitorPresenter presenter;
     private ArrayList<DailyEmission> dailyEmissions;
     private String currentDay;
     private String currentMonth;
+    private String currentWeek;
     private MaterialCalendarView calendarView;
     private Dialog dialog;
 
@@ -67,20 +70,11 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EcoTrackerMonitorFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EcoTrackerMonitorFragment newInstance(String param1, String param2) {
+    public static EcoTrackerMonitorFragment newInstance(String currentDay, String currentMonth, String currentWeek) {
         EcoTrackerMonitorFragment fragment = new EcoTrackerMonitorFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_DAY, currentDay);
+        args.putString(ARG_MONTH, currentMonth);
         fragment.setArguments(args);
         return fragment;
     }
@@ -88,9 +82,10 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            currentDay = getArguments().getString(ARG_DAY);
+            currentMonth = getArguments().getString(ARG_MONTH);
         }
     }
 
@@ -105,15 +100,18 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
 
 
         //Update CO2 tracker display
+        montitorHeading = view.findViewById(R.id.monitor_heading);
         totalDailyEmissionView = view.findViewById(R.id.daily_emission_text);
         transportationEmissionView = view.findViewById(R.id.transportation_emission_text);
         foodEmissionView = view.findViewById(R.id.food_emission_text);
         consumptionEmissionView = view.findViewById(R.id.consumption_emission_text);
 
         presenter = new EcoTrackerMonitorPresenter(this, new EcoMonitorModel());
+
         Date currentDate = new Date();
         currentDay = getCurrentDay(currentDate);
         currentMonth = getCurrentMonth(currentDate);
+        currentWeek = getCurrentWeek(currentDate);
 
         presenter.getTodaysActivities(currentDate);
         presenter.getDefaultVehicle();
@@ -173,10 +171,14 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
             return;
         }
 
-        Fragment targetFragment = ActivityListFragment.newInstance(activityName, questionList, currentDay, currentMonth);
+
+
+        Fragment targetFragment = ActivityListFragment.newInstance(activityName, questionList, currentDay, currentMonth, currentWeek);
         FragmentTransaction transaction = requireActivity()
                 .getSupportFragmentManager()
                 .beginTransaction();
+
+
 
         transaction.replace(R.id.fragmentContainerView, targetFragment);
         transaction.addToBackStack(null);
@@ -190,6 +192,11 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
 
     public String getCurrentMonth(Date currentDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+        return dateFormat.format(currentDate);
+    }
+
+    public String getCurrentWeek(Date currentDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-ww");
         return dateFormat.format(currentDate);
     }
 
@@ -255,7 +262,30 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         presenter.getUserEnergy();
         currentDay = getCurrentDay(date.getDate());
         currentMonth = getCurrentMonth(date.getDate());
+        currentWeek = getCurrentWeek(date.getDate());
+        displayNewDay();
         dialog.dismiss();
 
+    }
+
+    private void displayNewDay() {
+        if (currentDay.equals(getCurrentDay(new Date()))) {
+            montitorHeading.setText("Today's Emissions");
+            return;
+        }
+
+        try {
+            // Parse the input date
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+            Date date = inputFormat.parse(currentDay);
+
+            // Format to desired output
+            SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.US);
+            String formattedDate = outputFormat.format(date);
+            montitorHeading.setText("Emissions on " + formattedDate);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

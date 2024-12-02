@@ -16,7 +16,7 @@ public class ActivityListPresenter {
         this.model = new ActivityListModel(this);
     }
 
-    public void calculateTodaysActivity(List<Question> questions, List<Integer> enteredValues, String day, String month) {
+    public void calculateTodaysActivity(List<Question> questions, List<Integer> enteredValues, String day, String month, String week) {
         Map<String, Object> dailyTotals = new HashMap<>();
         Map<String, Object> monthlyTotals = new HashMap<>();
         Map<String, Object> loggedActivities = new HashMap<>();
@@ -51,6 +51,7 @@ public class ActivityListPresenter {
         monthlyTotals.put(questions.get(0).getCategory(), dailyTotal);
         monthlyTotals.put("total", dailyTotal);
         model.uploadEmissions("dailyEmissions", day, dailyTotals);
+        model.uploadEmissions("weeklyEmissions", week, dailyTotals);
         model.uploadEmissions("monthlyEmissions", month, dailyTotals);
         model.uploadActivityLog(loggedActivities, day);
     }

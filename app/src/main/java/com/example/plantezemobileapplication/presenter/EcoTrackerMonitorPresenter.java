@@ -112,7 +112,7 @@ public class EcoTrackerMonitorPresenter {
     public List<Question> initializeConsumptionQuestions() {
         List<Question> consumptionQuestions = new ArrayList<>();
         Answer[] answers1 = {
-                new Answer("#Clothing factor", 20),
+                new Answer("!Clothing factor", 20),
         };
         Answer[] answers2 = {
                 new Answer("Smartphone", 70),

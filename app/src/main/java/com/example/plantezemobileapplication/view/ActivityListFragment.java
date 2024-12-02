@@ -39,24 +39,27 @@ public class ActivityListFragment extends Fragment {
 
     private static final String ARG_DAY = "currentDay";
     private static final String ARG_MONTH = "currentMonth";
+    private static final String ARG_WEEK = "currentWeek";
 
     private List<Question> questions;
     private String activityName;
 
     private String currentDay;
     private String currentMonth;
+    private String currentWeek;
 
     public ActivityListFragment() {
         // Required empty public constructor
     }
 
-    public static ActivityListFragment newInstance(String activityName, List<Question> questions, String day, String month) {
+    public static ActivityListFragment newInstance(String activityName, List<Question> questions, String day, String month, String week) {
         ActivityListFragment fragment = new ActivityListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, activityName);
         args.putParcelableArrayList(ARG_QUESTIONS, (ArrayList<? extends Parcelable>) questions);
         args.putString(ARG_DAY, day);
         args.putString(ARG_MONTH, month);
+        args.putString(ARG_WEEK, week);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,6 +72,7 @@ public class ActivityListFragment extends Fragment {
             questions = getArguments().getParcelableArrayList(ARG_QUESTIONS);
             currentDay = getArguments().getString(ARG_DAY);
             currentMonth = getArguments().getString(ARG_MONTH);
+            currentWeek = getArguments().getString(ARG_WEEK);
         }
     }
 
@@ -92,18 +96,13 @@ public class ActivityListFragment extends Fragment {
         ActivityListPresenter presenter = new ActivityListPresenter();
 
         submitActivityBtn.setOnClickListener(v -> {
-            presenter.calculateTodaysActivity(questions, adapter.getEnteredAmounts(), currentDay, currentMonth);
+            presenter.calculateTodaysActivity(questions, adapter.getEnteredAmounts(), currentDay, currentMonth, currentWeek);
 
-            Fragment targetFragment = new EcoTrackerMonitorFragment();
-            FragmentTransaction transaction = requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction();
-
-            transaction.replace(R.id.fragmentContainerView, targetFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            requireActivity().getSupportFragmentManager().popBackStack();
         });
 
         return view;
     }
+
+
 }

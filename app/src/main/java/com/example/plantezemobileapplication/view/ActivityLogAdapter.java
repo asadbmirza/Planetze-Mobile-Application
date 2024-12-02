@@ -93,7 +93,7 @@ public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.
             }
         });
         // If there are no answers or there is an attributed factor to the answer but we do not want the user to see said option
-        if (question.getAnswers().length == 0 || question.getAnswers()[0].getAnswerText().contains("#")) {
+        if (question.getAnswers().length == 0 || question.getAnswers()[0].getAnswerText().contains("!")) {
             holder.optionSpinner.setVisibility(View.GONE);
         }
     }
