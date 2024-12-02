@@ -1,8 +1,6 @@
 package com.example.plantezemobileapplication;
 
-import java.io.Serializable;
-
-public class Emissions implements Serializable {
+public class Emissions {
     private float consumption;
     private float food;
     private float housing;
