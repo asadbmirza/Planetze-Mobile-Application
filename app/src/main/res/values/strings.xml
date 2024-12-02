@@ -48,4 +48,5 @@
     <string name="today">Today</string>
     <string name="this_week">This Week</string>
     <string name="this_month">This Month</string>
+    <string name="compared_to_others">Compared to Others</string>
 </resources>
