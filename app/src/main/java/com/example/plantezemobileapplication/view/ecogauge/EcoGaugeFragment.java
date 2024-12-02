@@ -141,11 +141,14 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
         int[] pieChartColors = {
                 Color.rgb(170,188,210),
                 Color.rgb(0,153,153),
-                Color.rgb(57,62,81),
+                Color.rgb(57,162,81),
                 Color.rgb(217,219,228)};
         pieDataSet.setColors(ColorTemplate.createColors(pieChartColors));
 
         PieData pieData = new PieData(pieDataSet);
+        pieData.setValueTextSize(14f);
+
+
         emissionsBreakdownPieChart.setData(pieData);
         emissionsBreakdownPieChart.getDescription().setEnabled(false);
         emissionsBreakdownPieChart.setEntryLabelTextSize(0f);
@@ -177,17 +180,16 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
         LineData lineData = new LineData(dataSets);
         lineData.setValueTextColor(Color.BLACK);
         lineData.setValueTextSize(12f);
-        lineData.setDrawValues(true);
-        lineData.setValueTextSize(12f);
-        lineData.setValueTextColor(Color.BLACK);
+
+        Legend legend = emissionsTrendLineChart.getLegend();
+        legend.setTextSize(14f);
 
         emissionsTrendLineChart.setData(lineData);
         emissionsTrendLineChart.setDrawGridBackground(false);
-        emissionsTrendLineChart.setExtraOffsets(50f, 0f, 50f, 0f);
+        emissionsTrendLineChart.setExtraOffsets(30f, 0f, 30f, 15f);
 
         // Simplify chart appearance
         emissionsTrendLineChart.setDescription(null);
-        emissionsTrendLineChart.getLegend().setEnabled(false);
         emissionsTrendLineChart.setTouchEnabled(false);
         // Disable grid lines and labels
         emissionsTrendLineChart.getAxisLeft().setDrawGridLines(false);
@@ -196,10 +198,9 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
         emissionsTrendLineChart.getAxisRight().setDrawLabels(false);
 
         XAxis xAxis = emissionsTrendLineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Position the X-axis at the bottom
-        xAxis.setGranularity(1f); // Ensure values are displayed at regular intervals
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
         xAxis.setDrawGridLines(false);
-        xAxis.setGranularityEnabled(true);
 
         emissionsTrendLineChart.animateY(500);
         emissionsTrendLineChart.invalidate();
@@ -209,7 +210,7 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
     public void renderEmissionsComparisons() {
         JsonParser jsonParser = new JsonParser(getContext());
         BarDataSet dataSet = presenter.getComparedRegionAnnualEmissions(jsonParser, regionToCompare);
-        dataSet.setColor(Color.rgb(170,188,210));
+        dataSet.setColor(Color.rgb(0,153,153));
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setValueTextSize(14f);
 

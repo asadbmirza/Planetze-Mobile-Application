@@ -173,7 +173,7 @@ public class EcoGaugePresenter {
             entries.add(new PieEntry(annualEmissions.getHousing(), "Housing"));
         }
 
-        return new PieDataSet(entries, "");
+        return new PieDataSet(entries, "Emissions (kg CO₂e)");
     }
 
     public LineDataSet getDailyEmissionTrendDataSet() {
@@ -207,7 +207,7 @@ public class EcoGaugePresenter {
             });
         }
 
-        return new LineDataSet(emissions, "");
+        return new LineDataSet(emissions, "Emissions (kg CO₂e)");
     }
 
     public LineDataSet getWeeklyEmissionTrendDataSet() {
@@ -238,7 +238,7 @@ public class EcoGaugePresenter {
             });
         }
 
-        return new LineDataSet(emissions, "");
+        return new LineDataSet(emissions, "Emissions (kg CO₂e)");
     }
 
     public LineDataSet getMonthlyEmissionTrendDataSet() {
@@ -269,7 +269,7 @@ public class EcoGaugePresenter {
             });
         }
 
-        return new LineDataSet(emissions, "");
+        return new LineDataSet(emissions, "Emissions (kg CO₂e)");
     }
 
     public BarDataSet getComparedRegionAnnualEmissions(JsonParser parser, String region) {
