@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.User;
@@ -35,7 +36,8 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
 
     PieChart emissionsBreakdownPieChart;
     LineChart emissionsTrendLineChart;
-    Button dailyTrendBtn, weeklyTrendBtn, monthlyTrendBtn;
+    TextView emissionsText, timePeriodText, comparisonStatement;
+    Button todayBtn, thisWeekBtn, thisMonthBtn, dailyTrendBtn, weeklyTrendBtn, monthlyTrendBtn;
     EcoGaugePresenter presenter;
 
     public EcoGaugeFragment() {
@@ -48,21 +50,23 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
 
         emissionsBreakdownPieChart = view.findViewById(R.id.emission_breakdown_chart);
         emissionsTrendLineChart = view.findViewById(R.id.emissions_trend_chart);
+        todayBtn = view.findViewById(R.id.today_btn);
+        thisWeekBtn = view.findViewById(R.id.this_week_btn);
+        thisMonthBtn = view.findViewById(R.id.this_month_btn);
         dailyTrendBtn = view.findViewById(R.id.daily_trend_btn);
         weeklyTrendBtn = view.findViewById(R.id.weekly_trend_btn);
         monthlyTrendBtn = view.findViewById(R.id.monthly_trend_btn);
+        emissionsText = view.findViewById(R.id.emissions_text);
+        timePeriodText = view.findViewById(R.id.time_period_text);
+        comparisonStatement = view.findViewById(R.id.comparison_statemeent);
 
-        dailyTrendBtn.setOnClickListener(v -> {
-            renderEmissionsTrend(presenter.getDailyEmissionTrendDataSet());
-        });
+        todayBtn.setOnClickListener(v -> renderEmissionsOverview(presenter.getTodayEmissions(), "today", presenter.getTwoDayRelativeDifference()));
+        thisWeekBtn.setOnClickListener(v -> renderEmissionsOverview(presenter.getThisWeekEmissions(), "this week", 0));
+        thisMonthBtn.setOnClickListener(v -> renderEmissionsOverview(presenter.getThisMonthEmissions(), "this month", 0));
 
-        weeklyTrendBtn.setOnClickListener(v -> {
-            renderEmissionsTrend(presenter.getWeeklyEmissionTrendDataSet());
-        });
-
-        monthlyTrendBtn.setOnClickListener(v -> {
-            renderEmissionsTrend(presenter.getMonthlyEmissionTrendDataSet());
-        });
+        dailyTrendBtn.setOnClickListener(v -> renderEmissionsTrend(presenter.getDailyEmissionTrendDataSet()));
+        weeklyTrendBtn.setOnClickListener(v -> renderEmissionsTrend(presenter.getWeeklyEmissionTrendDataSet()));
+        monthlyTrendBtn.setOnClickListener(v -> renderEmissionsTrend(presenter.getMonthlyEmissionTrendDataSet()));
 
         if (getArguments() != null) {
             User user = (User) getArguments().getSerializable("user_key");
@@ -82,7 +86,27 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
     }
 
     @Override
-    public void renderEmissionsOverview() {}
+    public void renderEmissionsOverview(float emissionsNumber, String timePeriod, float relativeDifference) {
+        if (emissionsNumber == 0) {
+            String noLogs = "No logs!";
+            emissionsText.setText(noLogs);
+        } else {
+            emissionsText.setText(String.format("\uD83C\uDF0D %s kg CO₂e", emissionsNumber));
+        }
+
+        if (relativeDifference == 0) {
+            String nothingToCompare = "No difference. Keep going—consistency leads to progress!";
+            comparisonStatement.setText(nothingToCompare);
+        } else {
+            if (relativeDifference < 0) {
+                comparisonStatement.setText(String.format("You're emitting %s%% less than yesterday. Keep it up!", Math.abs(relativeDifference)));
+            } else {
+                comparisonStatement.setText(String.format("You're emitting %s%% more than yesterday. Every step counts, you can get back on track!", relativeDifference));
+            }
+        }
+
+        timePeriodText.setText(String.format("(%s)", timePeriod));
+    }
 
     @Override
     public void renderEmissionsBreakdown() {

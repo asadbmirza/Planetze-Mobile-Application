@@ -14,7 +14,10 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,6 +35,45 @@ public class EcoGaugePresenter {
         this.emissionsTrendLineChart = emissionsTrendLineChart;
         this.view = view;
         this.annualEmissions = user.getAnnualEmissions();
+    }
+
+    public float getTodayEmissions() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
+        String formattedTodayDate = sdf.format(calendar.getTime());
+
+        HashMap<String, Emissions> dailyEmissions = user.getDailyEmissions();
+        Emissions todayEmissions = dailyEmissions.get(formattedTodayDate);
+
+        if (todayEmissions == null) {
+            return 0;
+        }
+        return todayEmissions.getTotal();
+    }
+
+    public float getTwoDayRelativeDifference() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
+        String formattedTodayDate = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        String formattedYesterdayDate = sdf.format(calendar.getTime());
+
+        HashMap<String, Emissions> dailyEmissions = user.getDailyEmissions();
+        Emissions todayEmissions = dailyEmissions.get(formattedTodayDate);
+        Emissions yesterdayEmissions = dailyEmissions.get(formattedYesterdayDate);
+
+        if (todayEmissions == null || yesterdayEmissions == null) {
+            return 0;
+        }
+        return (float) Math.round(((todayEmissions.getTotal() - yesterdayEmissions.getTotal()) / yesterdayEmissions.getTotal()) * 1000) / 10;
+    }
+
+    public float getThisWeekEmissions() {
+        return 0;
+    }
+
+    public float getThisMonthEmissions() {
+        return 0;
     }
 
     @NonNull
