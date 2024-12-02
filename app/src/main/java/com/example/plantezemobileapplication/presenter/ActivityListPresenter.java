@@ -34,10 +34,13 @@ public class ActivityListPresenter {
             if (enteredValues.get(i) != 0) {
                 Map<String, Object> userInput = new HashMap<>();
                 String questionName = questions.get(i).getTitle().substring(0, questions.get(i).getTitle().indexOf('$'));
-                userInput.put("enteredValue", enteredValues.get(i));
+//                userInput.put("enteredValue", enteredValues.get(i));
                 if (questions.get(i).getAnswers().length > 0) {
                     String selectedAnswer = questions.get(i).getSelectedAnswerObject().getAnswerText();
-                    userInput.put("selectedOption", selectedAnswer);
+                    userInput.put(selectedAnswer, enteredValues.get(i));
+                }
+                else {
+                    userInput.put("inputValue", enteredValues.get(i));
                 }
                 loggedActivities.put(questionName, userInput);
             }
