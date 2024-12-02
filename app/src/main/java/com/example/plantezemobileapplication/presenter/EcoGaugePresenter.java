@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 
 import com.example.plantezemobileapplication.Emissions;
 import com.example.plantezemobileapplication.User;
+import com.example.plantezemobileapplication.utils.JsonParser;
 import com.example.plantezemobileapplication.view.ecogauge.EcoGaugeView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -267,5 +270,15 @@ public class EcoGaugePresenter {
         }
 
         return new LineDataSet(emissions, "");
+    }
+
+    public BarDataSet getComparedRegionAnnualEmissions(JsonParser parser, String region) {
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        double regionEmissions = parser.getEmissionByCountry("countryEmissions.json", region) * 1000;
+
+        entries.add(new BarEntry(0f, user.getAnnualEmissions().getTotal()));
+        entries.add(new BarEntry(1f, (float) regionEmissions));
+
+        return new BarDataSet(entries, "Emissions (kg CO₂e)");
     }
 }

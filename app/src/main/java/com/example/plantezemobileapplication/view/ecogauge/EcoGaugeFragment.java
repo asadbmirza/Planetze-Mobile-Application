@@ -18,16 +18,21 @@ import android.widget.TextView;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.User;
 import com.example.plantezemobileapplication.presenter.EcoGaugePresenter;
+import com.example.plantezemobileapplication.utils.JsonParser;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
@@ -38,6 +43,8 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
 
     PieChart emissionsBreakdownPieChart;
     LineChart emissionsTrendLineChart;
+    BarChart emissionsComparisonBarChart;
+
     TextView emissionsText, timePeriodText, comparisonStatement;
     Button todayBtn, thisWeekBtn, thisMonthBtn, dailyTrendBtn, weeklyTrendBtn, monthlyTrendBtn;
     String [] countries;
@@ -55,6 +62,7 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
 
         emissionsBreakdownPieChart = view.findViewById(R.id.emission_breakdown_chart);
         emissionsTrendLineChart = view.findViewById(R.id.emissions_trend_chart);
+        emissionsComparisonBarChart = view.findViewById(R.id.emissions_comparison_chart);
         todayBtn = view.findViewById(R.id.today_btn);
         thisWeekBtn = view.findViewById(R.id.this_week_btn);
         thisMonthBtn = view.findViewById(R.id.this_month_btn);
@@ -198,7 +206,42 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
     }
 
     @Override
-    public void renderEmissionsComparisons() {}
+    public void renderEmissionsComparisons() {
+        JsonParser jsonParser = new JsonParser(getContext());
+        BarDataSet dataSet = presenter.getComparedRegionAnnualEmissions(jsonParser, regionToCompare);
+        dataSet.setColor(Color.rgb(170,188,210));
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setValueTextSize(14f);
+
+        BarData barData = new BarData(dataSet);
+        emissionsComparisonBarChart.setData(barData);
+
+        final String[] labels = {"You", regionToCompare};
+        XAxis xAxis = emissionsComparisonBarChart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return labels[(int) value];
+            }
+        });
+        xAxis.setGranularity(1f);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setTextSize(14f);
+
+        Legend legend = emissionsComparisonBarChart.getLegend();
+        legend.setTextSize(14f);
+
+        emissionsComparisonBarChart.setExtraOffsets(0f, 20f, 0f, 10f);
+        emissionsComparisonBarChart.getAxisLeft().setAxisMinimum(0f);
+        emissionsComparisonBarChart.getAxisRight().setEnabled(false);
+        emissionsComparisonBarChart.getAxisLeft().setDrawGridLines(false);
+
+        emissionsComparisonBarChart.setTouchEnabled(false);
+        emissionsComparisonBarChart.getDescription().setEnabled(false);
+        emissionsComparisonBarChart.animateY(500);
+        emissionsComparisonBarChart.invalidate();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
