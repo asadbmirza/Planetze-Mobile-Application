@@ -19,6 +19,7 @@ import com.example.plantezemobileapplication.R;
 public class EcoTrackerActivity extends AppCompatActivity {
 
     EcoTrackerHabitFragment habitFragment;
+    EcoTrackerMonitorFragment monitorFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,12 @@ public class EcoTrackerActivity extends AppCompatActivity {
         habitsBtn.setOnClickListener(v -> {
             habitFragment = new EcoTrackerHabitFragment();
             navigateToFragment(habitFragment, R.id.eco_tracker_habit);
+        });
+
+        Button activityBtn = findViewById(R.id.view_activity_page_button);
+        activityBtn.setOnClickListener(v -> {
+            monitorFragment = new EcoTrackerMonitorFragment();
+            navigateToFragment(monitorFragment, R.id.monitor_container);
         });
     }
 

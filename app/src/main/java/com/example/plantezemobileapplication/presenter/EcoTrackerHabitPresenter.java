@@ -1,13 +1,14 @@
 package com.example.plantezemobileapplication.presenter;
 
-import static com.example.plantezemobileapplication.presenter.JSONParsing.loadJSONFromAsset;
-import static com.example.plantezemobileapplication.presenter.JSONParsing.parseJSON;
+import static com.example.plantezemobileapplication.utils.HabitParsing.loadJSONFromAsset;
+import static com.example.plantezemobileapplication.utils.HabitParsing.parseJSON;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.plantezemobileapplication.model.EcoTrackerModel;
-import com.example.plantezemobileapplication.model.Habit;
-import com.example.plantezemobileapplication.model.MonthlyEmission;
+import com.example.plantezemobileapplication.model.HabitModel;
+import com.example.plantezemobileapplication.utils.Habit;
+import com.example.plantezemobileapplication.utils.MonthlyEmission;
+import com.example.plantezemobileapplication.utils.JsonParser;
 import com.example.plantezemobileapplication.utils.TaskResult;
 import com.example.plantezemobileapplication.view.EcoTrackerHabitFragment;
 import com.google.android.gms.tasks.Task;
@@ -21,14 +22,15 @@ import java.util.ArrayList;
 
 public class EcoTrackerHabitPresenter {
     private EcoTrackerHabitFragment view;
-    private EcoTrackerModel model;
+    private HabitModel model;
     private ArrayList<Habit> habits;
-    public EcoTrackerHabitPresenter(EcoTrackerHabitFragment view, EcoTrackerModel model, FragmentActivity context) {
+    public EcoTrackerHabitPresenter(EcoTrackerHabitFragment view, HabitModel model, FragmentActivity context) {
         this.view = view;
         this.model = model;
         this.habits = new ArrayList<Habit>();
 
         try {
+            JsonParser newJson = new JsonParser(context);
             String json = loadJSONFromAsset(context);
             JSONArray j = parseJSON(json, "habits");
             if (j == null) throw new Exception("Habits not found");
@@ -87,26 +89,16 @@ public class EcoTrackerHabitPresenter {
 
     public Task<Void> fetchMonthlyEmissions() {
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
-        this.model.getMonthlyEmissions(new EcoTrackerModel.OnMonthlyEmissionsListener() {
+        this.model.getMonthlyEmissions(new HabitModel.OnMonthlyEmissionsListener() {
             @Override
             public void onMonthlyEmissionsFetched(ArrayList<MonthlyEmission> itemList) {
                 view.setMonthlyEmissions(itemList);
-                taskCompletionSource.setResult(null);
+                if (!taskCompletionSource.getTask().isComplete()) {
+                    taskCompletionSource.setResult(null);
+                }
             }
         });
         return taskCompletionSource.getTask();
     }
-
-    public void redirectUser() {
-        boolean filledSurvey = false; //Will be replaced with firebase auth call later
-
-        if (filledSurvey) {
-            //navigate to dashboard page
-        }
-        //stay on this page
-    }
-
-
-
 
 }

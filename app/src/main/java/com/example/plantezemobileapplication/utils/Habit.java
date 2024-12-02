@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.model;
+package com.example.plantezemobileapplication.utils;
 
 import java.util.ArrayList;
 

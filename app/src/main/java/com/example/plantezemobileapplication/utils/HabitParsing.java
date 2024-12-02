@@ -1,8 +1,6 @@
-package com.example.plantezemobileapplication.presenter;
+package com.example.plantezemobileapplication.utils;
 
 import android.content.Context;
-
-import com.example.plantezemobileapplication.model.Habit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-public class JSONParsing {
+public class HabitParsing {
     public static String loadJSONFromAsset(Context context) throws IOException {
         String json = null;
         InputStream is = context.getAssets().open("habitList.json");

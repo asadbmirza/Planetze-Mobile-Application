@@ -4,6 +4,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.plantezemobileapplication.utils.DailyEmission;
+import com.example.plantezemobileapplication.utils.Habit;
+import com.example.plantezemobileapplication.utils.MonthlyEmission;
 import com.example.plantezemobileapplication.utils.TaskResult;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -12,25 +15,28 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class EcoTrackerModel {
+public class HabitModel {
     private FirebaseDatabase db;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private String userId;
     private DatabaseReference ref;
-    public EcoTrackerModel(){
+    public HabitModel(){
 
         db = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         if (user == null) {
-            userId = "RZrvLb5Y77ae7jGVopscXwDNg2t1";
+            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2";
         } else {
             userId = user.getUid();
 
@@ -120,11 +126,29 @@ public class EcoTrackerModel {
 
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        DailyEmission dailyEmission = snapshot.getValue(DailyEmission.class);
+                        try {
+                            DailyEmission dailyEmission = snapshot.getValue(DailyEmission.class);
 
-                        if (dailyEmission != null) {
-                            dailyEmission.setId(snapshot.getKey());
-                            dailyEmissionList.add(dailyEmission);
+                            if (dailyEmission != null) {
+                                dailyEmission.setId(snapshot.getKey());
+
+                                // Check and process activities
+                                DataSnapshot activitiesSnapshot = snapshot.child("activities");
+                                if (activitiesSnapshot.exists()) {
+                                    Map<String, DailyEmission.ActivityDetail> activities = new HashMap<>();
+                                    for (DataSnapshot activitySnapshot : activitiesSnapshot.getChildren()) {
+                                        DailyEmission.ActivityDetail activityDetail = activitySnapshot.getValue(DailyEmission.ActivityDetail.class);
+                                        if (activityDetail != null) {
+                                            activities.put(activitySnapshot.getKey(), activityDetail);
+                                        }
+                                    }
+                                    dailyEmission.setActivities(activities);
+                                }
+
+                                dailyEmissionList.add(dailyEmission);
+                            }
+                        } catch (DatabaseException e) {
+                            Log.e("Firebase", "Error parsing data: " + e.getMessage());
                         }
                     }
                 }
@@ -136,6 +160,7 @@ public class EcoTrackerModel {
                 Log.e("Firebase", "Error: " + databaseError.getMessage());
             }
         });
+
     }
 
     public void getMonthlyEmissions(final OnMonthlyEmissionsListener listener) {

@@ -1,7 +1,6 @@
 package com.example.plantezemobileapplication.view;
 
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.Habit;
+import com.example.plantezemobileapplication.utils.Habit;
 
 import java.util.ArrayList;
 

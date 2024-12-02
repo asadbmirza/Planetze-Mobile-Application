@@ -2,12 +2,10 @@ package com.example.plantezemobileapplication.view;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.Habit;
+import com.example.plantezemobileapplication.utils.Habit;
 
 import java.util.ArrayList;
 import java.util.Arrays;

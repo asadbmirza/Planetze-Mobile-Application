@@ -12,8 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.DailyEmission;
-import com.example.plantezemobileapplication.model.EcoTrackerModel;
+import com.example.plantezemobileapplication.utils.DailyEmission;
+import com.example.plantezemobileapplication.model.HabitModel;
 import com.example.plantezemobileapplication.presenter.EcoTrackerEmissionsPresenter;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -44,7 +44,7 @@ public class EcoTrackerCalendarActivity extends AppCompatActivity {
         });
         calendarView = findViewById(R.id.calendarView);
         dailyEmissions = new ArrayList<>();
-        this.presenter = new EcoTrackerEmissionsPresenter(this, new EcoTrackerModel());
+        this.presenter = new EcoTrackerEmissionsPresenter(this, new HabitModel());
         this.presenter.fetchDailyEmissions().addOnSuccessListener(task -> {
             addEmissionsToCalendar();
             addCalenderListeners();

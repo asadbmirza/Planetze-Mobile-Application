@@ -1,9 +1,5 @@
-package com.example.plantezemobileapplication.model;
+package com.example.plantezemobileapplication.utils;
 
-
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
 
 public class MonthlyEmission extends Emission {
 

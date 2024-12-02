@@ -22,9 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.EcoTrackerModel;
-import com.example.plantezemobileapplication.model.Habit;
-import com.example.plantezemobileapplication.model.MonthlyEmission;
+import com.example.plantezemobileapplication.model.HabitModel;
+import com.example.plantezemobileapplication.utils.Habit;
+import com.example.plantezemobileapplication.utils.MonthlyEmission;
 import com.example.plantezemobileapplication.presenter.EcoTrackerHabitPresenter;
 import com.example.plantezemobileapplication.utils.TaskResult;
 import com.google.android.material.chip.Chip;
@@ -77,7 +77,7 @@ public class EcoTrackerHabitFragment extends Fragment {
 
         inactiveHabitAdapter = new InactiveHabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
         activeHabitAdapter = new ActiveHabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
-        presenter = new EcoTrackerHabitPresenter(this, new EcoTrackerModel(), getActivity());
+        presenter = new EcoTrackerHabitPresenter(this, new HabitModel(), getActivity());
         displayedHabitAdapter = inactiveHabitAdapter;
 
         cCheckboxes = new CheckBox[categories.length];

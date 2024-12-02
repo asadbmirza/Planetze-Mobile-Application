@@ -1,26 +1,22 @@
 package com.example.plantezemobileapplication.view;
 
 import android.app.Activity;
-import android.util.Log;
 
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Data;
 
-import com.example.plantezemobileapplication.model.Habit;
-import com.example.plantezemobileapplication.view.NotificationWorker;
+import com.example.plantezemobileapplication.utils.Habit;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 
-import java.text.ParseException;
 import java.util.concurrent.TimeUnit;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 
 public class HabitNotification {
