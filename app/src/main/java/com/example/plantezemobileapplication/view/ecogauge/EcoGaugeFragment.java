@@ -124,11 +124,14 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
         if (relativeDifference == 0) {
             String nothingToCompare = "No difference. Keep going—consistency leads to progress!";
             comparisonStatement.setText(nothingToCompare);
+            comparisonStatement.setTextColor(Color.DKGRAY);
         } else {
             if (relativeDifference < 0) {
                 comparisonStatement.setText(String.format("You're emitting %s%% less than yesterday. Keep it up!", Math.abs(relativeDifference)));
+                comparisonStatement.setTextColor(Color.rgb(103, 154, 2));
             } else {
                 comparisonStatement.setText(String.format("You're emitting %s%% more than yesterday. Every step counts, you can get back on track!", relativeDifference));
+                comparisonStatement.setTextColor(Color.rgb(208, 21, 21));
             }
         }
 
