@@ -39,7 +39,7 @@ public class EcoTrackerMonitorPresenter {
         };
         transportationQuestions.add(new Question("Drive Personal Vehicle$Distance driven (in km)", answers1,"transportation"));
         transportationQuestions.add(new Question("Take Public Transportation$Time spent (in hours)", answers2,"transportation"));
-        transportationQuestions.add(new Question("Active Transportation (Walking or Cycling)$Distance travelled (in km)", answers3,"transportation"));
+        transportationQuestions.add(new Question("Active Transportation$Distance travelled (in km)", answers3,"transportation"));
         transportationQuestions.add(new Question("Flight (Short-Haul or Long-Haul)$Number of flights taken", answers4,"transportation"));
 
         // Set user's default vehicle if already chosen from annual questionnaire
