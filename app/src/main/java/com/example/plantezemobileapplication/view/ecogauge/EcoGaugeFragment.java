@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -38,7 +40,10 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
     LineChart emissionsTrendLineChart;
     TextView emissionsText, timePeriodText, comparisonStatement;
     Button todayBtn, thisWeekBtn, thisMonthBtn, dailyTrendBtn, weeklyTrendBtn, monthlyTrendBtn;
+    String [] countries;
     EcoGaugePresenter presenter;
+    AutoCompleteTextView dropdown;
+    String regionToCompare = "World";
 
     public EcoGaugeFragment() {
         // Required empty public constructor
@@ -59,6 +64,16 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
         emissionsText = view.findViewById(R.id.emissions_text);
         timePeriodText = view.findViewById(R.id.time_period_text);
         comparisonStatement = view.findViewById(R.id.comparison_statemeent);
+        dropdown = view.findViewById(R.id.autoCompleteTextView);
+        countries = getResources().getStringArray(R.array.countries);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), R.layout.dropdown_item, countries);
+        dropdown.setAdapter(adapter);
+
+        dropdown.setOnItemClickListener((parent, view1, position, id) -> {
+            regionToCompare = parent.getItemAtPosition(position).toString();
+            renderEmissionsComparisons();
+        });
 
         todayBtn.setOnClickListener(v -> renderEmissionsOverview(presenter.getTodayEmissions(), "today", presenter.getTwoDayRelativeDifference()));
         thisWeekBtn.setOnClickListener(v -> renderEmissionsOverview(presenter.getThisWeekEmissions(), "this week", presenter.getTwoWeekRelativeDifference()));
@@ -74,6 +89,7 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
             renderEmissionsOverview(presenter.getTodayEmissions(), "today", presenter.getTwoDayRelativeDifference());
             renderEmissionsBreakdown();
             renderEmissionsTrend(presenter.getDailyEmissionTrendDataSet());
+            renderEmissionsComparisons();
         } else {
             Log.e("EmissionsRetrieval", "Failed to get emissions");
         }
@@ -82,8 +98,10 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
     @Override
     public void onResume() {
         super.onResume();
+        renderEmissionsOverview(presenter.getTodayEmissions(), "today", presenter.getTwoDayRelativeDifference());
         renderEmissionsBreakdown();
         renderEmissionsTrend(presenter.getDailyEmissionTrendDataSet());
+        renderEmissionsComparisons();
     }
 
     @Override
@@ -180,9 +198,7 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
     }
 
     @Override
-    public void renderEmissionsComparisons() {
-
-    }
+    public void renderEmissionsComparisons() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
