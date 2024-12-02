@@ -14,8 +14,6 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -43,6 +41,11 @@ public class EcoGaugePresenter {
         String formattedTodayDate = sdf.format(calendar.getTime());
 
         HashMap<String, Emissions> dailyEmissions = user.getDailyEmissions();
+
+        if (dailyEmissions == null) {
+            return 0;
+        }
+
         Emissions todayEmissions = dailyEmissions.get(formattedTodayDate);
 
         if (todayEmissions == null) {
@@ -54,13 +57,18 @@ public class EcoGaugePresenter {
     public float getTwoDayRelativeDifference() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
-        String formattedTodayDate = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DAY_OF_YEAR, -1);
-        String formattedYesterdayDate = sdf.format(calendar.getTime());
-
         HashMap<String, Emissions> dailyEmissions = user.getDailyEmissions();
-        Emissions todayEmissions = dailyEmissions.get(formattedTodayDate);
-        Emissions yesterdayEmissions = dailyEmissions.get(formattedYesterdayDate);
+
+        String todayDate = sdf.format(calendar.getTime());
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        String yesterdayDate = sdf.format(calendar.getTime());
+
+        if (dailyEmissions == null) {
+            return 0;
+        }
+
+        Emissions todayEmissions = dailyEmissions.get(todayDate);
+        Emissions yesterdayEmissions = dailyEmissions.get(yesterdayDate);
 
         if (todayEmissions == null || yesterdayEmissions == null) {
             return 0;
@@ -69,11 +77,86 @@ public class EcoGaugePresenter {
     }
 
     public float getThisWeekEmissions() {
-        return 0;
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-w", Locale.CANADA);
+        HashMap<String, Emissions> weeklyEmissions = user.getWeeklyEmissions();
+
+        String thisYearWeek = dateFormat.format(calendar.getTime());
+
+        if (weeklyEmissions == null) {
+            return 0;
+        }
+
+        Emissions thisWeekEmissions = weeklyEmissions.get(thisYearWeek);
+
+        if (thisWeekEmissions == null) {
+            return 0;
+        }
+        return thisWeekEmissions.getTotal();
+    }
+
+    public float getTwoWeekRelativeDifference() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-w", Locale.CANADA);
+        HashMap<String, Emissions> weeklyEmissions = user.getWeeklyEmissions();
+
+        String thisYearWeek = dateFormat.format(calendar.getTime());
+        calendar.add(Calendar.WEEK_OF_YEAR, -1);
+        String lastYearWeek = dateFormat.format(calendar.getTime());
+
+        if (weeklyEmissions == null) {
+            return 0;
+        }
+
+        Emissions thisWeekEmission = weeklyEmissions.get(thisYearWeek);
+        Emissions lastWeekEmission = weeklyEmissions.get(lastYearWeek);
+
+        if (thisWeekEmission == null || lastWeekEmission == null) {
+            return 0;
+        }
+        return (float) Math.round(((thisWeekEmission.getTotal() - lastWeekEmission.getTotal()) / lastWeekEmission.getTotal()) * 1000) / 10;
     }
 
     public float getThisMonthEmissions() {
-        return 0;
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM", Locale.CANADA);
+        String thisYearMonth = dateFormat.format(calendar.getTime());
+
+        HashMap<String, Emissions> monthlyEmissions = user.getMonthlyEmissions();
+
+        if (monthlyEmissions == null) {
+            return 0;
+        }
+
+        Emissions thisMonthEmissions = monthlyEmissions.get(thisYearMonth);
+
+        if (thisMonthEmissions == null) {
+            return 0;
+        }
+
+        return thisMonthEmissions.getTotal();
+    }
+
+    public float getTwoMonthRelativeDifference() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM", Locale.CANADA);
+        HashMap<String, Emissions> weeklyEmissions = user.getWeeklyEmissions();
+
+        String thisYearMonth = dateFormat.format(calendar.getTime());
+        calendar.add(Calendar.MONTH, -1);
+        String lastYearMonth = dateFormat.format(calendar.getTime());
+
+        if (weeklyEmissions == null) {
+            return 0;
+        }
+
+        Emissions thisMonthEmission = weeklyEmissions.get(thisYearMonth);
+        Emissions lastMonthEmission = weeklyEmissions.get(lastYearMonth);
+
+        if (thisMonthEmission == null || lastMonthEmission == null) {
+            return 0;
+        }
+        return (float) Math.round(((thisMonthEmission.getTotal() - lastMonthEmission.getTotal()) / lastMonthEmission.getTotal()) * 1000) / 10;
     }
 
     @NonNull

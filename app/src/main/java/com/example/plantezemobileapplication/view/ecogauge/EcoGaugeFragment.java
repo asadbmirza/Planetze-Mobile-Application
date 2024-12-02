@@ -61,8 +61,8 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
         comparisonStatement = view.findViewById(R.id.comparison_statemeent);
 
         todayBtn.setOnClickListener(v -> renderEmissionsOverview(presenter.getTodayEmissions(), "today", presenter.getTwoDayRelativeDifference()));
-        thisWeekBtn.setOnClickListener(v -> renderEmissionsOverview(presenter.getThisWeekEmissions(), "this week", 0));
-        thisMonthBtn.setOnClickListener(v -> renderEmissionsOverview(presenter.getThisMonthEmissions(), "this month", 0));
+        thisWeekBtn.setOnClickListener(v -> renderEmissionsOverview(presenter.getThisWeekEmissions(), "this week", presenter.getTwoWeekRelativeDifference()));
+        thisMonthBtn.setOnClickListener(v -> renderEmissionsOverview(presenter.getThisMonthEmissions(), "this month", presenter.getTwoMonthRelativeDifference()));
 
         dailyTrendBtn.setOnClickListener(v -> renderEmissionsTrend(presenter.getDailyEmissionTrendDataSet()));
         weeklyTrendBtn.setOnClickListener(v -> renderEmissionsTrend(presenter.getWeeklyEmissionTrendDataSet()));
@@ -71,6 +71,7 @@ public class EcoGaugeFragment extends Fragment implements EcoGaugeView{
         if (getArguments() != null) {
             User user = (User) getArguments().getSerializable("user_key");
             presenter = new EcoGaugePresenter(user, emissionsTrendLineChart, this);
+            renderEmissionsOverview(presenter.getTodayEmissions(), "today", presenter.getTwoDayRelativeDifference());
             renderEmissionsBreakdown();
             renderEmissionsTrend(presenter.getDailyEmissionTrendDataSet());
         } else {
