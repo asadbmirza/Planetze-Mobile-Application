@@ -12,7 +12,7 @@
         android:id="@+id/fashionHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fashion"
+        android:text="@string/sustainable_fashion"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"

@@ -12,7 +12,7 @@
         android:id="@+id/appliancesHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/appliances"
+        android:text="@string/energy_efficient"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
