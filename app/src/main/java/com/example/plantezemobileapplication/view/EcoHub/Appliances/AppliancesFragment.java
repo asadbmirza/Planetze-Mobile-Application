@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.Appliances;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.Appliance;
+import com.example.plantezemobileapplication.model.ApplianceModel;
 import com.example.plantezemobileapplication.presenter.AppliancesPresenter;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class AppliancesFragment extends AppCompatActivity implements AppliancesV
     }
 
     @Override
-    public void showAppliances(List<Appliance> appliances) {
+    public void showAppliances(List<ApplianceModel> appliances) {
         adapter = new AppliancesAdapter(this, appliances);
         recyclerView.setAdapter(adapter);
     }

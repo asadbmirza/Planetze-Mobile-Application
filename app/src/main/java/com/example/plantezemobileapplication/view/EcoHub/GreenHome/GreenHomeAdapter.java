@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.GreenHome;
 
 import android.content.Context;
 import android.content.Intent;

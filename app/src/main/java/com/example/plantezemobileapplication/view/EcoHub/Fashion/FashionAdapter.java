@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.Fashion;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.FashionCategory;
+import com.example.plantezemobileapplication.model.FashionCategoryModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +24,10 @@ public class FashionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int item = 0;
     private static final int footer = 1;
     private Context context;
-    private List<FashionCategory> fashionCategories;
-    private List<FashionCategory> fullList;
+    private List<FashionCategoryModel> fashionCategories;
+    private List<FashionCategoryModel> fullList;
 
-    public FashionAdapter(List<FashionCategory> fashionCategories, Context context) {
+    public FashionAdapter(List<FashionCategoryModel> fashionCategories, Context context) {
         this.fashionCategories = fashionCategories;
         this.fullList = new ArrayList<>(fashionCategories);
         this.context = context;
@@ -56,7 +56,7 @@ public class FashionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof FashionViewHolder) {
-            FashionCategory category = fashionCategories.get(position);
+            FashionCategoryModel category = fashionCategories.get(position);
             FashionViewHolder fashionHolder = (FashionViewHolder) holder;
 
             fashionHolder.title.setText(category.getFashionCategory());
@@ -85,8 +85,8 @@ public class FashionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (query.isEmpty()) {
             fashionCategories = new ArrayList<>(fullList);
         } else {
-            List<FashionCategory> filteredList = new ArrayList<>();
-            for (FashionCategory category : fullList) {
+            List<FashionCategoryModel> filteredList = new ArrayList<>();
+            for (FashionCategoryModel category : fullList) {
                 if (category.getFashionCategory().toLowerCase().contains(query.toLowerCase())) {
                     filteredList.add(category);
                 }

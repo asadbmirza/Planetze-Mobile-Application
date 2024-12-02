@@ -2,15 +2,15 @@ package com.example.plantezemobileapplication.model;
 
 import java.util.List;
 
-public class ApplianceResponse {
+public class ApplianceResponseModel {
     private Data data;
     public Data getData() {
         return data;
     }
     public static class Data {
-        private List<Appliance> products;
+        private List<ApplianceModel> products;
 
-        public List<Appliance> getAppliances() {
+        public List<ApplianceModel> getAppliances() {
             return products;
         }
 

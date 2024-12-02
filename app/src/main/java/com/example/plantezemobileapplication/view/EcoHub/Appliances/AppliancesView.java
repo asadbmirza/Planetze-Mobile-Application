@@ -1,11 +1,11 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.Appliances;
 
-import com.example.plantezemobileapplication.model.Appliance;
+import com.example.plantezemobileapplication.model.ApplianceModel;
 
 import java.util.List;
 
 public interface AppliancesView {
-    void showAppliances(List<Appliance> appliances);
+    void showAppliances(List<ApplianceModel> appliances);
     void showError(String message);
 }
 

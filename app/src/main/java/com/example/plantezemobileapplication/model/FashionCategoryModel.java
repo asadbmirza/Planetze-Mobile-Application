@@ -1,6 +1,6 @@
 package com.example.plantezemobileapplication.model;
 
-public class FashionCategory {
+public class FashionCategoryModel {
     private String fashionCategory;
     private String fashionCategoryImg;
     private String fashionCategory_link;

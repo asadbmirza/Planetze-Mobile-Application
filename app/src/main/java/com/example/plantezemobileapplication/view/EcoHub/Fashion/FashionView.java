@@ -1,12 +1,10 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.Fashion;
 
-import android.content.Context;
-
-import com.example.plantezemobileapplication.model.FashionCategory;
+import com.example.plantezemobileapplication.model.FashionCategoryModel;
 
 import java.util.List;
 
 public interface FashionView {
-    void setFashionCategories(List<FashionCategory> fashionCategories);
+    void setFashionCategories(List<FashionCategoryModel> fashionCategories);
     void showError(String message);
 }

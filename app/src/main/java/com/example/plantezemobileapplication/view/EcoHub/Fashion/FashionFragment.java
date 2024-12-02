@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.Fashion;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.FashionCategory;
+import com.example.plantezemobileapplication.model.FashionCategoryModel;
 import com.example.plantezemobileapplication.presenter.FashionPresenter;
 
 import java.util.List;
@@ -62,7 +62,7 @@ public class FashionFragment extends AppCompatActivity implements FashionView {
     }
 
     @Override
-    public void setFashionCategories(List<FashionCategory> fashionCategories) {
+    public void setFashionCategories(List<FashionCategoryModel> fashionCategories) {
         adapter = new FashionAdapter(fashionCategories, this);
         recyclerView.setAdapter(adapter);
     }

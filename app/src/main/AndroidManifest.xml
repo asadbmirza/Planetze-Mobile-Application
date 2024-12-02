@@ -28,13 +28,13 @@
             android:name=".view.EcoHub.Videos.VideosFragment"
             android:exported="false" />
         <activity
-            android:name=".AppliancesFragment"
+            android:name=".view.EcoHub.Appliances.AppliancesFragment"
             android:exported="false" />
         <activity
-            android:name=".FashionFragment"
+            android:name=".view.EcoHub.Fashion.FashionFragment"
             android:exported="false" />
         <activity
-            android:name=".GreenHomeFragment"
+            android:name=".view.EcoHub.GreenHome.GreenHomeFragment"
             android:exported="false" />
         <activity
             android:name=".EcoHubFragment"

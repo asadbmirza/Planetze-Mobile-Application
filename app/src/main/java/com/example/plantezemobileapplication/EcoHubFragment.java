@@ -7,8 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.plantezemobileapplication.view.EcoHub.Appliances.AppliancesFragment;
 import com.example.plantezemobileapplication.view.EcoHub.Articles.ArticlesFragment;
 import com.example.plantezemobileapplication.view.EcoHub.Videos.VideosFragment;
+import com.example.plantezemobileapplication.view.EcoHub.Fashion.FashionFragment;
+import com.example.plantezemobileapplication.view.EcoHub.GreenHome.GreenHomeFragment;
 
 public class EcoHubFragment extends AppCompatActivity {
 

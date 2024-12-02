@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub.Appliances;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,16 +14,16 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.Appliance;
+import com.example.plantezemobileapplication.model.ApplianceModel;
 
 import java.util.List;
 
 public class AppliancesAdapter extends RecyclerView.Adapter<AppliancesAdapter.ApplianceViewHolder> {
 
     private Context context;
-    private List<Appliance> appliances;
+    private List<ApplianceModel> appliances;
 
-    public AppliancesAdapter(Context context, List<Appliance> appliances) {
+    public AppliancesAdapter(Context context, List<ApplianceModel> appliances) {
         this.context = context;
         this.appliances = appliances;
     }
@@ -36,7 +36,7 @@ public class AppliancesAdapter extends RecyclerView.Adapter<AppliancesAdapter.Ap
 
     @Override
     public void onBindViewHolder(ApplianceViewHolder holder, int position) {
-        Appliance appliance = appliances.get(position);
+        ApplianceModel appliance = appliances.get(position);
         holder.titleTextView.setText(appliance.getTitle());
         holder.priceTextView.setText(appliance.getPrice());
 
