@@ -21,8 +21,6 @@ import android.widget.Toast;
 
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.EcoMonitorModel;
-import com.example.plantezemobileapplication.model.HabitModel;
-import com.example.plantezemobileapplication.presenter.EcoTrackerEmissionsPresenter;
 import com.example.plantezemobileapplication.presenter.EcoTrackerMonitorPresenter;
 import com.example.plantezemobileapplication.utils.DailyEmission;
 import com.example.plantezemobileapplication.utils.Question;
@@ -32,7 +30,6 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -107,6 +104,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         consumptionEmissionView = view.findViewById(R.id.consumption_emission_text);
 
         presenter = new EcoTrackerMonitorPresenter(this, new EcoMonitorModel());
+        this.presenter.fetchDailyEmissions();
 
         Date currentDate = new Date();
         currentDay = getCurrentDay(currentDate);
@@ -211,6 +209,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
     }
 
     public void setDailyEmissions(ArrayList<DailyEmission> dailyEmissions) {
+        System.out.println(dailyEmissions);
         this.dailyEmissions = dailyEmissions;
     }
 

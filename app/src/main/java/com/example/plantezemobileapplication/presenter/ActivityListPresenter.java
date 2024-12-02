@@ -22,6 +22,7 @@ public class ActivityListPresenter {
         Map<String, Object> loggedActivities = new HashMap<>();
         double dailyTotal = 0;
         double factor = 0;
+        double energyTotal = 0;
         for (int i = 0; i < questions.size(); i++) {
             if (questions.get(i).getSelectedAnswer() == -1) {
                 continue;
@@ -29,6 +30,7 @@ public class ActivityListPresenter {
             if (questions.get(i).getCategory().equals("energyConsumption")) {
                 factor = questions.get(i).getSelectedAnswerObject().getWeight();
                 monthlyTotals.put("energyEmissions", enteredValues.get(i) * factor);
+                energyTotal = energyTotal + enteredValues.get(i) * factor;
                 continue;
             }
             if (enteredValues.get(i) != 0) {
@@ -49,10 +51,10 @@ public class ActivityListPresenter {
         dailyTotals.put(questions.get(0).getCategory(), dailyTotal);
         dailyTotals.put("total", dailyTotal);
         monthlyTotals.put(questions.get(0).getCategory(), dailyTotal);
-        monthlyTotals.put("total", dailyTotal);
+        monthlyTotals.put("total", dailyTotal + energyTotal);
         model.uploadEmissions("dailyEmissions", day, dailyTotals);
         model.uploadEmissions("weeklyEmissions", week, dailyTotals);
-        model.uploadEmissions("monthlyEmissions", month, dailyTotals);
+        model.uploadEmissions("monthlyEmissions", month, monthlyTotals);
         model.uploadActivityLog(loggedActivities, day);
     }
 

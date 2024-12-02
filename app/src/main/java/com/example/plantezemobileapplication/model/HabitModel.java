@@ -137,10 +137,20 @@ public class HabitModel {
                                 if (activitiesSnapshot.exists()) {
                                     Map<String, DailyEmission.ActivityDetail> activities = new HashMap<>();
                                     for (DataSnapshot activitySnapshot : activitiesSnapshot.getChildren()) {
-                                        DailyEmission.ActivityDetail activityDetail = activitySnapshot.getValue(DailyEmission.ActivityDetail.class);
-                                        if (activityDetail != null) {
-                                            activities.put(activitySnapshot.getKey(), activityDetail);
+                                        DailyEmission.ActivityDetail activityDetail = new DailyEmission.ActivityDetail();
+                                        HashMap<String, Double> subcategories = new HashMap<>();
+
+                                        // Populate subcategories directly
+                                        for (DataSnapshot subcategorySnapshot : activitySnapshot.getChildren()) {
+                                            String subcategoryName = subcategorySnapshot.getKey();
+                                            Double value = subcategorySnapshot.getValue(Double.class);
+                                            if (subcategoryName != null && value != null) {
+                                                subcategories.put(subcategoryName, value);
+                                            }
                                         }
+
+                                        activityDetail.setValues(subcategories);
+                                        activities.put(activitySnapshot.getKey(), activityDetail);
                                     }
                                     dailyEmission.setActivities(activities);
                                 }
@@ -152,6 +162,7 @@ public class HabitModel {
                         }
                     }
                 }
+
                 listener.onDailyEmissionsFetched(dailyEmissionList);
             }
 

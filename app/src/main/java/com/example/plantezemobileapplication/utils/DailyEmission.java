@@ -1,5 +1,6 @@
 package com.example.plantezemobileapplication.utils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class DailyEmission extends Emission {
@@ -39,24 +40,30 @@ public class DailyEmission extends Emission {
     }
 
     public static class ActivityDetail {
-        private int enteredValue;
-        private String selectedOption;
+        private HashMap<String, Double> values;
 
         // Getters and setters
-        public int getEnteredValue() {
-            return enteredValue;
+        public HashMap<String, Double> getValues() {
+            return values;
         }
 
-        public void setEnteredValue(int enteredValue) {
-            this.enteredValue = enteredValue;
+        public void setValues(HashMap<String, Double> values) {
+            this.values = values;
         }
 
-        public String getSelectedOption() {
-            return selectedOption;
+        public void addSubcategory(String subcategory, double value) {
+            this.values.put(subcategory, value);
         }
 
-        public void setSelectedOption(String selectedOption) {
-            this.selectedOption = selectedOption;
+        public Double getSubcategoryValue(String subcategory) {
+            return this.values.get(subcategory);
+        }
+
+        @Override
+        public String toString() {
+            return "ActivityDetail{" +
+                    "values=" + values +
+                    '}';
         }
     }
 }
