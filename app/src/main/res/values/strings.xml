@@ -41,4 +41,11 @@
     <string name="supporting_individuals_and_groups_on_their_sustainability_journey">Supporting Individuals and Groups on Their Sustainability Journey.</string>
     <string name="planetze_ring">Planetze Ring</string>
     <string name="coming_soon">Coming Soon...</string>
+    <string name="total_emissions_text">🌍 72 kg CO₂e</string>
+    <string name="your_carbon_footprint">Your Carbon Footprint</string>
+    <string name="comparison_statement">You\'re emitting 5% less than yesterday. Keep it up!</string>
+    <string name="time_frame_text">(today)</string>
+    <string name="today">Today</string>
+    <string name="this_week">This Week</string>
+    <string name="this_month">This Month</string>
 </resources>
