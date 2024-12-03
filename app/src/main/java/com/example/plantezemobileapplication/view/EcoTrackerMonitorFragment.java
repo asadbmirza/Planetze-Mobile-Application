@@ -111,6 +111,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         currentDay = getCurrentDay(currentDate);
         currentMonth = getCurrentMonth(currentDate);
         currentWeek = getCurrentWeek(currentDate);
+
         presenter.getTodaysActivities(currentDate);
         presenter.getDefaultVehicle();
         presenter.getUserEnergy();
@@ -175,7 +176,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
 
         Fragment targetFragment = ActivityListFragment.newInstance(activityName, questionList, currentDay, currentMonth, currentWeek, activeHabits);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, targetFragment);
+        transaction.replace(R.id.monitor_container, targetFragment);
         transaction.addToBackStack(null);
 
         transaction.commit();

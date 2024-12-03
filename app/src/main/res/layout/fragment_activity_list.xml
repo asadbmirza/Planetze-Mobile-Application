@@ -12,29 +12,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_margin="20dp"
+        android:fitsSystemWindows="true">
 
         <TextView
             android:id="@+id/activity_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textSize="35sp"
+            android:textSize="30sp"
             android:textStyle="bold"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activity_list_questions"
-            android:scrollbars="vertical"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/activity_list_questions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </ScrollView>
 
         <Button
             android:id="@+id/submit_activity_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log Activity" />
+            android:text="Log Activity"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
     <FrameLayout

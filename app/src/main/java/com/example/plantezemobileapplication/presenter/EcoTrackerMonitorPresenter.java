@@ -104,7 +104,7 @@ public class EcoTrackerMonitorPresenter {
                 new Answer("Fish", 12.5),
                 new Answer("Plant-Based", 1.5),
         };
-        foodQuestions.add(new Question("Meal$Enter number of servings consumed", answers1,"food"));
+        foodQuestions.add(new Question("Meal$Number of servings", answers1,"food"));
 
         return foodQuestions;
     }
@@ -129,10 +129,10 @@ public class EcoTrackerMonitorPresenter {
                 new Answer("Gas", energyFactors[energyTypeIndex]),
                 new Answer("Water", 0.4),
         };
-        consumptionQuestions.add(new Question("Buy New Clothes$Enter number of clothing items purchased", answers1,"consumption"));
-        consumptionQuestions.add(new Question("Buy Electronics$Enter number of devices purchased", answers2,"consumption"));
-        consumptionQuestions.add(new Question("Other Purchases$Enter number of purchases", answers3,"consumption"));
-        consumptionQuestions.add(new Question("Energy Bills$Enter the specific bill amount", answers4,"energyConsumption"));
+        consumptionQuestions.add(new Question("Buy New Clothes$Number of clothing items", answers1,"consumption"));
+        consumptionQuestions.add(new Question("Buy Electronics$Number of devices", answers2,"consumption"));
+        consumptionQuestions.add(new Question("Other Purchases$Number of purchases", answers3,"consumption"));
+        consumptionQuestions.add(new Question("Energy Bills$Specific bill amount", answers4,"energyConsumption"));
 
         // Set new clothes factor since user cannot choose
         consumptionQuestions.get(0).setSelectedAnswer(0);
