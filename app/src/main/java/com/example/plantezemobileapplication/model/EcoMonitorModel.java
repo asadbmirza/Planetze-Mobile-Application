@@ -1,147 +1,126 @@
 package com.example.plantezemobileapplication.model;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.example.plantezemobileapplication.presenter.EcoTrackerMonitorPresenter;
-import com.example.plantezemobileapplication.view.EcoTrackerMonitorFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.plantezemobileapplication.presenter.EcoMonitorCallback;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class EcoMonitorModel {
     private FirebaseAuth auth;
-    private EcoTrackerMonitorPresenter presenter;
-    private EcoTrackerMonitorFragment view;
     private DatabaseReference ref;
     private String userId;
+    private FirebaseUser currUser;
+    private EcoMonitorCallback callback;
 
     public EcoMonitorModel() {
         auth = FirebaseAuth.getInstance();
         ref = FirebaseDatabase.getInstance().getReference();
+
+        currUser = auth.getCurrentUser();
+        userId = currUser != null ? currUser.getUid() : "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; // TODO: Update this condition
+
     }
 
-    public EcoMonitorModel(EcoTrackerMonitorFragment view, EcoTrackerMonitorPresenter presenter) {
-        auth = FirebaseAuth.getInstance();
-        ref = FirebaseDatabase.getInstance().getReference();
-        this.view = view;
-        this.presenter = presenter;
+    public void setCallback(EcoMonitorCallback callback) {
+        this.callback = callback;
     }
 
-    public String getFormattedDate() {
+    public String getFormattedDate(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date currentDate = new Date();
-        return dateFormat.format(currentDate);
+        return dateFormat.format(date);
     }
 
-    public void setDefaultVehicle() {
-        FirebaseUser currUser = auth.getCurrentUser();
-
-        if (currUser != null) {
-            userId = currUser.getUid();
-        }
-        else {
-            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
-        }
-
+    public void getDefaultVehicle() {
         ref.child("users").child(userId).child("defaultVehicle").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists() && snapshot.getValue() != null) {
-                    presenter.setDefaultVehicle(snapshot.getValue(int.class));
-                }
-                else {
-                    presenter.setDefaultVehicle(-1);
-                }
+                int defaultVehicle = snapshot.exists() && snapshot.getValue() != null
+                        ? snapshot.getValue(int.class)
+                        : -1;
+                callback.onDefaultVehicleFetched(defaultVehicle);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                presenter.setDefaultVehicle(-1);
+                callback.onFetchError("Failed to fetch default vehicle");
             }
         });
     }
 
-    public void setUserEnergy() {
-        FirebaseUser currUser = auth.getCurrentUser();
-
-        if (currUser != null) {
-            userId = currUser.getUid();
-        }
-        else {
-            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
-        }
-
+    public void getUserEnergy() {
         ref.child("users").child(userId).child("energySource").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists() && snapshot.getValue() != null) {
-                    presenter.setUserEnergy(snapshot.getValue(int.class));
+                    callback.onUserEnergyFetched(snapshot.getValue(int.class));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                callback.onFetchError("Failed to fetch user energy");
             }
         });
     }
 
-    public void getTodaysActivities() {
-        String formattedDate = getFormattedDate();
-        FirebaseUser currUser = auth.getCurrentUser();
+    public void getTodaysActivities(Date date) {
+        String formattedDate = getFormattedDate(date);
+        System.out.println(formattedDate);
 
-        if (currUser != null) {
-            userId = currUser.getUid();
-        }
-        else {
-            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
-        }
+        ref.child("users").child(userId).child("dailyEmissions").child(formattedDate)
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        if (snapshot.child("transportation").exists()) {
+                            callback.onEmissionFetched("transportation", snapshot.child("transportation").getValue(double.class));
+                        }
+                        if (snapshot.child("food").exists()) {
+                            callback.onEmissionFetched("food", snapshot.child("food").getValue(double.class));
+                        }
+                        if (snapshot.child("consumption").exists()) {
+                            callback.onEmissionFetched("consumption", snapshot.child("consumption").getValue(double.class));
+                        }
+                        if (snapshot.child("total").exists()) {
+                            callback.onEmissionFetched("total", snapshot.child("total").getValue(double.class));
+                        }
+                    } else {
+                        // Create a new entry with default values if no data exists
+                        Map<String, Object> defaultValues = new HashMap<>();
+                        defaultValues.put("transportation", 0.0);
+                        defaultValues.put("food", 0.0);
+                        defaultValues.put("consumption", 0.0);
+                        defaultValues.put("total", 0.0);
 
-        ref.child("users").child(userId).child("dailyEmissions").child(formattedDate).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    DataSnapshot transportationEmissions = snapshot.child("transportation");
-                    DataSnapshot foodEmissions = snapshot.child("food");
-                    DataSnapshot consumptionEmissions = snapshot.child("consumption");
-                    DataSnapshot totalEmissions = snapshot.child("total");
-
-                    // Set views for all categories
-                    if (transportationEmissions.exists()) {
-                        String formattedEmission = String.format("%.1f", transportationEmissions.getValue(double.class));
-                        view.setTransportationEmissionView(formattedEmission + "kg");
-                    }
-                    if (foodEmissions.exists()) {
-                        String formattedEmission = String.format("%.1f", foodEmissions.getValue(double.class));
-                        view.setFoodEmissionView(formattedEmission + "kg");
-                    }
-                    if (consumptionEmissions.exists()) {
-                        String formattedEmission = String.format("%.1f", consumptionEmissions.getValue(double.class));
-                        view.setConsumptionEmissionView(formattedEmission + "kg");
-                    }
-                    if (totalEmissions.exists()) {
-                        String formattedEmission = String.format("%.1f", totalEmissions.getValue(double.class));
-                        view.setTotalDailyEmissionView(formattedEmission);
+                        ref.child("users").child(userId).child("dailyEmissions").child(formattedDate)
+                            .setValue(defaultValues)
+                            .addOnSuccessListener(aVoid -> {
+                                // Data created successfully
+                                callback.onEmissionFetched("transportation", 0.0);
+                                callback.onEmissionFetched("food", 0.0);
+                                callback.onEmissionFetched("consumption", 0.0);
+                                callback.onEmissionFetched("total", 0.0);
+                            })
+                            .addOnFailureListener(e -> callback.onFetchError("Failed to create today's activities"));
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    callback.onFetchError("Failed to fetch today's activities");
+                }
+            });
     }
 
 }

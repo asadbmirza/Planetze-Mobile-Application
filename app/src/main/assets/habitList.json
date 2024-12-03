@@ -1,0 +1,160 @@
+{
+  "habits": [
+    {
+      "name": "Reduce Red Meat Consumption",
+      "category": "Food Consumption",
+      "impact": 4,
+      "activity": "Meal"
+    },
+    {
+      "name": "Eat Plant-Based Meals",
+      "category": "Food Consumption",
+      "impact": 5,
+      "activity": "Meal"
+    },
+    {
+      "name": "Reduce Fast Fashion Purchases",
+      "category": "Consumption and Shopping",
+      "impact": 4,
+      "activity": "Buy New Clothes"
+    },
+    {
+      "name": "Opt for Sustainable Fashion",
+      "category": "Consumption and Shopping",
+      "impact": 3,
+      "activity": "Buy New Clothes"
+    },
+    {
+      "name": "Walk or Cycle Instead of Driving",
+      "category": "Transportation",
+      "impact": 5,
+      "activity": "Cycling or Walking"
+    },
+    {
+      "name": "Use Public Transportation Instead of Personal Vehicle",
+      "category": "Transportation",
+      "impact": 4,
+      "activity": "Take Public Transportation"
+    },
+    {
+      "name": "Carpool or Share Rides",
+      "category": "Transportation",
+      "impact": 3,
+      "activity": "Drive Personal Vehicle"
+    },
+    {
+      "name": "Reduce Air Travel (Fly Less)",
+      "category": "Transportation",
+      "impact": 4,
+      "activity": "Flight"
+    },
+    {
+      "name": "Use Energy-Efficient Appliances",
+      "category": "Home and Energy",
+      "impact": 4,
+      "activity": "Energy Bills"
+    },
+    {
+      "name": "Switch to LED Lighting",
+      "category": "Home and Energy",
+      "impact": 3,
+      "activity": "Energy Bills"
+    },
+    {
+      "name": "Unplug Devices When Not in Use",
+      "category": "Home and Energy",
+      "impact": 3,
+      "activity": "Energy Bills"
+    },
+    {
+      "name": "Reduce Single-Use Plastics",
+      "category": "Consumption and Shopping",
+      "impact": 3,
+      "activity": "Other Purchases"
+    },
+    {
+      "name": "Use Reusable Bags and Containers",
+      "category": "Consumption and Shopping",
+      "impact": 2,
+      "activity": "Other Purchases"
+    },
+    {
+      "name": "Compost Food Waste",
+      "category": "Food Consumption",
+      "impact": 4,
+      "activity": "Meal"
+    },
+    {
+      "name": "Purchase Energy-Efficient Vehicles",
+      "category": "Transportation",
+      "impact": 5,
+      "activity": "Drive Personal Vehicle"
+    },
+    {
+      "name": "Support Local and Seasonal Produce",
+      "category": "Food Consumption",
+      "impact": 3,
+      "activity": "Meal"
+    },
+    {
+      "name": "Reduce Water Usage",
+      "category": "Home and Energy",
+      "impact": 2,
+      "activity": "Energy Bills"
+    },
+    {
+      "name": "Adopt Solar Energy at Home",
+      "category": "Home and Energy",
+      "impact": 5,
+      "activity": "Energy Bills"
+    },
+    {
+      "name": "Reduce Packaging Waste (Buy Bulk)",
+      "category": "Consumption and Shopping",
+      "impact": 3,
+      "activity": "Other Purchases"
+    },
+    {
+      "name": "Reduce Food Waste (Plan Meals)",
+      "category": "Food Consumption",
+      "impact": 4,
+      "activity": "Meal"
+    },
+    {
+      "name": "Participate in Clothing Swaps",
+      "category": "Consumption and Shopping",
+      "impact": 3,
+      "activity": "Buy New Clothes"
+    },
+    {
+      "name": "Adopt Electric Vehicle",
+      "category": "Transportation",
+      "impact": 5,
+      "activity": "Drive Personal Vehicle"
+    },
+    {
+      "name": "Purchase Eco-Friendly Electronics",
+      "category": "Consumption and Shopping",
+      "impact": 3,
+      "activity": "Buy Electronics"
+    },
+    {
+      "name": "Fix and Repair Electronics Instead of Replacing",
+      "category": "Consumption and Shopping",
+      "impact": 2,
+      "activity": "Buy Electronics"
+    },
+    {
+      "name": "Support Eco-Friendly Brands",
+      "category": "Consumption and Shopping",
+      "impact": 4,
+      "activity": "Buy New Clothes"
+    },
+    {
+      "name": "Install Smart Thermostats",
+      "category": "Home and Energy",
+      "impact": 4,
+      "activity": "Energy Bills"
+    }
+  ]
+}

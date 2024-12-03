@@ -1,19 +1,67 @@
 package com.example.plantezemobileapplication.presenter;
 
-import android.util.Log;
-
 import com.example.plantezemobileapplication.model.EcoMonitorModel;
+import com.example.plantezemobileapplication.model.HabitModel;
 import com.example.plantezemobileapplication.utils.Answer;
+import com.example.plantezemobileapplication.utils.DailyEmission;
 import com.example.plantezemobileapplication.utils.Question;
+import com.example.plantezemobileapplication.view.EcoTrackerMonitorFragment;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EcoTrackerMonitorPresenter {
     private int defaultVehicleIndex;
     private int energyTypeIndex;
 
-    public EcoTrackerMonitorPresenter() {}
+    private EcoTrackerMonitorFragment view;
+    private EcoMonitorModel model;
+    private HabitModel habitModel;
+
+    public EcoTrackerMonitorPresenter(EcoTrackerMonitorFragment view, EcoMonitorModel model) {
+        this.view = view;
+        this.model = model;
+        this.habitModel = new HabitModel();
+
+        this.model.setCallback(new EcoMonitorCallback() {
+            @Override
+            public void onDefaultVehicleFetched(int vehicleIndex) {
+                setDefaultVehicle(vehicleIndex);
+            }
+
+            @Override
+            public void onUserEnergyFetched(int energyIndex) {
+                setUserEnergy(energyIndex);
+            }
+
+            @Override
+            public void onEmissionFetched(String category, double emission) {
+                String formattedEmission = String.format("%.1f kg", emission);
+                switch (category) {
+                    case "transportation":
+                        view.setTransportationEmissionView(formattedEmission);
+                        break;
+                    case "food":
+                        view.setFoodEmissionView(formattedEmission);
+                        break;
+                    case "consumption":
+                        view.setConsumptionEmissionView(formattedEmission);
+                        break;
+                    case "total":
+                        view.setTotalDailyEmissionView(formattedEmission);
+                        break;
+                }
+            }
+
+            @Override
+            public void onFetchError(String errorMessage) {
+                System.err.println(errorMessage);
+            }
+        });
+    }
 
 
     public List<Question> initializeTransportationQuestions() {
@@ -64,7 +112,7 @@ public class EcoTrackerMonitorPresenter {
     public List<Question> initializeConsumptionQuestions() {
         List<Question> consumptionQuestions = new ArrayList<>();
         Answer[] answers1 = {
-                new Answer("#Clothing factor", 20),
+                new Answer("!Clothing factor", 20),
         };
         Answer[] answers2 = {
                 new Answer("Smartphone", 70),
@@ -91,11 +139,37 @@ public class EcoTrackerMonitorPresenter {
         return consumptionQuestions;
     }
 
+    public void getTodaysActivities(Date date) {
+        this.model.getTodaysActivities(date);
+    }
     public void setDefaultVehicle(int defaultVehicleIndex) {
         this.defaultVehicleIndex = defaultVehicleIndex;
+    }
+    public void getDefaultVehicle() {
+        this.model.getDefaultVehicle();
     }
 
     public void setUserEnergy(int energyTypeIndex) {
         this.energyTypeIndex = energyTypeIndex;
     }
+
+    public void getUserEnergy() {
+        this.model.getUserEnergy();
+    }
+    public Task<Void> fetchDailyEmissions() {
+        TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
+        this.habitModel.getDailyEmissions(new HabitModel.OnDailyEmissionsListener() {
+            @Override
+            public void onDailyEmissionsFetched(ArrayList<DailyEmission> itemList) {
+                System.out.println(itemList);
+
+                view.setDailyEmissions(itemList);
+                if (!taskCompletionSource.getTask().isComplete()) {
+                    taskCompletionSource.setResult(null);
+                }
+            }
+        });
+        return taskCompletionSource.getTask();
+    }
 }
+

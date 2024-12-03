@@ -17,31 +17,41 @@ import java.util.Map;
 
 public class ActivityListModel {
     private FirebaseAuth auth;
-    private ActivityListPresenter presenter;
     private DatabaseReference ref;
     private String userId;
+    private FirebaseUser currUser;
 
     public ActivityListModel() {
         auth = FirebaseAuth.getInstance();
         ref = FirebaseDatabase.getInstance().getReference();
-    }
-
-    public ActivityListModel(ActivityListPresenter presenter) {
-        auth = FirebaseAuth.getInstance();
-        ref = FirebaseDatabase.getInstance().getReference();
-        this.presenter = presenter;
-    }
-
-    public void uploadEmissions(String path, String date, Map<String, Object> emissions) {
-        FirebaseUser currUser = auth.getCurrentUser();
+        currUser = auth.getCurrentUser();
         if (currUser != null) {
             userId = currUser.getUid();
         }
         else {
             userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
         }
+    }
+
+    public ActivityListModel(ActivityListPresenter presenter) {
+        auth = FirebaseAuth.getInstance();
+        ref = FirebaseDatabase.getInstance().getReference();
+
+        if (currUser != null) {
+            userId = currUser.getUid();
+        }
+        else {
+            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
+        }
+    }
+
+    public void uploadEmissions(String path, String date, Map<String, Object> emissions) {
+
 
         for (String activity : emissions.keySet()) {
+            System.out.println(userId);
+            System.out.println(path);
+            System.out.println(date);
             ref.child("users").child(userId).child(path).child(date).child(activity).runTransaction(new Transaction.Handler() {
                 @NonNull
                 @Override
@@ -69,16 +79,8 @@ public class ActivityListModel {
         }
     }
 
-    public void uploadActivityLog(Map<String, Object> activities) {
-        FirebaseUser currUser = auth.getCurrentUser();
-
-        if (currUser != null) {
-            userId = currUser.getUid();
-        }
-        else {
-            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
-        }
-
-        ref.child("users").child(userId).child("dailyEmissions").child(presenter.getCurrentDay()).child("activities").updateChildren(activities);
+    public void uploadActivityLog(Map<String, Object> activities, String day) {
+        System.out.println(day + " activities: " + activities);
+        ref.child("users").child(userId).child("dailyEmissions").child(day).child("activities").updateChildren(activities);
     }
 }

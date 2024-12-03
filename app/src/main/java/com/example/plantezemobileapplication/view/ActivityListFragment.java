@@ -2,8 +2,6 @@ package com.example.plantezemobileapplication.view;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -40,18 +37,29 @@ public class ActivityListFragment extends Fragment {
     private static final String ARG_TITLE = "activity_title";
     private static final String ARG_QUESTIONS = "questions";
 
+    private static final String ARG_DAY = "currentDay";
+    private static final String ARG_MONTH = "currentMonth";
+    private static final String ARG_WEEK = "currentWeek";
+
     private List<Question> questions;
     private String activityName;
+
+    private String currentDay;
+    private String currentMonth;
+    private String currentWeek;
 
     public ActivityListFragment() {
         // Required empty public constructor
     }
 
-    public static ActivityListFragment newInstance(String activityName, List<Question> questions) {
+    public static ActivityListFragment newInstance(String activityName, List<Question> questions, String day, String month, String week) {
         ActivityListFragment fragment = new ActivityListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, activityName);
         args.putParcelableArrayList(ARG_QUESTIONS, (ArrayList<? extends Parcelable>) questions);
+        args.putString(ARG_DAY, day);
+        args.putString(ARG_MONTH, month);
+        args.putString(ARG_WEEK, week);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,6 +70,9 @@ public class ActivityListFragment extends Fragment {
         if (getArguments() != null) {
             activityName = getArguments().getString(ARG_TITLE);
             questions = getArguments().getParcelableArrayList(ARG_QUESTIONS);
+            currentDay = getArguments().getString(ARG_DAY);
+            currentMonth = getArguments().getString(ARG_MONTH);
+            currentWeek = getArguments().getString(ARG_WEEK);
         }
     }
 
@@ -85,30 +96,13 @@ public class ActivityListFragment extends Fragment {
         ActivityListPresenter presenter = new ActivityListPresenter();
 
         submitActivityBtn.setOnClickListener(v -> {
-            presenter.calculateTodaysActivity(questions, adapter.getEnteredAmounts());
+            presenter.calculateTodaysActivity(questions, adapter.getEnteredAmounts(), currentDay, currentMonth, currentWeek);
 
-            Fragment targetFragment = new EcoTrackerMonitorFragment();
-            FragmentTransaction transaction = requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction();
-
-            transaction.replace(R.id.fragmentContainerView, targetFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            requireActivity().getSupportFragmentManager().popBackStack();
         });
 
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-    }
 }
