@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub;
 
 import androidx.fragment.app.Fragment;
 

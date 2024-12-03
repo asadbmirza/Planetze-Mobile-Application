@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.EcoHub;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
