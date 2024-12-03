@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.plantezemobileapplication.view.settings.SettingsActivity;
 import com.example.plantezemobileapplication.User;
 import com.example.plantezemobileapplication.view.ComingSoonFragment;
 import com.example.plantezemobileapplication.R;
@@ -21,7 +22,6 @@ import com.example.plantezemobileapplication.model.MainModel;
 import com.example.plantezemobileapplication.presenter.MainPresenter;
 import com.example.plantezemobileapplication.view.CreditsFragment;
 import com.example.plantezemobileapplication.view.ecogauge.EcoGaugeFragment;
-import com.example.plantezemobileapplication.view.SettingsFragment;
 import com.example.plantezemobileapplication.view.login.LoginActivity;
 import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireActivity;
 import com.example.plantezemobileapplication.view.welcome.WelcomeActivity;
@@ -104,7 +104,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
             finish();
             return true;
         } else if(item.getItemId() == R.id.settings) {
-            return loadFragment(new SettingsFragment());
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            finish();
         } else if(item.getItemId() == R.id.credits) {
             return loadFragment(new CreditsFragment());
         } else {
