@@ -3,6 +3,7 @@ package com.example.plantezemobileapplication.model;
 import androidx.annotation.NonNull;
 
 import com.example.plantezemobileapplication.presenter.EcoMonitorCallback;
+import com.example.plantezemobileapplication.utils.ActivityLog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,8 +13,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EcoMonitorModel {
@@ -74,7 +77,7 @@ public class EcoMonitorModel {
         });
     }
 
-    public void getTodaysActivities(Date date) {
+    public void getCurrentEmissions(Date date) {
         String formattedDate = getFormattedDate(date);
         System.out.println(formattedDate);
 
@@ -114,6 +117,31 @@ public class EcoMonitorModel {
                             })
                             .addOnFailureListener(e -> callback.onFetchError("Failed to create today's activities"));
                     }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    callback.onFetchError("Failed to fetch today's emissions!");
+                }
+            });
+    }
+
+    public void getTodaysActivities(Date date) {
+        String formattedDate = getFormattedDate(date);
+
+        ref.child("users").child(userId).child("dailyEmissions").child(formattedDate).child("activities")
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<ActivityLog> activityLogList = new ArrayList<>();
+                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                        System.out.println(childSnapshot.getValue());
+                        ActivityLog activityLog = childSnapshot.getValue(ActivityLog.class);
+                        if (activityLog != null) {
+                            activityLogList.add(activityLog);
+                        }
+                    }
+                    callback.onActivitiesFetched(activityLogList);
                 }
 
                 @Override
