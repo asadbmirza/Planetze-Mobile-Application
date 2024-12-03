@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.plantezemobileapplication.R;
+import com.example.plantezemobileapplication.view.main.MainActivity;
 
 
 public class EcoTrackerFragment extends Fragment {
@@ -18,6 +19,9 @@ public class EcoTrackerFragment extends Fragment {
     EcoTrackerHabitFragment habitFragment;
     EcoTrackerMonitorFragment monitorFragment;
 
+    public EcoTrackerFragment() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,23 +30,22 @@ public class EcoTrackerFragment extends Fragment {
         Button habitsBtn = view.findViewById(R.id.view_habit_page_button);
         habitsBtn.setOnClickListener(v -> {
             habitFragment = new EcoTrackerHabitFragment();
-            navigateToFragment(habitFragment, R.id.eco_tracker_habit, HABIT_FRAGMENT_TAG);
+            navigateToFragment(habitFragment);
         });
 
         Button activityBtn = view.findViewById(R.id.view_activity_page_button);
         activityBtn.setOnClickListener(v -> {
             monitorFragment = new EcoTrackerMonitorFragment();
-            System.out.println(R.id.monitor_container);
-            navigateToFragment(monitorFragment, R.id.eco_tracker_monitor, MONITOR_FRAGMENT_TAG);
+            navigateToFragment(monitorFragment);
         });
         return view;
     }
 
-    private void navigateToFragment(Fragment fragment, int viewId, String tag) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(viewId, fragment, tag);
-        transaction.addToBackStack(null); // Add to backstack to enable back navigation
-        transaction.commit();
+    private void navigateToFragment(Fragment fragment) {
+
+        if (getActivity() != null) {
+            ((MainActivity) getActivity()).loadFragment(fragment);
+        }
     }
 
 

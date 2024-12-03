@@ -21,6 +21,7 @@ import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.MainModel;
 import com.example.plantezemobileapplication.presenter.MainPresenter;
 import com.example.plantezemobileapplication.view.CreditsFragment;
+import com.example.plantezemobileapplication.view.ecoTracker.EcoTrackerFragment;
 import com.example.plantezemobileapplication.view.ecogauge.EcoGaugeFragment;
 import com.example.plantezemobileapplication.view.SettingsFragment;
 import com.example.plantezemobileapplication.view.login.LoginActivity;
@@ -75,8 +76,11 @@ public class MainActivity extends AppCompatActivity implements MainView{
             finish();
         }
 
+
+
         presenter.loadUserData();
         presenter.setCurrentDate();
+
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = getFragmentForItem(item.getItemId());
@@ -118,20 +122,25 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
         bottomNavigationView.getMenu().setGroupCheckable(0, true, true);
 
+
+
+
         if (itemId == R.id.ecoGauge) {
             selectedFragment = new EcoGaugeFragment();
-            Bundle args = new Bundle();
-            args.putSerializable("user_key", user);
-            selectedFragment.setArguments(args);
         } else if (itemId == R.id.ecoBalance) {
             selectedFragment = new ComingSoonFragment();
         } else if (itemId == R.id.ecoHub) {
             selectedFragment = new EcoHubFragment();
         } else if (itemId == R.id.ecoTracker) {
-            selectedFragment = new ComingSoonFragment();
+            selectedFragment = new EcoTrackerFragment();
         } else if (itemId == R.id.ecoAgent) {
             selectedFragment = new ComingSoonFragment();
         }
+
+        Bundle args = new Bundle();
+        args.putSerializable("user_key", user);
+        selectedFragment.setArguments(args);
+
         return selectedFragment;
     }
 
@@ -169,6 +178,5 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     public void displayUserData(User user) {
         this.user = user;
-        loadFragment(getFragmentForItem(R.id.ecoGauge));
     }
 }

@@ -28,25 +28,21 @@ public class ActivityListModel {
         if (currUser != null) {
             userId = currUser.getUid();
         }
-        else {
-            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
-        }
+
     }
 
     public ActivityListModel(ActivityListPresenter presenter) {
         auth = FirebaseAuth.getInstance();
         ref = FirebaseDatabase.getInstance().getReference();
-
+        currUser = auth.getCurrentUser();
         if (currUser != null) {
             userId = currUser.getUid();
         }
-        else {
-            userId = "hRGBz0zBIGRbm6wJm9RA5Jii97M2"; //TODO: UPDATE THIS CONDITION
-        }
+
     }
 
     public void uploadEmissions(String path, String date, Map<String, Object> emissions) {
-
+        System.out.println(emissions);
 
         for (String activity : emissions.keySet()) {
             System.out.println(userId);

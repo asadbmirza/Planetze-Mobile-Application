@@ -6,8 +6,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainModel {
-    private final FirebaseAuth auth;
-    private final DatabaseReference myRef;
+    final FirebaseAuth auth;
+    final DatabaseReference myRef;
 
     public MainModel(FirebaseAuth auth, DatabaseReference myRef) {
         this.auth = auth;
