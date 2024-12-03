@@ -41,7 +41,7 @@ public class AppliancesFragment extends Fragment implements AppliancesView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = view.findViewById(R.id.applicancesRecyclerView);
+        recyclerView = view.findViewById(R.id.appliancesRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         EditText searchBar = view.findViewById(R.id.searchBar);
