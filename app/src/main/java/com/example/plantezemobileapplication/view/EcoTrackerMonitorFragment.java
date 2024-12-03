@@ -119,7 +119,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
 
         recyclerView = view.findViewById(R.id.recent_activity_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new RecentActivityAdapter(new ArrayList<>());
+        adapter = new RecentActivityAdapter(new ArrayList<>(), currentDay, currentWeek, currentMonth);
         recyclerView.setAdapter(adapter);
 
         transporationActivityBtn.setOnClickListener(this);

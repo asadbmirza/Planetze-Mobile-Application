@@ -135,9 +135,9 @@ public class EcoMonitorModel {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     List<ActivityLog> activityLogList = new ArrayList<>();
                     for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                        System.out.println(childSnapshot.getValue());
                         ActivityLog activityLog = childSnapshot.getValue(ActivityLog.class);
                         if (activityLog != null) {
+                            activityLog.setId(Integer.parseInt(childSnapshot.getKey()));
                             activityLogList.add(activityLog);
                         }
                     }
@@ -149,6 +149,64 @@ public class EcoMonitorModel {
                     callback.onFetchError("Failed to fetch today's activities");
                 }
             });
+    }
+
+    public void updateActivityLog(ActivityLog activityLog, int newEnteredValue, String day, String week, String month) {
+        System.out.println("UPDATED");
+    }
+
+    public void deleteActivityLog(ActivityLog activityLog, String day, String week, String month) {
+        removeOldEmissions(activityLog, day, week, month);
+        ref.child("users").child(userId).child("dailyEmissions").child(day).child("activities").child(String.valueOf(activityLog.getId())).removeValue();
+        System.out.println("DELETED");
+    }
+
+    private void removeOldEmissions(ActivityLog activityLog, String day, String week, String month) {
+        ref.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Map<String, Object> updates = new HashMap<>();
+                    String category = activityLog.getCategory();
+                    double valueToRemove = activityLog.getEnteredValue() * activityLog.getSelectedAnswer().getWeight();
+
+                    addNewEmissionsToUpdates(updates, snapshot, "dailyEmissions", day, category, valueToRemove);
+                    addNewEmissionsToUpdates(updates, snapshot, "dailyEmissions", day, "total", valueToRemove);
+                    addNewEmissionsToUpdates(updates, snapshot, "weeklyEmissions", week, category, valueToRemove);
+                    addNewEmissionsToUpdates(updates, snapshot, "weeklyEmissions", week, "total", valueToRemove);
+                    addNewEmissionsToUpdates(updates, snapshot, "monthlyEmissions", month, category, valueToRemove);
+                    addNewEmissionsToUpdates(updates, snapshot, "monthlyEmissions", month, "total", valueToRemove);
+
+                    ref.child("users").child(userId).updateChildren(updates);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void addNewEmissions(ActivityLog activityLog, double newEmissions, String day, String week, String month) {
+        ref.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void addNewEmissionsToUpdates(Map<String, Object> updates, @NonNull DataSnapshot snapshot, String emissionType, String date, String category, double valueToRemove) {
+        if (snapshot.child(emissionType).child(date).child(category).getValue() instanceof Number) {
+            double currentEmission = snapshot.child(emissionType).child(date).child(category).getValue(double.class);
+            updates.put(emissionType + "/" + date + "/" + category, currentEmission - valueToRemove);
+        }
     }
 
 }
