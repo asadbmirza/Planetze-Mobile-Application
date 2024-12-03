@@ -58,6 +58,7 @@
     <string name="world">World</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
+    <string name="edit_profile">Edit Profile</string>
     <string-array name="countries">
         <item>Afghanistan</item>
         <item>Africa</item>
