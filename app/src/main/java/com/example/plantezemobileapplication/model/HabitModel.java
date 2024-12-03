@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HabitModel {
@@ -115,7 +116,6 @@ public class HabitModel {
             });
     }
     public void getDailyEmissions(final OnDailyEmissionsListener listener) {
-
         ref.child("dailyEmissions").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -123,39 +123,59 @@ public class HabitModel {
                 ArrayList<DailyEmission> dailyEmissionList = new ArrayList<>();
 
                 if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
                         try {
-                            DailyEmission dailyEmission = snapshot.getValue(DailyEmission.class);
+                            DailyEmission dailyEmission = new DailyEmission();
+                            dailyEmission.setId(dateSnapshot.getKey());
 
-                            if (dailyEmission != null) {
-                                dailyEmission.setId(snapshot.getKey());
+                            // Parse top-level fields
+                            dailyEmission.setTransportation(dateSnapshot.child("transportation").getValue(Double.class));
+                            dailyEmission.setFood(dateSnapshot.child("food").getValue(Double.class));
+                            dailyEmission.setTotal(dateSnapshot.child("total").getValue(Double.class));
+                            dailyEmission.setConsumption(dateSnapshot.child("consumption").getValue(Double.class));
 
-                                // Check and process activities
-                                DataSnapshot activitiesSnapshot = snapshot.child("activities");
-                                if (activitiesSnapshot.exists()) {
-                                    Map<String, DailyEmission.ActivityDetail> activities = new HashMap<>();
-                                    for (DataSnapshot activitySnapshot : activitiesSnapshot.getChildren()) {
-                                        DailyEmission.ActivityDetail activityDetail = new DailyEmission.ActivityDetail();
-                                        HashMap<String, Double> subcategories = new HashMap<>();
+                            // Parse activities
+                            DataSnapshot activitiesSnapshot = dateSnapshot.child("activities");
+                            if (activitiesSnapshot.exists()) {
+                                Map<String, List<DailyEmission.ActivityDetail>> activitiesMap = new HashMap<>();
 
-                                        // Populate subcategories directly
-                                        for (DataSnapshot subcategorySnapshot : activitySnapshot.getChildren()) {
-                                            String subcategoryName = subcategorySnapshot.getKey();
-                                            Double value = subcategorySnapshot.getValue(Double.class);
-                                            if (subcategoryName != null && value != null) {
-                                                subcategories.put(subcategoryName, value);
-                                            }
+                                for (DataSnapshot activityIdSnapshot : activitiesSnapshot.getChildren()) {
+                                    String activityId = activityIdSnapshot.getKey(); // Example: "155990586"
+                                    DailyEmission.ActivityDetail activityDetail = new DailyEmission.ActivityDetail();
+
+                                    // Populate fields for ActivityDetail
+                                    activityDetail.setCategory(activityIdSnapshot.child("category").getValue(String.class));
+                                    activityDetail.setEnteredValue(
+                                            activityIdSnapshot.child("enteredValue").getValue(Integer.class) != null
+                                                    ? activityIdSnapshot.child("enteredValue").getValue(Integer.class)
+                                                    : 0
+                                    );
+                                    activityDetail.setQuestionTitle(activityIdSnapshot.child("questionTitle").getValue(String.class));
+
+                                    // Parse selectedAnswer
+                                    DataSnapshot selectedAnswerSnapshot = activityIdSnapshot.child("selectedAnswer");
+                                    if (selectedAnswerSnapshot.exists()) {
+                                        String answerText = selectedAnswerSnapshot.child("answerText").getValue(String.class);
+                                        Double weight = selectedAnswerSnapshot.child("weight").getValue(Double.class);
+
+                                        if (answerText != null) {
+                                            DailyEmission.SelectedAnswer selectedAnswer = new DailyEmission.SelectedAnswer(answerText, weight != null ? weight : 0.0);
+                                            activityDetail.setSelectedAnswer(selectedAnswer);
                                         }
-
-                                        activityDetail.setValues(subcategories);
-                                        activities.put(activitySnapshot.getKey(), activityDetail);
                                     }
-                                    dailyEmission.setActivities(activities);
+
+                                    // Add to the activities map
+                                    List<DailyEmission.ActivityDetail> activityDetailsList = activitiesMap.getOrDefault(activityId, new ArrayList<>());
+                                    activityDetailsList.add(activityDetail);
+                                    activitiesMap.put(activityId, activityDetailsList);
                                 }
 
-                                dailyEmissionList.add(dailyEmission);
+                                // Add parsed activities to DailyEmission object
+                                dailyEmission.setActivities(activitiesMap);
                             }
-                        } catch (DatabaseException e) {
+
+                            dailyEmissionList.add(dailyEmission);
+                        } catch (Exception e) {
                             Log.e("Firebase", "Error parsing data: " + e.getMessage());
                         }
                     }
@@ -169,8 +189,10 @@ public class HabitModel {
                 Log.e("Firebase", "Error: " + databaseError.getMessage());
             }
         });
-
     }
+
+
+
 
     public void getMonthlyEmissions(final OnMonthlyEmissionsListener listener) {
         ref.child("monthlyEmissions").addValueEventListener(new ValueEventListener() {

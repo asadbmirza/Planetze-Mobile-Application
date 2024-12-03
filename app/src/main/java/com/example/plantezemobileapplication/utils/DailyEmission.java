@@ -1,16 +1,20 @@
 package com.example.plantezemobileapplication.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DailyEmission extends Emission {
-    private Map<String, ActivityDetail> activities;
+    // Map of date to list of activity details
+    private Map<String, List<ActivityDetail>> activities;
 
     public DailyEmission() {
-
+        this.activities = new HashMap<>();
     }
+
     public DailyEmission(String id, double transportation, double food, double total,
-                         double consumption, Map<String, ActivityDetail> activities) {
+                         double consumption, Map<String, List<ActivityDetail>> activities) {
         this.id = id;
         this.transportation = transportation;
         this.food = food;
@@ -19,11 +23,11 @@ public class DailyEmission extends Emission {
         this.activities = activities;
     }
 
-    public Map<String, ActivityDetail> getActivities() {
+    public Map<String, List<ActivityDetail>> getActivities() {
         return activities;
     }
 
-    public void setActivities(Map<String, ActivityDetail> activities) {
+    public void setActivities(Map<String, List<ActivityDetail>> activities) {
         this.activities = activities;
     }
 
@@ -40,29 +44,98 @@ public class DailyEmission extends Emission {
     }
 
     public static class ActivityDetail {
-        private HashMap<String, Double> values;
+        private String category;
+        private int enteredValue;
+        private String questionTitle;
+        private SelectedAnswer selectedAnswer;
 
-        // Getters and setters
-        public HashMap<String, Double> getValues() {
-            return values;
+        public ActivityDetail() {
         }
 
-        public void setValues(HashMap<String, Double> values) {
-            this.values = values;
+        public ActivityDetail(String category, int enteredValue, String questionTitle, SelectedAnswer selectedAnswer) {
+            this.category = category;
+            this.enteredValue = enteredValue;
+            this.questionTitle = questionTitle;
+            this.selectedAnswer = selectedAnswer;
         }
 
-        public void addSubcategory(String subcategory, double value) {
-            this.values.put(subcategory, value);
+        // Getters and Setters
+        public String getCategory() {
+            return category;
         }
 
-        public Double getSubcategoryValue(String subcategory) {
-            return this.values.get(subcategory);
+        public void setCategory(String category) {
+            this.category = category;
+        }
+
+        public int getEnteredValue() {
+            return enteredValue;
+        }
+
+        public void setEnteredValue(int enteredValue) {
+            this.enteredValue = enteredValue;
+        }
+
+        public String getQuestionTitle() {
+            return questionTitle;
+        }
+
+        public void setQuestionTitle(String questionTitle) {
+            this.questionTitle = questionTitle;
+        }
+
+        public SelectedAnswer getSelectedAnswer() {
+            return selectedAnswer;
+        }
+
+        public void setSelectedAnswer(SelectedAnswer selectedAnswer) {
+            this.selectedAnswer = selectedAnswer;
         }
 
         @Override
         public String toString() {
             return "ActivityDetail{" +
-                    "values=" + values +
+                    "category='" + category + '\'' +
+                    ", enteredValue=" + enteredValue +
+                    ", questionTitle='" + questionTitle + '\'' +
+                    ", selectedAnswer=" + selectedAnswer +
+                    '}';
+        }
+    }
+
+    public static class SelectedAnswer {
+        private String answerText;
+        private double weight;
+
+        public SelectedAnswer() {
+        }
+
+        public SelectedAnswer(String answerText, double weight) {
+            this.answerText = answerText;
+            this.weight = weight;
+        }
+
+        // Getters and Setters
+        public String getAnswerText() {
+            return answerText;
+        }
+
+        public void setAnswerText(String answerText) {
+            this.answerText = answerText;
+        }
+
+        public double getWeight() {
+            return weight;
+        }
+
+        public void setWeight(double weight) {
+            this.weight = weight;
+        }
+
+        @Override
+        public String toString() {
+            return "SelectedAnswer{" +
+                    "answerText='" + answerText + '\'' +
                     '}';
         }
     }

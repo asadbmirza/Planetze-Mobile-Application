@@ -113,7 +113,7 @@ public class ActivityListFragment extends Fragment {
             presenter.calculateTodaysActivity(questions, adapter.getEnteredAmounts(), currentDay, currentMonth, currentWeek);
 
             checkActiveHabits(adapter.getEnteredAmounts());
-//            navigateToFragment(new EcoTrackerMonitorFragment(), R.id.monitor_container, MONITOR_FRAGMENT_TAG);
+            navigateToFragment(new EcoTrackerMonitorFragment(), R.id.monitor_container, MONITOR_FRAGMENT_TAG);
         });
 
         return view;

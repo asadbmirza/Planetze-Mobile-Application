@@ -222,7 +222,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
-
+                System.out.println(dailyEmission);
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -255,6 +255,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
     }
 
     public void showDailyEmissionDetails(CalendarDay date) {
+
         presenter.getTodaysActivities(date.getDate());
         presenter.getDefaultVehicle();
         presenter.getUserEnergy();
