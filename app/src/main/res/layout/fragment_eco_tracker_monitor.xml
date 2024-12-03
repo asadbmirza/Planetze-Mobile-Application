@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.EcoTrackerMonitorFragment">
+    tools:context=".view.ecoTracker.EcoTrackerMonitorFragment">
 
     <LinearLayout
         android:id="@+id/monitor_layout"

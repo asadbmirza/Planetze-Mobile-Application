@@ -1,14 +1,10 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.ecoTracker;
 
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 

@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.ecoTracker;
 
 import android.view.LayoutInflater;
 import android.view.View;

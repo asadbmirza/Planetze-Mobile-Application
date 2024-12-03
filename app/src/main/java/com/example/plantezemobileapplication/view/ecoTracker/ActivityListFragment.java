@@ -1,7 +1,7 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.ecoTracker;
 
-import static com.example.plantezemobileapplication.view.EcoTrackerFragment.HABIT_FRAGMENT_TAG;
-import static com.example.plantezemobileapplication.view.EcoTrackerFragment.MONITOR_FRAGMENT_TAG;
+import static com.example.plantezemobileapplication.view.ecoTracker.EcoTrackerFragment.HABIT_FRAGMENT_TAG;
+import static com.example.plantezemobileapplication.view.ecoTracker.EcoTrackerFragment.MONITOR_FRAGMENT_TAG;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -20,15 +20,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.plantezemobileapplication.R;
-import com.example.plantezemobileapplication.model.EcoMonitorModel;
 import com.example.plantezemobileapplication.presenter.ActivityListPresenter;
 import com.example.plantezemobileapplication.utils.Habit;
 import com.example.plantezemobileapplication.utils.Question;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.

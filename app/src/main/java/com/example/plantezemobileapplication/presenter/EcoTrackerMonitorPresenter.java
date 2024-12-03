@@ -5,7 +5,7 @@ import com.example.plantezemobileapplication.model.HabitModel;
 import com.example.plantezemobileapplication.utils.Answer;
 import com.example.plantezemobileapplication.utils.DailyEmission;
 import com.example.plantezemobileapplication.utils.Question;
-import com.example.plantezemobileapplication.view.EcoTrackerMonitorFragment;
+import com.example.plantezemobileapplication.view.ecoTracker.EcoTrackerMonitorFragment;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 

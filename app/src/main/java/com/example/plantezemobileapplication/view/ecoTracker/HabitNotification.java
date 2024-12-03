@@ -1,4 +1,4 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.ecoTracker;
 
 import android.app.Activity;
 
@@ -21,7 +21,7 @@ import java.util.Date;
 
 public class HabitNotification {
 
-    static final int REQUEST_CODE_POST_NOTIFICATIONS = 1;
+    public static final int REQUEST_CODE_POST_NOTIFICATIONS = 1;
     private Activity context;
 
     public HabitNotification(Activity context) {

@@ -1,6 +1,6 @@
-package com.example.plantezemobileapplication.view;
+package com.example.plantezemobileapplication.view.ecoTracker;
 
-import static com.example.plantezemobileapplication.view.HabitNotification.REQUEST_CODE_POST_NOTIFICATIONS;
+import static com.example.plantezemobileapplication.view.ecoTracker.HabitNotification.REQUEST_CODE_POST_NOTIFICATIONS;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -238,7 +238,7 @@ public class EcoTrackerHabitFragment extends Fragment {
 
         timePickerDialog.show();
     }
-    void displayHabitDialog(Habit habit) {
+    public void displayHabitDialog(Habit habit) {
         dialog.setContentView(R.layout.new_habit_dialog);
 
 
@@ -319,7 +319,7 @@ public class EcoTrackerHabitFragment extends Fragment {
     public void displayLoggedHabit(Habit habit) {
         Toast.makeText(getContext(), "Fantastic job completing the habit \"" + habit.getName() + "\"", Toast.LENGTH_SHORT).show();
     }
-    void displayFilterDialog() {
+    public void displayFilterDialog() {
         dialog.setContentView(R.layout.filter_dialog);
         initCheckBoxes();
 
@@ -365,7 +365,7 @@ public class EcoTrackerHabitFragment extends Fragment {
         dialog.show();
     }
 
-    void displayRemoveDialog(Habit habit) {
+    public void displayRemoveDialog(Habit habit) {
         dialog.setContentView(R.layout.remove_habit_dialog);
         Button remove = dialog.findViewById(R.id.submit_remove_habit_button);
         Button cancel = dialog.findViewById(R.id.exit_remove_button);

@@ -10,7 +10,7 @@ import com.example.plantezemobileapplication.utils.Habit;
 import com.example.plantezemobileapplication.utils.MonthlyEmission;
 import com.example.plantezemobileapplication.utils.JsonParser;
 import com.example.plantezemobileapplication.utils.TaskResult;
-import com.example.plantezemobileapplication.view.EcoTrackerHabitFragment;
+import com.example.plantezemobileapplication.view.ecoTracker.EcoTrackerHabitFragment;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
