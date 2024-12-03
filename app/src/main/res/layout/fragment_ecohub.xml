@@ -9,16 +9,6 @@
     android:id="@+id/eco_hub">
 
     <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/bitter_semibold"
-        android:text="@string/eco_hub"
-        android:textColor="@color/black"
-        android:textSize="45sp" />
-
-
-    <TextView
         android:id="@+id/marketTrendsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,21 +25,21 @@
         android:text="@string/energy_efficient"
         android:drawableStart="@drawable/ic_energy_efficient"
         android:drawablePadding="10dp"
-        style="@style/CustomButton"/>
+        style="@style/CustomEcoHubButton"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sustainableFashionButton"
         android:text="@string/sustainable_fashion"
         android:drawableStart="@drawable/ic_fashion"
         android:drawablePadding="10dp"
-        style="@style/CustomButton"/>
+        style="@style/CustomEcoHubButton"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/greenHomeSolutionsButton"
         android:text="@string/green_home_solutions"
         android:drawableStart="@drawable/ic_home_solutions"
         android:drawablePadding="10dp"
-        style="@style/CustomButton"/>
+        style="@style/CustomEcoHubButton"/>
 
     <TextView
         android:id="@+id/learningResourcesTitle"
@@ -67,12 +57,12 @@
         android:text="@string/articles"
         android:drawableStart="@drawable/ic_article"
         android:drawablePadding="10dp"
-        style="@style/CustomButton" />
+        style="@style/CustomEcoHubButton" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/videosButton"
         android:text="@string/videos"
         android:drawableStart="@drawable/ic_video"
         android:drawablePadding="10dp"
-        style="@style/CustomButton"/>
+        style="@style/CustomEcoHubButton"/>
 </LinearLayout>
