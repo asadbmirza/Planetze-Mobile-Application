@@ -13,7 +13,7 @@
     <string name="fullName">Full Name</string>
     <string name="placeholderEmail">abc123@email.com</string>
     <string name="signUpInstruction">Please enter the following information</string>
-    <string name="account_exists">Already have an account?\ </string>
+    <string name="account_exists">Already have an account?</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="login_prompt">Please enter your login details below</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
@@ -21,6 +21,25 @@
     <string name="reset_instructions">Send reset instructions</string>
     <string name="reset_your_password">Reset Your Password</string>
     <string name="back_to_login">Back to Login</string>
+    <string name="eco_hub">Eco Hub</string>
+    <string name="market_trends">Market Trends</string>
+    <string name="energy_efficient">Energy-Efficient Appliances</string>
+    <string name="sustainable_fashion">Sustainable Fashion</string>
+    <string name="green_home_solutions">Green Home Solutions</string>
+    <string name="learning_resources">Learning Resources</string>
+    <string name="articles">Articles</string>
+    <string name="videos">Videos</string>
+    <string name="search_articles">Search Articles...</string>
+    <string name="search_videos">Search Videos...</string>
+    <string name="search_appliances">Search Appliances...</string>
+    <string name="search_fashion">Search Categories...</string>
+    <string name="read_more">Read More</string>
+    <string name="watch_now">Watch Now</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="learn_more">Learn More</string>
+    <string name="credit_good_on_you">Data sourced from Good On You: https://directory.goodonyou.eco/</string>
+
+
     <string name="balance">Balance</string>
     <string name="home">Home</string>
     <string name="hub">Hub</string>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp"
+    android:background="@drawable/eco_hub_page_background"
+    android:id="@+id/eco_hub">
+
+    <TextView
+        android:id="@+id/marketTrendsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/market_trends"
+        android:textSize="35sp"
+        android:textColor="@color/oxfordblue"
+        android:fontFamily="@font/bitter_semibold"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Buttons for Market Trends -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/energyEfficientButton"
+        android:text="@string/energy_efficient"
+        android:drawableStart="@drawable/ic_energy_efficient"
+        android:drawablePadding="10dp"
+        style="@style/CustomEcoHubButton"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sustainableFashionButton"
+        android:text="@string/sustainable_fashion"
+        android:drawableStart="@drawable/ic_fashion"
+        android:drawablePadding="10dp"
+        style="@style/CustomEcoHubButton"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/greenHomeSolutionsButton"
+        android:text="@string/green_home_solutions"
+        android:drawableStart="@drawable/ic_home_solutions"
+        android:drawablePadding="10dp"
+        style="@style/CustomEcoHubButton"/>
+
+    <TextView
+        android:id="@+id/learningResourcesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/learning_resources"
+        android:textSize="35sp"
+        android:textColor="@color/oxfordblue"
+        android:fontFamily="@font/bitter_semibold"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/articlesButton"
+        android:text="@string/articles"
+        android:drawableStart="@drawable/ic_article"
+        android:drawablePadding="10dp"
+        style="@style/CustomEcoHubButton" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/videosButton"
+        android:text="@string/videos"
+        android:drawableStart="@drawable/ic_video"
+        android:drawablePadding="10dp"
+        style="@style/CustomEcoHubButton"/>
+</LinearLayout>
