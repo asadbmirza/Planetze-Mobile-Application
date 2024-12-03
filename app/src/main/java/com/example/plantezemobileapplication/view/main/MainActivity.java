@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             finish();
+            return true;
         } else if(item.getItemId() == R.id.credits) {
             return loadFragment(new CreditsFragment());
         } else {
@@ -121,9 +122,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
         if (itemId == R.id.ecoGauge) {
             selectedFragment = new EcoGaugeFragment();
-            Bundle args = new Bundle();
-            args.putSerializable("user_key", user);
-            selectedFragment.setArguments(args);
         } else if (itemId == R.id.ecoBalance) {
             selectedFragment = new ComingSoonFragment();
         } else if (itemId == R.id.ecoHub) {
@@ -133,6 +131,11 @@ public class MainActivity extends AppCompatActivity implements MainView{
         } else if (itemId == R.id.ecoAgent) {
             selectedFragment = new ComingSoonFragment();
         }
+
+        Bundle args = new Bundle();
+        args.putSerializable("user_key", user);
+        selectedFragment.setArguments(args);
+
         return selectedFragment;
     }
 
