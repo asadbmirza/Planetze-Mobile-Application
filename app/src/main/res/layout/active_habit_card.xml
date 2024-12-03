@@ -47,32 +47,13 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/log_habit_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/habit_update"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:backgroundTint="#208785"
-                android:text="Update" />
-
-            <Button
-                android:id="@+id/habit_remove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:backgroundTint="#C30C0C"
-                android:text="Remove" />
-
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:text="Log Habit" />
 
     </LinearLayout>
 
@@ -95,6 +76,31 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/habit_update"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#208785"
+            android:text="Update" />
+
+        <Button
+            android:id="@+id/habit_remove"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#C30C0C"
+            android:layout_marginStart="10dp"
+            android:text="Remove" />
     </LinearLayout>
 
 </LinearLayout>

@@ -1,5 +1,9 @@
 package com.example.plantezemobileapplication.view;
 
+import static com.example.plantezemobileapplication.view.EcoTrackerFragment.HABIT_FRAGMENT_TAG;
+import static com.example.plantezemobileapplication.view.EcoTrackerFragment.MONITOR_FRAGMENT_TAG;
+
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +22,7 @@ import android.widget.TextView;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.EcoMonitorModel;
 import com.example.plantezemobileapplication.presenter.ActivityListPresenter;
+import com.example.plantezemobileapplication.utils.Habit;
 import com.example.plantezemobileapplication.utils.Question;
 
 import java.util.ArrayList;
@@ -40,6 +45,7 @@ public class ActivityListFragment extends Fragment {
     private static final String ARG_DAY = "currentDay";
     private static final String ARG_MONTH = "currentMonth";
     private static final String ARG_WEEK = "currentWeek";
+    private static final String ARG_ACTIVE_HABITS = "activeHabits";
 
     private List<Question> questions;
     private String activityName;
@@ -47,12 +53,16 @@ public class ActivityListFragment extends Fragment {
     private String currentDay;
     private String currentMonth;
     private String currentWeek;
+    private ArrayList<Habit> activeHabits;
+
+
+
 
     public ActivityListFragment() {
         // Required empty public constructor
     }
 
-    public static ActivityListFragment newInstance(String activityName, List<Question> questions, String day, String month, String week) {
+    public static ActivityListFragment newInstance(String activityName, List<Question> questions, String day, String month, String week, ArrayList<Habit> activeHabits) {
         ActivityListFragment fragment = new ActivityListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, activityName);
@@ -60,6 +70,7 @@ public class ActivityListFragment extends Fragment {
         args.putString(ARG_DAY, day);
         args.putString(ARG_MONTH, month);
         args.putString(ARG_WEEK, week);
+        args.putParcelableArrayList(ARG_ACTIVE_HABITS, activeHabits);
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,6 +84,7 @@ public class ActivityListFragment extends Fragment {
             currentDay = getArguments().getString(ARG_DAY);
             currentMonth = getArguments().getString(ARG_MONTH);
             currentWeek = getArguments().getString(ARG_WEEK);
+            activeHabits = getArguments().getParcelableArrayList(ARG_ACTIVE_HABITS);
         }
     }
 
@@ -95,14 +107,64 @@ public class ActivityListFragment extends Fragment {
 
         ActivityListPresenter presenter = new ActivityListPresenter();
 
+
         submitActivityBtn.setOnClickListener(v -> {
+            Log.d("activitylist", "f");
             presenter.calculateTodaysActivity(questions, adapter.getEnteredAmounts(), currentDay, currentMonth, currentWeek);
 
-            requireActivity().getSupportFragmentManager().popBackStack();
+            checkActiveHabits(adapter.getEnteredAmounts());
+//            navigateToFragment(new EcoTrackerMonitorFragment(), R.id.monitor_container, MONITOR_FRAGMENT_TAG);
         });
 
         return view;
     }
+
+    public void checkActiveHabits(List<Integer> enteredAmounts) {
+        System.out.println(questions);
+        System.out.println(enteredAmounts);
+        for (int i = 0; i < questions.size(); i++) {
+            String questionName = questions.get(i).getTitle();
+            double questionValue = enteredAmounts.get(i);
+            System.out.println(questionName);
+            System.out.println(questionValue);
+            for (Habit habit: activeHabits) {
+                System.out.println(habit.getActivity());
+                if (questionName.toLowerCase().contains(habit.getActivity().toLowerCase()) && questionValue > 0) {
+                    displayHabitDialog();
+                    return;
+                }
+            }
+        }
+    }
+
+    private void displayHabitDialog() {
+        Dialog dialog = new Dialog(requireContext());
+        dialog.setContentView(R.layout.habit_log_dialog);
+
+        Button navigate = dialog.findViewById(R.id.view_habit_page_button);
+        Button cancel = dialog.findViewById(R.id.exit_habit_page_button);
+
+        cancel.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        navigate.setOnClickListener(v -> {
+            dialog.dismiss();
+            EcoTrackerHabitFragment habitFragment = new EcoTrackerHabitFragment();
+            navigateToFragment(habitFragment, R.id.eco_tracker_habit, HABIT_FRAGMENT_TAG);
+
+        });
+
+        dialog.show();
+    }
+
+    private void navigateToFragment(Fragment fragment, int viewId, String tag) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(viewId, fragment, tag);
+        transaction.addToBackStack(null); // Add to backstack to enable back navigation
+        transaction.commit();
+    }
+
 
 
 }

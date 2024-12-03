@@ -75,7 +75,6 @@ public class EcoTrackerHabitPresenter {
             System.out.println("Habits fetched: " + habits.size());
             view.setHabits(habits);
             view.setActiveHabits(activeHabitList);
-            view.createNotifications(activeHabitList);
         });
     }
 
@@ -83,9 +82,12 @@ public class EcoTrackerHabitPresenter {
         String id = habit.getId();
         System.out.println(id);
         this.model.removeActiveHabit(id);
+        habit.setTime("");
+        habit.setTimesCompleted(0);
         habits.add(habit);
         view.setHabits(habits);
     }
+
 
     public Task<Void> fetchMonthlyEmissions() {
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();

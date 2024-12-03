@@ -16,7 +16,7 @@
         android:theme="@style/Theme.PlantezeMobileApplication"
         tools:targetApi="31">
         <activity
-            android:name=".view.EcoTrackerActivity"
+            android:name=".main.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_eco_tracker"
             android:theme="@style/Theme.PlantezeMobileApplication" >

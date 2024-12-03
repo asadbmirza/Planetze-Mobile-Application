@@ -1,21 +1,24 @@
 package com.example.plantezemobileapplication.utils;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Habit {
+public class Habit implements Parcelable {
     private String id;
     private String name;
     private String category;
     private String activity;
     private int impact;
-
     private String time;
     private ArrayList<Integer> days;
-    private int TimesCompleted;
+    private int timesCompleted;
 
     public Habit() {
-
+        // Default constructor
     }
+
     public Habit(String name, String category, String activity, int impact) {
         this.name = name;
         this.category = category;
@@ -24,6 +27,7 @@ public class Habit {
         this.time = "";
         this.days = new ArrayList<>();
     }
+
     public Habit(String name, String category, String activity, int impact, String time, ArrayList<Integer> days) {
         this.name = name;
         this.category = category;
@@ -32,6 +36,29 @@ public class Habit {
         this.time = time;
         this.days = days;
     }
+
+    protected Habit(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        category = in.readString();
+        activity = in.readString();
+        impact = in.readInt();
+        time = in.readString();
+        days = in.readArrayList(Integer.class.getClassLoader());
+        timesCompleted = in.readInt();
+    }
+
+    public static final Creator<Habit> CREATOR = new Creator<Habit>() {
+        @Override
+        public Habit createFromParcel(Parcel in) {
+            return new Habit(in);
+        }
+
+        @Override
+        public Habit[] newArray(int size) {
+            return new Habit[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -61,7 +88,6 @@ public class Habit {
         return impact;
     }
 
-
     public void setImpact(int impact) {
         this.impact = impact;
     }
@@ -71,11 +97,11 @@ public class Habit {
     }
 
     public int getTimesCompleted() {
-        return TimesCompleted;
+        return timesCompleted;
     }
 
     public void setTimesCompleted(int timesCompleted) {
-        TimesCompleted = timesCompleted;
+        this.timesCompleted = timesCompleted;
     }
 
     public void setTime(String time) {
@@ -93,7 +119,6 @@ public class Habit {
             return;
         }
     }
-
 
     public ArrayList<Integer> getDays() {
         return days;
@@ -113,7 +138,7 @@ public class Habit {
 
     @Override
     public int hashCode() {
-        return 31*(name.hashCode() + category.hashCode() + impact);
+        return 31 * (name.hashCode() + category.hashCode() + impact);
     }
 
     @Override
@@ -126,8 +151,23 @@ public class Habit {
         }
 
         Habit h = (Habit) obj;
-
         return (h.name.equals(name) && h.category.equals(category) && h.impact == impact);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(category);
+        dest.writeString(activity);
+        dest.writeInt(impact);
+        dest.writeString(time);
+        dest.writeList(days);
+        dest.writeInt(timesCompleted);
+    }
 }

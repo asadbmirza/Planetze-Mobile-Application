@@ -114,8 +114,6 @@ public class HabitModel {
                 System.err.println("Error removing habit: " + e.getMessage());
             });
     }
-
-
     public void getDailyEmissions(final OnDailyEmissionsListener listener) {
 
         ref.child("dailyEmissions").addValueEventListener(new ValueEventListener() {

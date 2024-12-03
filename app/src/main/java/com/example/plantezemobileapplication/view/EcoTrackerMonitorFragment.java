@@ -23,6 +23,7 @@ import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.EcoMonitorModel;
 import com.example.plantezemobileapplication.presenter.EcoTrackerMonitorPresenter;
 import com.example.plantezemobileapplication.utils.DailyEmission;
+import com.example.plantezemobileapplication.utils.Habit;
 import com.example.plantezemobileapplication.utils.Question;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -57,6 +58,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
     TextView montitorHeading;
     EcoTrackerMonitorPresenter presenter;
     private ArrayList<DailyEmission> dailyEmissions;
+    private ArrayList<Habit> activeHabits;
     private String currentDay;
     private String currentMonth;
     private String currentWeek;
@@ -95,7 +97,6 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         Button consumptionActivityBtn = view.findViewById(R.id.consumption_log_btn);
         Button historyBtn = view.findViewById(R.id.history_button);
 
-
         //Update CO2 tracker display
         montitorHeading = view.findViewById(R.id.monitor_heading);
         totalDailyEmissionView = view.findViewById(R.id.daily_emission_text);
@@ -110,7 +111,6 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         currentDay = getCurrentDay(currentDate);
         currentMonth = getCurrentMonth(currentDate);
         currentWeek = getCurrentWeek(currentDate);
-
         presenter.getTodaysActivities(currentDate);
         presenter.getDefaultVehicle();
         presenter.getUserEnergy();
@@ -123,6 +123,8 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         //Set up history calendar
         dailyEmissions = new ArrayList<>();
         dialog = new Dialog(requireContext());
+        activeHabits = new ArrayList<>();
+        presenter.fetchActiveHabits();
 
         // Inflate the layout for this fragment
         return view;
@@ -171,16 +173,13 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
 
 
 
-        Fragment targetFragment = ActivityListFragment.newInstance(activityName, questionList, currentDay, currentMonth, currentWeek);
-        FragmentTransaction transaction = requireActivity()
-                .getSupportFragmentManager()
-                .beginTransaction();
-
-
-
+        Fragment targetFragment = ActivityListFragment.newInstance(activityName, questionList, currentDay, currentMonth, currentWeek, activeHabits);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainerView, targetFragment);
         transaction.addToBackStack(null);
+
         transaction.commit();
+
     }
 
     public String getCurrentDay(Date currentDate) {
@@ -286,5 +285,9 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setActiveHabits(ArrayList<Habit> activeHabits) {
+        this.activeHabits = activeHabits;
     }
 }

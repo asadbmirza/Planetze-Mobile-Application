@@ -71,8 +71,8 @@ public class EcoTrackerHabitFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_eco_tracker_habit, container, false);
-
         FirebaseApp.initializeApp(requireContext());
 
         inactiveHabitAdapter = new InactiveHabitAdapter(new ArrayList<Habit>(), categories, impacts, this);
@@ -162,6 +162,11 @@ public class EcoTrackerHabitFragment extends Fragment {
         activeHabitAdapter.updateHabits(habits);
         inactiveHabitAdapter.filterByCategory(cFilters);
         inactiveHabitAdapter.filterByImpact(iFilters);
+        createNotifications(habits);
+    }
+
+    public void updateHabit(Habit habit) {
+        presenter.updateHabit(habit);
     }
 
     public void createNotifications(ArrayList<Habit> habits) {
@@ -169,6 +174,7 @@ public class EcoTrackerHabitFragment extends Fragment {
             notification.createWeeklyNotifications(habit);
         }
     }
+
 
 
     public void setMonthlyEmissions(ArrayList<MonthlyEmission> emissions) {
@@ -309,6 +315,10 @@ public class EcoTrackerHabitFragment extends Fragment {
 
 
     }
+
+    public void displayLoggedHabit(Habit habit) {
+        Toast.makeText(getContext(), "Fantastic job completing the habit \"" + habit.getName() + "\"", Toast.LENGTH_SHORT).show();
+    }
     void displayFilterDialog() {
         dialog.setContentView(R.layout.filter_dialog);
         initCheckBoxes();
@@ -363,7 +373,7 @@ public class EcoTrackerHabitFragment extends Fragment {
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.removeActiveHabit(habit);
+                removeActiveHabit(habit);
                 dialog.dismiss();
             }
         });
@@ -417,6 +427,9 @@ public class EcoTrackerHabitFragment extends Fragment {
         }
     }
 
+    public EcoTrackerHabitPresenter getPresenter() {
+        return presenter;
+    }
 
 
 }

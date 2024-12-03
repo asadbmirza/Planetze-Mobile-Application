@@ -171,5 +171,11 @@ public class EcoTrackerMonitorPresenter {
         });
         return taskCompletionSource.getTask();
     }
+
+    public void fetchActiveHabits() {
+        habitModel.getActiveHabits(activeHabitList -> {
+            view.setActiveHabits(activeHabitList);
+        });
+    }
 }
 
