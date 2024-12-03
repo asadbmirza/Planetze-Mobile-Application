@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/turquoise"
+    android:background="@color/lightgrey"
     android:padding="16dp">
 
     <TextView
@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sustainable_fashion"
-        android:textSize="24sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:padding="8dp" />
+        android:textColor="@color/oxfordblue"/>
 
     <EditText
         android:id="@+id/searchBar"
@@ -25,7 +25,9 @@
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="8dp"
         android:hint="@string/search_fashion"
-        android:padding="8dp" />
+        android:textColorHint="@color/oxfordblue"
+        android:padding="8dp"
+        android:textColor="@color/oxfordblue"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fashionRecyclerView"
