@@ -176,9 +176,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
                 .getSupportFragmentManager()
                 .beginTransaction();
 
-
-
-        transaction.replace(R.id.fragmentContainerView, targetFragment);
+        transaction.replace(R.id.monitor_container, targetFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
