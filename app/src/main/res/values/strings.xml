@@ -13,7 +13,7 @@
     <string name="fullName">Full Name</string>
     <string name="placeholderEmail">abc123@email.com</string>
     <string name="signUpInstruction">Please enter the following information</string>
-    <string name="account_exists">Already have an account?</string>
+    <string name="account_exists">Already have an account?\ </string>
     <string name="welcome_back">Welcome Back</string>
     <string name="login_prompt">Please enter your login details below</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
