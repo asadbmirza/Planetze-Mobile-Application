@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
-            app:cardBackgroundColor="@color/turquoise">
+            app:cardBackgroundColor="@color/oxfordblue">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,6 +37,7 @@
                     android:text="Today's emissions:"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:textAlignment="center"
                     android:textColor="@color/white"/>
 
                 <LinearLayout
@@ -46,7 +47,7 @@
 
                     <TextView
                         android:id="@+id/daily_emission_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
@@ -56,10 +57,10 @@
 
                     <TextView
                         android:id="@+id/daily_emission_units"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="kg CO2e"
+                        android:layout_weight="1"
                         android:textColor="@color/white"/>
                 </LinearLayout>
             </LinearLayout>
@@ -117,7 +118,7 @@
                 android:layout_weight="1"
                 android:layout_marginRight="10dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp">>
+                app:cardElevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -209,6 +210,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="History"
+            android:drawableLeft="@drawable/history_icon"
+            android:drawableTint="@color/white"
             android:backgroundTint="@color/turquoise"/>
 
         <TextView

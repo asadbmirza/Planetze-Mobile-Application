@@ -33,8 +33,9 @@
                 android:id="@+id/recent_activity_entered_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Entered Value" />
+                android:text="Entered Value"
+                android:textSize="18sp"
+                android:layout_marginRight="5dp"/>
 
             <TextView
                 android:id="@+id/recent_activity_selected_option"
@@ -46,22 +47,30 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
 
             <Button
                 android:id="@+id/edit_activity_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Edit" />
+                android:text="Edit"
+                android:drawableLeft="@drawable/baseline_edit_24"
+                android:drawableTint="@color/white"
+                android:textSize="10sp"
+                android:backgroundTint="@color/turquoise"
+                android:layout_marginRight="4dp"/>
 
             <Button
                 android:id="@+id/delete_activity_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Delete" />
+                android:text="Delete"
+                android:drawableLeft="@drawable/trash_icon"
+                android:drawableTint="@color/white"
+                android:textSize="10sp"
+                android:backgroundTint="@color/turquoise"/>
 
         </LinearLayout>
     </LinearLayout>
