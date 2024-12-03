@@ -20,9 +20,9 @@ public class GreenHomePresenter {
     private List<ArticleModel> articles;
     private List<ArticleModel> fullList;
 
-    public GreenHomePresenter(GreenHomeView view) {
+    public GreenHomePresenter(GreenHomeView view, Context context) {
         this.view = view;
-        this.context = (Context) view;
+        this.context = context;
         articles = new ArrayList<>();
         fullList = new ArrayList<>();
     }

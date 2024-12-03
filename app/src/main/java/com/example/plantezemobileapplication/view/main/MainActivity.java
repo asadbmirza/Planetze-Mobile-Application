@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.plantezemobileapplication.view.EcoHub.EcoHubFragment;
 import com.example.plantezemobileapplication.User;
 import com.example.plantezemobileapplication.view.ComingSoonFragment;
 import com.example.plantezemobileapplication.R;
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         } else if (itemId == R.id.ecoBalance) {
             selectedFragment = new ComingSoonFragment();
         } else if (itemId == R.id.ecoHub) {
-            selectedFragment = new ComingSoonFragment();
+            selectedFragment = new EcoHubFragment();
         } else if (itemId == R.id.ecoTracker) {
             selectedFragment = new ComingSoonFragment();
         } else if (itemId == R.id.ecoAgent) {
@@ -134,11 +135,12 @@ public class MainActivity extends AppCompatActivity implements MainView{
         return selectedFragment;
     }
 
-    private boolean loadFragment(Fragment fragment) {
+    public boolean loadFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (!fragmentManager.isDestroyed() && fragment != null) {
             fragmentManager.beginTransaction()
                     .replace(R.id.frameLayout, fragment)
+                    .addToBackStack(null)
                     .commit();
             return true;
         }

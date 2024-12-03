@@ -5,10 +5,15 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +24,7 @@ import com.example.plantezemobileapplication.presenter.VideosPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideosFragment extends AppCompatActivity implements VideosView {
+public class VideosFragment extends Fragment implements VideosView {
     private RecyclerView recyclerView;
     private VideosAdapter adapter;
     private final List<VideoItemModel> videoList = new ArrayList<>();
@@ -28,16 +33,26 @@ public class VideosFragment extends AppCompatActivity implements VideosView {
     private Runnable searchRunnable;
     private final Handler handler = new Handler(Looper.getMainLooper());
 
+    public VideosFragment() {
+        // Required empty public constructor
+    }
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_videos);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Inflate the fragment layout
+        return inflater.inflate(R.layout.fragment_videos, container, false);
+    }
 
-        recyclerView = findViewById(R.id.articlesRecyclerView);
-        EditText searchBar = findViewById(R.id.searchBar);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        adapter = new VideosAdapter(this, videoList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = view.findViewById(R.id.articlesRecyclerView);
+        EditText searchBar = view.findViewById(R.id.searchBar);
+
+        adapter = new VideosAdapter(getContext(), videoList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         presenter = new VideosPresenter(this);
@@ -70,7 +85,7 @@ public class VideosFragment extends AppCompatActivity implements VideosView {
 
     @Override
     public void showVideos(List<VideoItemModel> videos) {
-        runOnUiThread(() -> {
+        requireActivity().runOnUiThread(() -> {
             videoList.clear();
             videoList.addAll(videos);
             adapter.notifyDataSetChanged();
@@ -79,8 +94,8 @@ public class VideosFragment extends AppCompatActivity implements VideosView {
 
     @Override
     public void showError(String message) {
-        runOnUiThread(() -> {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        requireActivity().runOnUiThread(() -> {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         });
     }
 }
