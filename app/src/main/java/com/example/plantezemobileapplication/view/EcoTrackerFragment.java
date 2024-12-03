@@ -1,15 +1,11 @@
 package com.example.plantezemobileapplication.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import androidx.activity.EdgeToEdge;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.graphics.Insets;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -28,8 +24,6 @@ public class EcoTrackerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_eco_tracker_layout, container, false);
 
-
-
         Button habitsBtn = view.findViewById(R.id.view_habit_page_button);
         habitsBtn.setOnClickListener(v -> {
             habitFragment = new EcoTrackerHabitFragment();
@@ -39,7 +33,8 @@ public class EcoTrackerFragment extends Fragment {
         Button activityBtn = view.findViewById(R.id.view_activity_page_button);
         activityBtn.setOnClickListener(v -> {
             monitorFragment = new EcoTrackerMonitorFragment();
-            navigateToFragment(monitorFragment, R.id.monitor_container, MONITOR_FRAGMENT_TAG);
+            System.out.println(R.id.monitor_container);
+            navigateToFragment(monitorFragment, R.id.eco_tracker_monitor, MONITOR_FRAGMENT_TAG);
         });
         return view;
     }

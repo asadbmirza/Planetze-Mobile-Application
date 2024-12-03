@@ -51,7 +51,7 @@
         android:layout_height="match_parent" />
 
     <FrameLayout
-        android:id="@+id/monitor_container"
+        android:id="@+id/eco_tracker_monitor"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
