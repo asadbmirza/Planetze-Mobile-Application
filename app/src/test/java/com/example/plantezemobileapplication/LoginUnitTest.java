@@ -4,7 +4,7 @@ import static org.mockito.Mockito.*;
 
 import com.example.plantezemobileapplication.model.LoginModel;
 import com.example.plantezemobileapplication.presenter.LoginPresenter;
-import com.example.plantezemobileapplication.view.login.ProcessView;
+import com.example.plantezemobileapplication.view.login.LoginView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -18,19 +18,17 @@ import org.mockito.MockitoAnnotations;
 
 public class LoginUnitTest {
     @Mock
-    private ProcessView mockView;
-
+    private LoginView mockView;
     @Mock
     private LoginModel mockLoginModel;
-
     @Mock
     private Task<AuthResult> mockTask;
-
+    @Mock
+    private Task<Void> mockUserTask;
     @Mock
     private FirebaseAuth mockAuth;
     @Mock
     private FirebaseUser mockUser;
-
     private LoginPresenter loginPresenter;
 
     @Before
@@ -43,6 +41,15 @@ public class LoginUnitTest {
             return mockTask;
         });
 
+        when(mockUserTask.addOnCompleteListener(any())).thenAnswer(invocation -> {
+            OnCompleteListener<Void> listener = invocation.getArgument(0);
+            listener.onComplete(mockUserTask);
+            return mockTask;
+        });
+
+        when(mockLoginModel.getUser()).thenReturn(mockUser);
+        when(mockUser.reload()).thenReturn(mockUserTask);
+
         mockLoginModel = new LoginModel(mockAuth);
         loginPresenter = new LoginPresenter(mockView, mockLoginModel);
     }
@@ -50,8 +57,9 @@ public class LoginUnitTest {
     @Test
     public void testLoginUserSuccessEmailVerified() {
         when(mockTask.isSuccessful()).thenReturn(true);
+        when(mockUserTask.isSuccessful()).thenReturn(true);
         when(mockAuth.getCurrentUser()).thenReturn(mockUser);
-        when(mockUser.isEmailVerified()).thenReturn(true);
+        when(mockLoginModel.isVerified()).thenReturn(true);
 
         loginPresenter.loginUser("test@example.com", "password");
 
@@ -63,8 +71,9 @@ public class LoginUnitTest {
     @Test
     public void testLoginUserSuccessEmailNotVerified() {
         when(mockTask.isSuccessful()).thenReturn(true);
+        when(mockUserTask.isSuccessful()).thenReturn(true);
         when(mockAuth.getCurrentUser()).thenReturn(mockUser);
-        when(mockUser.isEmailVerified()).thenReturn(false);
+        when(mockLoginModel.isVerified()).thenReturn(false);
 
         loginPresenter.loginUser("test@example.com", "password");
 
@@ -90,6 +99,33 @@ public class LoginUnitTest {
         presenterWithNullView.loginUser("test@example.com", "password");
 
         verifyNoInteractions(mockView);
+    }
+
+    @Test
+    public void testLoginUserMissingOnlyEmail() {
+        loginPresenter.loginUser("", "password");
+
+        verify(mockView).showProcessFailure("Please enter all fields.");
+    }
+
+    @Test
+    public void testLoginUserMissingOnlyPassword() {
+        loginPresenter.loginUser("test@example.com", "");
+
+        verify(mockView).showProcessFailure("Please enter all fields.");
+    }
+
+    @Test
+    public void testLoginUserFailedUserVerifyCheck() {
+        when(mockTask.isSuccessful()).thenReturn(true);
+        when(mockUserTask.isSuccessful()).thenReturn(false);
+        when(mockAuth.getCurrentUser()).thenReturn(mockUser);
+
+        loginPresenter.loginUser("test@example.com", "password");
+
+        verify(mockView).showLoading();
+        verify(mockView).hideLoading();
+        verify(mockView).showProcessFailure("Error verifying user. Please try again.");
     }
 
 }

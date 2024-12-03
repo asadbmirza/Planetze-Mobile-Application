@@ -16,16 +16,33 @@
         android:theme="@style/Theme.PlantezeMobileApplication"
         tools:targetApi="31">
         <activity
-            android:name=".main.MainActivity"
-            android:exported="true"
-            android:label="@string/title_activity_eco_tracker"
-            android:theme="@style/Theme.PlantezeMobileApplication" >
+            android:name=".view.registration.RegistrationActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".view.main.MainActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".view.login.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.questionnaire.QuestionnaireResultActivity"
+            android:exported="false" />
+         <activity
+            android:name=".view.questionnaire.QuestionnaireActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.welcome.WelcomeActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
         <meta-data
             android:name="preloaded_fonts"
