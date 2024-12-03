@@ -1,6 +1,7 @@
 package com.example.plantezemobileapplication.presenter;
 
 import com.example.plantezemobileapplication.model.ActivityListModel;
+import com.example.plantezemobileapplication.utils.Answer;
 import com.example.plantezemobileapplication.utils.Question;
 
 import java.text.SimpleDateFormat;
@@ -34,16 +35,16 @@ public class ActivityListPresenter {
                 continue;
             }
             if (enteredValues.get(i) != 0) {
-                Map<String, Object> userInput = new HashMap<>();
+                Map<String, Object> activityDetails = new HashMap<>();
                 String questionName = questions.get(i).getTitle().substring(0, questions.get(i).getTitle().indexOf('$'));
+                activityDetails.put("questionTitle", questionName);
+                activityDetails.put("category", questions.get(i).getCategory());
+                activityDetails.put("enteredValue", enteredValues.get(i));
                 if (questions.get(i).getAnswers().length > 0) {
-                    String selectedAnswer = questions.get(i).getSelectedAnswerObject().getAnswerText();
-                    userInput.put(selectedAnswer, enteredValues.get(i));
+                    Answer selectedAnswer = questions.get(i).getSelectedAnswerObject();
+                    activityDetails.put("selectedAnswer", selectedAnswer);
                 }
-                else {
-                    userInput.put("inputValue", enteredValues.get(i));
-                }
-                loggedActivities.put(questionName, userInput);
+                loggedActivities.put(String.valueOf(questions.get(i).hashCode()), activityDetails);
             }
             factor = questions.get(i).getSelectedAnswerObject().getWeight();
             dailyTotal += enteredValues.get(i) * factor;
@@ -57,6 +58,5 @@ public class ActivityListPresenter {
         model.uploadEmissions("monthlyEmissions", month, monthlyTotals);
         model.uploadActivityLog(loggedActivities, day);
     }
-
 
 }

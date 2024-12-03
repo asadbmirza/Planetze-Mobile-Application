@@ -2,6 +2,7 @@ package com.example.plantezemobileapplication.presenter;
 
 import com.example.plantezemobileapplication.model.EcoMonitorModel;
 import com.example.plantezemobileapplication.model.HabitModel;
+import com.example.plantezemobileapplication.utils.ActivityLog;
 import com.example.plantezemobileapplication.utils.Answer;
 import com.example.plantezemobileapplication.utils.DailyEmission;
 import com.example.plantezemobileapplication.utils.Question;
@@ -54,6 +55,11 @@ public class EcoTrackerMonitorPresenter {
                         view.setTotalDailyEmissionView(formattedEmission);
                         break;
                 }
+            }
+
+            @Override
+            public void onActivitiesFetched(List<ActivityLog> activityLogList) {
+                view.setRecentActivities(activityLogList);
             }
 
             @Override
@@ -139,6 +145,9 @@ public class EcoTrackerMonitorPresenter {
         return consumptionQuestions;
     }
 
+    public void getCurrentEmissions(Date date) {
+        this.model.getCurrentEmissions(date);
+    }
     public void getTodaysActivities(Date date) {
         this.model.getTodaysActivities(date);
     }
