@@ -73,14 +73,7 @@
             android:textOn="Display New Habits"
             android:backgroundTint="#56E6D8"/>
 
-        <TextView
-            android:id="@+id/no_habit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/no_habits_text"
-            android:textStyle="bold"
-            android:visibility="gone" />
+
 
         <TextView
             android:id="@+id/suggested_habits_text"
@@ -89,6 +82,15 @@
             android:text="Suggested Habits"
             android:textSize="24sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/no_habit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_habits_text"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_habit"

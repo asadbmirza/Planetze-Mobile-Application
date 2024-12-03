@@ -1,6 +1,7 @@
 package com.example.plantezemobileapplication.presenter;
 
 import com.example.plantezemobileapplication.model.ActivityListModel;
+import com.example.plantezemobileapplication.model.HabitModel;
 import com.example.plantezemobileapplication.utils.Question;
 
 import java.text.SimpleDateFormat;
@@ -11,9 +12,11 @@ import java.util.Map;
 
 public class ActivityListPresenter {
     private ActivityListModel model;
+    private HabitModel habitModel;
 
     public ActivityListPresenter() {
         this.model = new ActivityListModel(this);
+        this.habitModel = new HabitModel();
     }
 
     public void calculateTodaysActivity(List<Question> questions, List<Integer> enteredValues, String day, String month, String week) {
@@ -58,5 +61,5 @@ public class ActivityListPresenter {
         model.uploadActivityLog(loggedActivities, day);
     }
 
-
+    
 }

@@ -33,8 +33,9 @@ public class ActiveHabitAdapter extends AbstractHabitAdapter<ActiveHabitAdapter.
         private TextView textViewImpact;
         private TextView textViewCompleted;
         private Button buttonRemove;
-
         private Button buttonUpdate;
+
+        private Button buttonLogHabit;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -44,6 +45,7 @@ public class ActiveHabitAdapter extends AbstractHabitAdapter<ActiveHabitAdapter.
             textViewCompleted = itemView.findViewById(R.id.habit_completed);
             buttonRemove = itemView.findViewById(R.id.habit_remove);
             buttonUpdate = itemView.findViewById(R.id.habit_update);
+            buttonLogHabit = itemView.findViewById(R.id.log_habit_button);
 
         }
 
@@ -85,6 +87,17 @@ public class ActiveHabitAdapter extends AbstractHabitAdapter<ActiveHabitAdapter.
             @Override
             public void onClick(View v) {
                 view.displayHabitDialog(habits.get(finalPosition));
+            }
+        });
+
+        holder.buttonLogHabit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int timesCompleted = habits.get(finalPosition).getTimesCompleted();
+                habits.get(finalPosition).setTimesCompleted(timesCompleted + 1);
+                System.out.println(timesCompleted);
+                view.updateHabit(habits.get(finalPosition));
+                view.displayLoggedHabit(habits.get(finalPosition));
             }
         });
 
