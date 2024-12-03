@@ -34,7 +34,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements Process
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_forgot_password);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.reset_pass_page), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -61,17 +61,18 @@ public class ForgotPasswordActivity extends AppCompatActivity implements Process
 
 
     @Override
-    public void showProcessSuccess() {
-        Toast.makeText(this, "Password reset sent to email.", Toast.LENGTH_SHORT).show();
+    public void showProcessSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showProcessFailure() {
-        Toast.makeText(this, "Password reset could not be sent.", Toast.LENGTH_SHORT).show();
+    public void showProcessFailure(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showLoading() {
         // Show a loading spinner or progress bar
+        reset_pass_btn.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -79,5 +80,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements Process
     public void hideLoading() {
         // Hide the loading spinner or progress bar
         progressBar.setVisibility(View.GONE);
+        reset_pass_btn.setVisibility(View.VISIBLE);
     }
 }

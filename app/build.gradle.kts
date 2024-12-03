@@ -36,7 +36,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        println(newsApiKey)
     }
 
     buildTypes {
@@ -71,6 +70,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
+    testImplementation(libs.mockito.core)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(platform(libs.firebase.bom))
@@ -83,4 +83,5 @@ dependencies {
     implementation(libs.google.api.services.youtube)
     implementation(libs.google.http.client.android)
     implementation(libs.google.http.client)
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

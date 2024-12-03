@@ -1,40 +1,51 @@
 package com.example.plantezemobileapplication.presenter;
 
-import androidx.annotation.NonNull;
-
-import com.example.plantezemobileapplication.view.login.ProcessView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.plantezemobileapplication.model.LoginModel;
+import com.example.plantezemobileapplication.view.login.LoginView;
 
 public class LoginPresenter {
-    private final ProcessView view;
-    private final FirebaseAuth mAuth;
+    private final LoginView view;
+    private final LoginModel loginModel;
 
-    public LoginPresenter(ProcessView view) {
+    public LoginPresenter(LoginView view, LoginModel loginModel) {
         this.view = view;
-        mAuth = FirebaseAuth.getInstance();
+        this.loginModel = loginModel;
     }
 
     public void loginUser(String email, String password) {
         if (view != null) {
-            view.showLoading();
+            if(email.isEmpty() || password.isEmpty()) {
+                view.showProcessFailure("Please enter all fields.");
+                return;
+            } else {
+                view.showLoading();
+            }
         }
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (view != null) {
-                            view.hideLoading();
-                        }
-                        if (task.isSuccessful()) {
-                            view.showProcessSuccess();
-                        } else {
-                            view.showProcessFailure();
-                        }
-                    }
-                });
+        loginModel.loginUser(email, password, task -> {
+            if (view != null) {
+                view.hideLoading();
+                if (task.isSuccessful()) {
+                    verifyUser();
+                } else {
+                    view.showProcessFailure("Authentication failed.");
+                }
+            }
+        });
+    }
+
+    private void verifyUser() {
+        loginModel.getUser().reload().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (loginModel.isVerified()) {
+                    view.showProcessSuccess("Logged in.");
+                    view.goToHomepage();
+                } else {
+                    view.showProcessFailure("Please verify your email before logging in.");
+                }
+            } else {
+                view.showProcessFailure("Error verifying user. Please try again.");
+            }
+        });
     }
 }
