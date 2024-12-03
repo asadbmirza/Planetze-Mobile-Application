@@ -49,6 +49,15 @@
     <string name="this_week">This Week</string>
     <string name="this_month">This Month</string>
     <string name="compared_to_others">Compared to Others</string>
+    <string name="change_profile_picture">Change Profile Picture</string>
+    <string name="edit_profile_picture">Edit profile picture</string>
+    <string name="john_doe">John Doe</string>
+    <string name="full_name">Full Name</string>
+    <string name="country">Country</string>
+    <string name="region">Region</string>
+    <string name="world">World</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
     <string-array name="countries">
         <item>Afghanistan</item>
         <item>Africa</item>
