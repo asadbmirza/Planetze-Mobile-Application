@@ -26,7 +26,7 @@ Insert gif or link to demo
 ```bash
   cd Planetze-Mobile-Application\app
 ```
-For more information on where to get this configuration file, click (here)[https://firebase.google.com/docs/android/setup]
+For more information on where to get this configuration file, click [here](https://firebase.google.com/docs/android/setup)
 
 3. Add your APIs under the ```local.properties``` file
 
