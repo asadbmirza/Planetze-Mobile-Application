@@ -6,13 +6,15 @@ import java.util.HashMap;
 public class User implements Serializable {
     private String fullName;
     private String email;
+    private String country;
     private Emissions annualEmissions;
     private HashMap<String, Emissions> dailyEmissions, weeklyEmissions, monthlyEmissions;
 
     public User() { }
 
-    public User(String fullName, String email, Emissions annualEmissions) {
+    public User(String fullName, String country, String email, Emissions annualEmissions) {
         this.fullName = fullName;
+        this.country = country;
         this.email = email;
         this.annualEmissions = annualEmissions;
     }
@@ -23,6 +25,14 @@ public class User implements Serializable {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public Emissions getAnnualEmissions() {
