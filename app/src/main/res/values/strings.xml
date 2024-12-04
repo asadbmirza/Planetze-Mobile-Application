@@ -28,8 +28,8 @@
     <string name="days_of_week">Select Days You Would Like to be Reminded</string>
     <string name="time_of_habit">Select the Time of Day You Want to be Reminded</string>
     <string name="remove_habit_dialog_text">Are You Sure You Want to Delete This Habit? You Will Lose All of Your Progress.</string>
-    <string name="activity_description">Log daily activities and effectively check your past, present and future carbon emissions!</string>
-    <string name="habit_description">Select from a wide variety of eco friendly habits to apply to your life. Set preferred reminder times and track completion to adopt a more eco friendly lifestyle!</string>
+    <string name="activity_description">Log daily activities and effectively check your past, present and future carbon emissions !</string>
+    <string name="habit_description">Select from a wide variety of eco friendly habits to apply to your life. Set preferred reminder times and track completion to adopt a more eco friendly lifestyle !</string>
     <string name="title_activity_eco_tracker">EcoTrackerActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
