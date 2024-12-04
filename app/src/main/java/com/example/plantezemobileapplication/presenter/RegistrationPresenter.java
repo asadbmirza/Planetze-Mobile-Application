@@ -61,7 +61,7 @@ public class RegistrationPresenter implements RegistrationContract.Presenter {
 
     private void saveUserDetails(FirebaseUser user, String fullName, String email) {
         String userId = user.getUid();
-        User newUser = new User(fullName, email, null);
+        User newUser = new User(fullName, "World", email, null);
 
         dbRef.child(userId).setValue(newUser)
                 .addOnSuccessListener(aVoid -> sendEmailVerification(user))

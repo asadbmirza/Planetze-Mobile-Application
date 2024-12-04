@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
             return true;
         } else if(item.getItemId() == R.id.settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
+            intent.putExtra("user_key", user);
             startActivity(intent);
             finish();
             return true;
@@ -177,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
         this.user = user;
         if (bottomNavigationView.getSelectedItemId() == R.id.ecoGauge) {
             loadFragment(getFragmentForItem(R.id.ecoGauge));
-
         }
     }
 }

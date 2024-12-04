@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/settings_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightgrey"
@@ -87,18 +87,26 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="@string/full_name"/>
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fullNameText"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:backgroundTint="@color/black"
-                android:drawableStart="@drawable/baseline_person_24"
-                android:drawablePadding="6dp"
-                android:hint="@string/john_doe"
-                android:textColorHint="#64646A"
-                android:padding="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black" />
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fullNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:drawableStart="@drawable/baseline_person_24"
+                    android:drawablePadding="6dp"
+                    android:inputType="text"
+                    android:hint="@string/john_doe"
+                    android:textColorHint="#64646A"
+                    android:padding="10dp"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
         </LinearLayout>
 
@@ -128,6 +136,7 @@
                 android:layout_marginTop="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 android:hint="@string/region"
+                app:hintTextColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/compared_to_others">
@@ -137,6 +146,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:popupBackground="@color/white"
                     android:inputType="none"
                     android:text="@string/world" />
 
