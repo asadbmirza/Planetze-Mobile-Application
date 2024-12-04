@@ -9,15 +9,28 @@ the application aims to give users the opportunity to make meaningful, sustainab
 
 Insert gif or link to demo
 
+## Requirements
+
+- (Android Studio)[https://developer.android.com/studio/install]
+- (Firebase Database)[https://firebase.google.com/docs/android/setup]
+
 ## Installation
 
-Clone the git repository
+1. Clone the git repository
 
 ```bash
   git clone https://github.com/asadbmirza/Planetze-Mobile-Application.git
 ```
 
-Open and run the project on Android Studio.
+2. After setting up your Firebase project, add your Firebase configuration file ```google-services.json``` to the directory below:
+```bash
+  cd Planetze-Mobile-Application\app
+```
+For more information on where to get this configuration file, click (here)[https://firebase.google.com/docs/android/setup]
+
+3. Add your APIs under the ```local.properties``` file
+
+4. Open and run the project on Android Studio.
     
 ## Authors & Acknowledgements
 
