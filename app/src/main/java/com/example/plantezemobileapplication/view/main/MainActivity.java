@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plantezemobileapplication.view.EcoHub.EcoHubFragment;
+import com.example.plantezemobileapplication.view.settings.SettingsActivity;
 import com.example.plantezemobileapplication.User;
 import com.example.plantezemobileapplication.view.ComingSoonFragment;
 import com.example.plantezemobileapplication.R;
@@ -23,7 +24,6 @@ import com.example.plantezemobileapplication.presenter.MainPresenter;
 import com.example.plantezemobileapplication.view.CreditsFragment;
 import com.example.plantezemobileapplication.view.ecoTracker.EcoTrackerFragment;
 import com.example.plantezemobileapplication.view.ecogauge.EcoGaugeFragment;
-import com.example.plantezemobileapplication.view.SettingsFragment;
 import com.example.plantezemobileapplication.view.login.LoginActivity;
 import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireActivity;
 import com.example.plantezemobileapplication.view.welcome.WelcomeActivity;
@@ -76,11 +76,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
             finish();
         }
 
-
-
         presenter.loadUserData();
         presenter.setCurrentDate();
-
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = getFragmentForItem(item.getItemId());
@@ -109,7 +106,10 @@ public class MainActivity extends AppCompatActivity implements MainView{
             finish();
             return true;
         } else if(item.getItemId() == R.id.settings) {
-            return loadFragment(new SettingsFragment());
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
         } else if(item.getItemId() == R.id.credits) {
             return loadFragment(new CreditsFragment());
         } else {
@@ -121,9 +121,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
         Fragment selectedFragment = null;
 
         bottomNavigationView.getMenu().setGroupCheckable(0, true, true);
-
-
-
 
         if (itemId == R.id.ecoGauge) {
             selectedFragment = new EcoGaugeFragment();
@@ -178,5 +175,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     public void displayUserData(User user) {
         this.user = user;
+        loadFragment(getFragmentForItem(bottomNavigationView.getSelectedItemId()));
     }
 }
