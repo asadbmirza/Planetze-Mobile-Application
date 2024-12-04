@@ -201,7 +201,7 @@ public class EcoGaugePresenter {
                         Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA).parse(dailyDates.get(index));
                         return dateFormat.format(date);
                     } catch (Exception e) {
-                        return dailyDates.get(index);
+                        return "";
                     }
                 }
             });

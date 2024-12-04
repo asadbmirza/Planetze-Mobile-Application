@@ -1,5 +1,7 @@
 package com.example.plantezemobileapplication.utils;
 
+import androidx.annotation.NonNull;
+
 public class Answer {
     private String answerText;
     private double weight; // The amount of co2 emissions for a specific answer
@@ -22,4 +24,11 @@ public class Answer {
     public void setWeight(double weight) {
         this.weight = weight;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return answerText;
+    }
+
 }

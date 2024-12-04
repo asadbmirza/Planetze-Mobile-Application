@@ -15,14 +15,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.plantezemobileapplication.view.EcoHub.EcoHubFragment;
+import com.example.plantezemobileapplication.view.settings.SettingsActivity;
 import com.example.plantezemobileapplication.User;
 import com.example.plantezemobileapplication.view.ComingSoonFragment;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.MainModel;
 import com.example.plantezemobileapplication.presenter.MainPresenter;
 import com.example.plantezemobileapplication.view.CreditsFragment;
+import com.example.plantezemobileapplication.view.ecoTracker.EcoTrackerFragment;
 import com.example.plantezemobileapplication.view.ecogauge.EcoGaugeFragment;
-import com.example.plantezemobileapplication.view.SettingsFragment;
 import com.example.plantezemobileapplication.view.login.LoginActivity;
 import com.example.plantezemobileapplication.view.questionnaire.QuestionnaireActivity;
 import com.example.plantezemobileapplication.view.welcome.WelcomeActivity;
@@ -105,7 +106,10 @@ public class MainActivity extends AppCompatActivity implements MainView{
             finish();
             return true;
         } else if(item.getItemId() == R.id.settings) {
-            return loadFragment(new SettingsFragment());
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
         } else if(item.getItemId() == R.id.credits) {
             return loadFragment(new CreditsFragment());
         } else {
@@ -120,18 +124,20 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
         if (itemId == R.id.ecoGauge) {
             selectedFragment = new EcoGaugeFragment();
-            Bundle args = new Bundle();
-            args.putSerializable("user_key", user);
-            selectedFragment.setArguments(args);
         } else if (itemId == R.id.ecoBalance) {
             selectedFragment = new ComingSoonFragment();
         } else if (itemId == R.id.ecoHub) {
             selectedFragment = new EcoHubFragment();
         } else if (itemId == R.id.ecoTracker) {
-            selectedFragment = new ComingSoonFragment();
+            selectedFragment = new EcoTrackerFragment();
         } else if (itemId == R.id.ecoAgent) {
             selectedFragment = new ComingSoonFragment();
         }
+
+        Bundle args = new Bundle();
+        args.putSerializable("user_key", user);
+        selectedFragment.setArguments(args);
+
         return selectedFragment;
     }
 
@@ -169,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     public void displayUserData(User user) {
         this.user = user;
-        loadFragment(getFragmentForItem(R.id.ecoGauge));
+        if (bottomNavigationView.getSelectedItemId() == R.id.ecoGauge) {
+            loadFragment(getFragmentForItem(R.id.ecoGauge));
+
+        }
     }
 }

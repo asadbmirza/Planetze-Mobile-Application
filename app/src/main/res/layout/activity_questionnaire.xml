@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/white"
     android:gravity="center"
-    android:layout_margin="20dp"
+    android:orientation="vertical"
     tools:context=".view.questionnaire.QuestionnaireActivity">
+
+    <TextView
+        android:id="@+id/progress_bar_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0% complete"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:max="24"
+        android:progressTint="@color/turquoise" />
 
     <TextView
         android:id="@+id/category"
@@ -16,6 +33,7 @@
         android:layout_height="wrap_content"
         android:text="Category"
         android:textAlignment="center"
+        android:textColor="#595151"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -25,23 +43,24 @@
         android:layout_height="wrap_content"
         android:text="This is a question"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="25sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:spinnerMode="dropdown"
-        android:padding="12dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="12dp"
+        android:spinnerMode="dropdown" />
 
     <LinearLayout
         android:id="@+id/answers_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginBottom="20dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:paddingTop="20dp"
         android:paddingBottom="20dp">
@@ -74,9 +93,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/rectangular_button"
+            android:enabled="false"
             android:text="Next"
-            android:textColor="@color/white"
-            android:enabled="false" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

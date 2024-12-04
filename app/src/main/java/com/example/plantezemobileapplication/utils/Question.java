@@ -1,6 +1,11 @@
 package com.example.plantezemobileapplication.utils;
 
-public class Question {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Question implements Parcelable {
     private String title;
     private Answer[] answers;
     private String category;
@@ -14,6 +19,23 @@ public class Question {
         this.category = category;
     }
 
+    protected Question(Parcel in) {
+        title = in.readString();
+        category = in.readString();
+    }
+
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
+
     public String getTitle() {
         return title;
     }
@@ -26,6 +48,13 @@ public class Question {
         return selectedAnswer;
     }
 
+    public Answer getSelectedAnswerObject() {
+        if (selectedAnswer == -1 || selectedAnswer >= answers.length) {
+            return null;
+        }
+        return answers[selectedAnswer];
+    }
+
     public Answer[] getAnswers() {
         return answers;
     }
@@ -34,10 +63,20 @@ public class Question {
         this.selectedAnswer = selectedAnswer;
     }
 
-    public Answer getSelectedAnswerObject() {
-        if (selectedAnswer == -1 || selectedAnswer >= answers.length) {
-            return null;
-        }
-        return answers[selectedAnswer];
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeArray(answers);
+        dest.writeString(category);
+    }
+
+    @Override
+    public int hashCode() {
+        return title.hashCode() + selectedAnswer;
     }
 }

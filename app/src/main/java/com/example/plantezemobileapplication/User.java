@@ -3,7 +3,7 @@ package com.example.plantezemobileapplication;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class User  implements Serializable {
+public class User implements Serializable {
     private String fullName;
     private String email;
     private Emissions annualEmissions;

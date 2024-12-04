@@ -324,46 +324,62 @@ public class QuestionnairePresenter {
     }
 
     private void updateAnswerWeight() {
-        //Question 2 & 3
+        adjustTransportationAnswers();
+        adjustHousingAnswers();
+        adjustConsumptionAnswers();
+    }
+
+    private void adjustTransportationAnswers() {
         int question2Answer = questions[1].getSelectedAnswer() == 4 ? 0 : questions[1].getSelectedAnswer();
         int question3Answer = questions[2].getSelectedAnswer();
         if (question2Answer != -1 || question3Answer != -1) {
-            questions[2].getAnswers()[question3Answer].setWeight(questions[1].getAnswers()[question2Answer].getWeight() * questions[2].getAnswers()[question3Answer].getWeight());
-            questions[1].getAnswers()[question2Answer].setWeight(0);
+            questions[2].getSelectedAnswerObject().setWeight(questions[1].getAnswers()[question2Answer].getWeight() * questions[2].getAnswers()[question3Answer].getWeight());
+            questions[1].getSelectedAnswerObject().setWeight(0);
         }
 
-        //Question 4 & 5
         int question4Answer = questions[3].getSelectedAnswer() - 1;
         int question5Answer = questions[4].getSelectedAnswer() - 1;
         if (question4Answer >= 0 && question5Answer >= 0) {
-            questions[4].getAnswers()[question5Answer].setWeight(answer5Matrix[question4Answer][question5Answer]);
+            questions[4].getSelectedAnswerObject().setWeight(answer5Matrix[question4Answer][question5Answer]);
         }
+    }
 
-        // Housing questions
+    private void adjustHousingAnswers() {
         int question11Answer = questions[13].getSelectedAnswer() == 4 ? 2 : questions[13].getSelectedAnswer(); // type of home (row), if other then choose townhouse
         int question12Answer = questions[14].getSelectedAnswer(); // # of occupants (row)
         int question13Answer = questions[15].getSelectedAnswer(); // size of home (row)
-        int question14Answer = questions[16].getSelectedAnswer() == 5 ? 1 : questions[16].getSelectedAnswer(); // type of energy for water (col)
+        int question14Answer = questions[16].getSelectedAnswer(); // type of energy for water (col)
         int question15Answer = questions[17].getSelectedAnswer(); // monthly bill (col)
-        int question16Answer = questions[18].getSelectedAnswer() == 5 ? 1 : questions[18].getSelectedAnswer(); // type of energy for electricity/heating (col)
-
+        int question16Answer = questions[18].getSelectedAnswer(); // type of energy for electricity/heating (col)
         JsonParser jsonReader = new JsonParser(this.view);
+
+        if (question14Answer == 5) {
+            question14Answer = 1;
+            questions[16].setSelectedAnswer(1);
+        }
+        if (question16Answer == 5) {
+            question16Answer = 1;
+            questions[18].setSelectedAnswer(1);
+        }
+
         questions[16].getAnswers()[question14Answer].setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question14Answer + (5 * question15Answer)));
-        if (question14Answer != question15Answer) {
-            questions[18].getAnswers()[question16Answer].setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question16Answer + (5 * question15Answer)) + 255);
+        if (question14Answer != question16Answer) {
+            questions[18].getSelectedAnswerObject().setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question16Answer + (5 * question15Answer)) + 255);
         }
         else {
-            questions[18].getAnswers()[question16Answer].setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question16Answer + (5 * question15Answer)));
+            questions[18].getSelectedAnswerObject().setWeight(jsonReader.getElement("housingValues.json", question11Answer + (4 * question12Answer) + (3 * question13Answer), question16Answer + (5 * question15Answer)));
         }
 
-        // Consumption
+    }
+
+    private void adjustConsumptionAnswers() {
         int question18Answer = questions[20].getSelectedAnswer();
         int question20Answer = questions[22].getSelectedAnswer();
         int question21Answer = questions[23].getSelectedAnswer();
-        questions[23].getAnswers()[question21Answer].setWeight(consumptionPurchaseMatrix[question18Answer][question21Answer] + consumptionDeviceMatrix[question20Answer][question21Answer]);
+        questions[23].getSelectedAnswerObject().setWeight(consumptionPurchaseMatrix[question18Answer][question21Answer] + consumptionDeviceMatrix[question20Answer][question21Answer]);
     }
 
-    public int findAnswerIndex(String answerText, Question question) {
+    private int findAnswerIndex(String answerText, Question question) {
         Answer[] answers = question.getAnswers();
         for (int i = 0; i < answers.length; i++) {
             if (answers[i].getAnswerText().equals(answerText)) {

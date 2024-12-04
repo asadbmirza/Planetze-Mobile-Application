@@ -7,15 +7,18 @@ public class Emissions implements Serializable {
     private float food;
     private float housing;
     private float transportation;
+    private String id;
 
     public Emissions() {
         this.consumption = 0;
         this.food = 0;
         this.housing = 0;
         this.transportation = 0;
+        this.id = "";
     }
 
-    public Emissions(float consumption, float food, float housing, float transportation) {
+    public Emissions(String id, float consumption, float food, float housing, float transportation) {
+        this.id = id;
         this.consumption = consumption;
         this.food = food;
         this.housing = housing;
@@ -57,4 +60,6 @@ public class Emissions implements Serializable {
     public float getTotal() {
         return transportation + housing + food + consumption;
     }
+
+
 }

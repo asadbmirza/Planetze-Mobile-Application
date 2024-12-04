@@ -21,6 +21,19 @@
     <string name="reset_instructions">Send reset instructions</string>
     <string name="reset_your_password">Reset Your Password</string>
     <string name="back_to_login">Back to Login</string>
+    <string name="button_text">New Button</string>
+    <string name="IntroEcoTrackerSurvey">You will be asked a variety of questions to track your carbon emissions. Please answer the questions truthfully to ensure accurate data. Press Next to begin</string>
+    <string name="habit_search_title">Search for list of Eco-Friendly habits to reduce your carbon emissions!</string>
+    <string name="no_habits_text">No habits found</string>
+    <string name="days_of_week">Select Days You Would Like to be Reminded</string>
+    <string name="time_of_habit">Select the Time of Day You Want to be Reminded</string>
+    <string name="remove_habit_dialog_text">Are You Sure You Want to Delete This Habit? You Will Lose All of Your Progress.</string>
+    <string name="activity_description">Log daily activities and effectively check your past, present and future carbon emissions!</string>
+    <string name="habit_description">Select from a wide variety of eco friendly habits to apply to your life. Set preferred reminder times and track completion to adopt a more eco friendly lifestyle!</string>
+    <string name="title_activity_eco_tracker">EcoTrackerActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="view_habit_page">You have a habit corresponding to this activity, log it on the habit\'s page?</string>
     <string name="eco_hub">Eco Hub</string>
     <string name="market_trends">Market Trends</string>
     <string name="energy_efficient">Energy-Efficient Appliances</string>
@@ -68,6 +81,16 @@
     <string name="this_week">This Week</string>
     <string name="this_month">This Month</string>
     <string name="compared_to_others">Compared to Others</string>
+    <string name="change_profile_picture">Change Profile Picture</string>
+    <string name="edit_profile_picture">Edit profile picture</string>
+    <string name="john_doe">John Doe</string>
+    <string name="full_name">Full Name</string>
+    <string name="country">Country</string>
+    <string name="region">Region</string>
+    <string name="world">World</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="edit_profile">Edit Profile</string>
     <string-array name="countries">
         <item>Afghanistan</item>
         <item>Africa</item>
