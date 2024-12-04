@@ -74,4 +74,9 @@ public class Question implements Parcelable {
         dest.writeArray(answers);
         dest.writeString(category);
     }
+
+    @Override
+    public int hashCode() {
+        return title.hashCode() + selectedAnswer;
+    }
 }

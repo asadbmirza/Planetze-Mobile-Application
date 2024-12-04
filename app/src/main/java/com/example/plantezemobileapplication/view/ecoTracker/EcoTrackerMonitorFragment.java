@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.model.EcoMonitorModel;
 import com.example.plantezemobileapplication.presenter.EcoTrackerMonitorPresenter;
+import com.example.plantezemobileapplication.utils.ActivityLog;
 import com.example.plantezemobileapplication.utils.DailyEmission;
 import com.example.plantezemobileapplication.utils.Habit;
 import com.example.plantezemobileapplication.utils.Question;
@@ -60,6 +63,8 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
     private String currentWeek;
     private MaterialCalendarView calendarView;
     private Dialog dialog;
+    private RecyclerView recyclerView;
+    private RecentActivityAdapter adapter;
 
     public EcoTrackerMonitorFragment() {
         // Required empty public constructor
@@ -108,9 +113,15 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         currentMonth = getCurrentMonth(currentDate);
         currentWeek = getCurrentWeek(currentDate);
 
-        presenter.getTodaysActivities(currentDate);
+        presenter.getCurrentEmissions(currentDate);
         presenter.getDefaultVehicle();
         presenter.getUserEnergy();
+        presenter.getTodaysActivities(currentDate);
+
+        recyclerView = view.findViewById(R.id.recent_activity_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        adapter = new RecentActivityAdapter(new ArrayList<>(), currentDay, currentWeek, currentMonth);
+        recyclerView.setAdapter(adapter);
 
         transporationActivityBtn.setOnClickListener(this);
         foodActivityBtn.setOnClickListener(this);
@@ -174,7 +185,6 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.monitor_container, targetFragment);
         transaction.addToBackStack(null);
-
         transaction.commit();
 
     }
@@ -254,6 +264,7 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
     public void showDailyEmissionDetails(CalendarDay date) {
 
         presenter.getTodaysActivities(date.getDate());
+        presenter.getCurrentEmissions(date.getDate());
         presenter.getDefaultVehicle();
         presenter.getUserEnergy();
         currentDay = getCurrentDay(date.getDate());
@@ -283,6 +294,10 @@ public class EcoTrackerMonitorFragment extends Fragment implements View.OnClickL
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setRecentActivities(List<ActivityLog> activityLogList) {
+        adapter.setActivityLogList(activityLogList);
     }
 
     public void setActiveHabits(ArrayList<Habit> activeHabits) {
