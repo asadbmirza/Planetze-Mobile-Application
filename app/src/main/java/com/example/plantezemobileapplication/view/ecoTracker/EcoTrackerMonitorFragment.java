@@ -24,6 +24,7 @@ import com.example.plantezemobileapplication.utils.ActivityLog;
 import com.example.plantezemobileapplication.utils.DailyEmission;
 import com.example.plantezemobileapplication.utils.Habit;
 import com.example.plantezemobileapplication.utils.Question;
+import com.example.plantezemobileapplication.view.RecentActivityAdapter;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;

@@ -50,34 +50,29 @@
         <Button
             android:id="@+id/log_habit_button"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:backgroundTint="@android:color/holo_green_dark"
+            android:textColor="@color/white"
+            android:backgroundTint="#1b1b1e"
             android:text="Log Habit" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/habit_impact"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Impact: 5"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/habit_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:text="Category: " />
-
-        <TextView
-            android:id="@+id/habit_impact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/habit_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Category: Fitness"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,7 +93,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="#C30C0C"
+            android:backgroundTint="#a9bcd0"
             android:layout_marginStart="10dp"
             android:text="Remove" />
     </LinearLayout>

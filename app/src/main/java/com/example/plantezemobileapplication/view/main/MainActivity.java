@@ -175,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     public void displayUserData(User user) {
         this.user = user;
-        loadFragment(getFragmentForItem(bottomNavigationView.getSelectedItemId()));
+        if (bottomNavigationView.getSelectedItemId() == R.id.ecoGauge) {
+            loadFragment(getFragmentForItem(R.id.ecoGauge));
+
+        }
     }
 }

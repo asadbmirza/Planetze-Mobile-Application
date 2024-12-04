@@ -23,6 +23,7 @@ import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.presenter.ActivityListPresenter;
 import com.example.plantezemobileapplication.utils.Habit;
 import com.example.plantezemobileapplication.utils.Question;
+import com.example.plantezemobileapplication.view.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +111,7 @@ public class ActivityListFragment extends Fragment {
             presenter.calculateTodaysActivity(questions, adapter.getEnteredAmounts(), currentDay, currentMonth, currentWeek);
 
             checkActiveHabits(adapter.getEnteredAmounts());
-            navigateToFragment(new EcoTrackerMonitorFragment(), R.id.eco_tracker_monitor, MONITOR_FRAGMENT_TAG);
+            navigateToFragment(new EcoTrackerMonitorFragment());
         });
 
         return view;
@@ -148,18 +149,18 @@ public class ActivityListFragment extends Fragment {
         navigate.setOnClickListener(v -> {
             dialog.dismiss();
             EcoTrackerHabitFragment habitFragment = new EcoTrackerHabitFragment();
-            navigateToFragment(habitFragment, R.id.eco_tracker_habit, HABIT_FRAGMENT_TAG);
+            navigateToFragment(habitFragment);
 
         });
 
         dialog.show();
     }
 
-    private void navigateToFragment(Fragment fragment, int viewId, String tag) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(viewId, fragment, tag);
-        transaction.addToBackStack(null); // Add to backstack to enable back navigation
-        transaction.commit();
+    private void navigateToFragment(Fragment fragment) {
+
+        if (getActivity() != null) {
+            ((MainActivity) getActivity()).loadFragment(fragment);
+        }
     }
 
 

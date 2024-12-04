@@ -69,10 +69,14 @@ public class ActiveHabitAdapter extends AbstractHabitAdapter<ActiveHabitAdapter.
         String category = habits.get(position).getCategory();
         int impact = habits.get(position).getImpact();
         int timesCompleted = habits.get(position).getTimesCompleted();
+        System.out.println(name);
+        System.out.println(category);
+        System.out.println(impact);
+        System.out.println(timesCompleted);
 
         holder.textViewName.setText(name);
         holder.textViewCategory.setText(category);
-        holder.textViewImpact.setText("Impact: " + Integer.toString(impact));
+        holder.textViewImpact.setText("Impact: " + impact);
         holder.textViewCompleted.setText("Times Completed: " + timesCompleted);
         final int finalPosition = position;
 
