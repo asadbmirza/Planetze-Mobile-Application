@@ -17,6 +17,12 @@ public class User implements Serializable {
         this.annualEmissions = annualEmissions;
     }
 
+    public User(String fullName, String country, String email, Emissions annualEmissions) {
+        this.fullName = fullName;
+        this.email = email;
+        this.annualEmissions = annualEmissions;
+    }
+
     public String getFullName() {
         return fullName;
     }
