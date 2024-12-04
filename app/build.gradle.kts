@@ -62,7 +62,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -83,5 +82,5 @@ dependencies {
     implementation(libs.google.api.services.youtube)
     implementation(libs.google.http.client.android)
     implementation(libs.google.http.client)
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation(libs.mpandroidchart)
 }
