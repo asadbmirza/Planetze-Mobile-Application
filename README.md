@@ -16,21 +16,33 @@ Insert gif or link to demo
 
 ## Installation
 
-1. Clone the git repository
-
+1. Clone the repository:
 ```bash
-  git clone https://github.com/asadbmirza/Planetze-Mobile-Application.git
+git clone https://github.com/asadbmirza/Planetze-Mobile-Application.git
 ```
 
-2. After setting up your Firebase project, add your Firebase configuration file ```google-services.json``` to the directory below:
-```bash
-  cd Planetze-Mobile-Application\app
-```
-For more information on where to get this configuration file, click [here](https://firebase.google.com/docs/android/setup)
 
-3. Add your APIs under the ```local.properties``` file
+2. Open in Android Studio:
+Launch Android Studio.
+Click on "Open an Existing Project" and select the project folder.
 
-4. Open and run the project on Android Studio.
+
+3. Setup Environment:
+- Ensure you have the correct SDK version installed (e.g., SDK 24).
+- Add your [Firebase configuration file](https://firebase.google.com/docs/android/setup) under ```Planetze-Mobile-Application\app```
+- Add required API keys to the ```local.properties```:
+  - [NEWS_API_KEY](https://newsapi.org/)
+  - [YOUTUBE_API_KEY](https://console.cloud.google.com/)
+    - Create a project called “PlanetZe”
+        - Go to API & Services -> Library -> Youtube Data API V3
+        - Add the API to the project
+  - [RAPID_API_KEY](https://rapidapi.com/)
+
+
+4. Run the App:
+Connect an Android device or use an emulator.
+
+Click on the green "Run" button in Android Studio
     
 ## Authors & Acknowledgements
 
