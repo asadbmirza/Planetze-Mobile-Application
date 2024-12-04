@@ -5,9 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.plantezemobileapplication.R;
 import com.example.plantezemobileapplication.view.main.MainActivity;
 
@@ -38,8 +42,23 @@ public class EcoTrackerFragment extends Fragment {
             monitorFragment = new EcoTrackerMonitorFragment();
             navigateToFragment(monitorFragment);
         });
+
+        ImageView monitorImage = view.findViewById(R.id.imageView2);
+        ImageView habitImage = view.findViewById(R.id.habitImage);
+
+        Glide.with(this)
+                .load(R.drawable.cycling)
+                .apply(new RequestOptions().override(800, 800))
+                .into(monitorImage);
+
+        Glide.with(this)
+                .load(R.drawable.habit)
+                .apply(new RequestOptions().override(800, 800))
+                .into(habitImage);
         return view;
     }
+
+
 
     private void navigateToFragment(Fragment fragment) {
 

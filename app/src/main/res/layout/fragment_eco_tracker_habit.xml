@@ -6,30 +6,6 @@
     android:background="@android:color/white"
     >
 
-    <TextView
-        android:id="@+id/habit_tracker_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Habit Tracker"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/habit_search_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/habit_search_title"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/habit_tracker_header" />
-
     <LinearLayout
         android:id="@+id/linearLayout_habit"
         android:layout_width="match_parent"
@@ -37,9 +13,9 @@
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/habit_search_title"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,16 +39,16 @@
         </LinearLayout>
 
 
-
         <ToggleButton
             android:id="@+id/toggleHabitButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/toggle_button_background"
+            android:textColor="@color/white"
             android:text="ToggleButton"
             android:textOff="Display Active Habits"
-            android:textOn="Display New Habits"
-            android:backgroundTint="#56E6D8"/>
-
+            android:textOn="Display New Habits" />
 
 
         <TextView
@@ -97,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>

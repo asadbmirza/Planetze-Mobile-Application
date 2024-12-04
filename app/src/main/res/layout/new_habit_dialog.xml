@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:backgroundTint="#66B18D"
+            android:backgroundTint="#373f51"
             android:text="Select Time"
             android:textStyle="bold" />
 
