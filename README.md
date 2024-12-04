@@ -3,16 +3,16 @@
 
 "PlanetZe" is a carbon-tracking Android application that helps users monitor daily
 carbon emissions from activities like commuting, energy use, and shopping. By tracking individual carbon footprints, 
-the application aims to give users the opportunity to make meaningful, sustainable changes in their lives.
+the application aims to allow users to make meaningful, sustainable changes in their lives.
 
 ## Demo
 
-Insert gif or link to demo
+[Demo](https://drive.google.com/file/d/1pmDDJFIjztLE7cJ-tm6BqIx9bcFbmA0w/view?usp=drive_link)
 
 ## Requirements
 
-- (Android Studio)[https://developer.android.com/studio/install]
-- (Firebase Database)[https://firebase.google.com/docs/android/setup]
+- [Android Studio](https://developer.android.com/studio/install)
+- [Firebase Database](https://firebase.google.com/docs/android/setup)
 
 ## Installation
 
