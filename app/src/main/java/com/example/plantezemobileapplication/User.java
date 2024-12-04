@@ -12,9 +12,8 @@ public class User implements Serializable {
 
     public User() { }
 
-    public User(String fullName, String country, String email, Emissions annualEmissions) {
+    public User(String fullName, String email, Emissions annualEmissions) {
         this.fullName = fullName;
-        this.country = country;
         this.email = email;
         this.annualEmissions = annualEmissions;
     }
