@@ -136,6 +136,7 @@
                 android:layout_marginTop="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 android:hint="@string/region"
+                app:hintTextColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/compared_to_others">
@@ -145,6 +146,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:popupBackground="@color/white"
                     android:inputType="none"
                     android:text="@string/world" />
 

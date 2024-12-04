@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsView 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.dropdown_item, countries);
         dropdown.setAdapter(adapter);
-        dropdown.setText(user.getCountry(), false);
+        dropdown.setText(user.getCountry());
         fullName.setText(user.getFullName());
         usersName.setText(user.getFullName());
 
