@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/oxfordblue"
         android:padding="12dp">
 
         <ImageView
@@ -29,7 +30,7 @@
             android:text="Video Title"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/lightgrey"
             android:layout_marginTop="8dp" />
 
         <TextView
@@ -38,7 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Short description from the video goes here..."
             android:textSize="14sp"
-            android:textColor="@color/black"
+            android:textColor="@color/lightgrey"
             android:layout_marginTop="4dp"
             android:maxLines="3"
             android:ellipsize="end" />
@@ -50,7 +51,7 @@
             android:layout_gravity="end"
             android:text="@string/watch_now"
             android:backgroundTint="@color/turquoise"
-            android:textColor="@color/white"
+            android:textColor="@color/lightgrey"
             android:layout_marginTop="8dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
