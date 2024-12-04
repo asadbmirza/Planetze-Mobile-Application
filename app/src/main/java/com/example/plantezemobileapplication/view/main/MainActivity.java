@@ -2,7 +2,6 @@ package com.example.plantezemobileapplication.view.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -108,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
             return true;
         } else if(item.getItemId() == R.id.settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
+            intent.putExtra("user_key", user);
             startActivity(intent);
             finish();
             return true;
