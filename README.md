@@ -9,6 +9,19 @@ the application aims to allow users to make meaningful, sustainable changes in t
 
 [Demo](https://drive.google.com/file/d/1pmDDJFIjztLE7cJ-tm6BqIx9bcFbmA0w/view?usp=drive_link)
 
+## Screenshots
+
+![Login Screen](https://github.com/user-attachments/assets/a15dd075-7a70-4d51-8df6-9fc458f1be9d)
+
+![Home Screen](https://github.com/user-attachments/assets/1181537d-1c4c-4a92-ac5d-694d1fd3f434)
+
+![Tracker Screen](https://github.com/user-attachments/assets/c2eb7af5-0ca3-43d3-a507-94c5fdbc28d9)
+
+![Activity Tracker Screen](https://github.com/user-attachments/assets/5ced180a-13c1-41c1-b99a-ef59f2de363c)
+
+![EcoHub Screen](https://github.com/user-attachments/assets/4980779a-80e9-4222-9447-01ca38a87f33)
+
+
 ## Requirements
 
 - [Android Studio](https://developer.android.com/studio/install)
